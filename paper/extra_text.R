@@ -1,8 +1,13 @@
 notes:
   - replace bootstrapped 95pct CIs with Bayesian credibility interval?
-  -
-
-unused text
+  - we should make sure to cite the Weisleder intervention paper (since it’s among the only pieces of causal evidence on early parenting)
+  - ICCs for JA overall are high but very low for sub measures: We should mention that this is a reason why we might may see fewer findings on episodes
+  - Note that figure on JA has non-matching y labels for Experiment 2 (total vs mean)
+  - say in E1 that low reliability led us to follow up and refine coding procedure: 
+      E1 ICCs might be a flag for some folks, so minimally we should think about explaining that these low reliability limits interpretability of those findings
+For consistency, although we didn’t have a preregistration for e1, we used the same analyses that we used in e2.
+Kat: clarify "scientific justification" in videos. Did the videos focus on language, JA?
+  - cite Leung2018 HomeView: https://www.sciencedirect.com/science/article/pii/S0885200618301534
 
 Under such expert guidance, children are encouraged and motivated to engage in more advanced play, undertaking explorations that push the boundaries of what they would be able to do unaided [@Vygotsky1980].
 

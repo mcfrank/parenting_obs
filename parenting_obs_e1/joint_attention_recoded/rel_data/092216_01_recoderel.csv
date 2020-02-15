@@ -1,0 +1,8 @@
+JointAttention.ordinal,JointAttention.onset,JointAttention.offset,JointAttention.pJA,JointAttention.cJA,JointAttention.bids,
+0,23179,39662,"0","1","1",
+1,39662,45513,"0","1","1",
+2,45513,56267,"0","1","1",
+3,60307,63307,"0","0","1",
+4,75813,78846,"1","0","1",
+5,98384,112722,"0","1","1",
+6,166283,206043,"0","1","1",

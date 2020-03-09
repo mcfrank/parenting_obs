@@ -19,7 +19,7 @@ Props: plastic sheep, plastic horse, plastic frog, plastic cow, bowls
 
 ### Video C (12-17.9 months) "Give me the toy"
 
-Parents are told to ask their child to hand over individual toys. They are also encouraged to praise the child after they give them the toys, and repeat the process until the child could follow the verbal instructions.
+Parents are told to ask their child to hand over individual toys. They are also encouraged to praise the child after they give them the toys, and repeat the process until the child follows the verbal instructions.
 
 Props: toy boat, plastic frog, plastic elephant, toy bus
 
@@ -35,7 +35,7 @@ Parents are told to show the child toys of the same shape but different sizes, t
 
 Props: two buckets, big car, small car, big horse, small horse
 
-### Video F (18-23.9 months) "The Orchestra"
+### Video F (18-23.9 months) "The orchestra"
 
 Parents are told to give their child a musical instrument to play. They are also encouraged to play a song and see if the child follows the rhythm.
 
@@ -45,7 +45,7 @@ Props: maracas, drum, tambourine, clapper
 
 ### Video A (12-17.9 months) "Give me the toy"
 
-Parents are told to ask their child to hand over individual toys. They are also encouraged to praise the child after they give them the toys, and repeat the process until the child could follow the verbal instructions.
+Parents are told to ask their child to hand over individual toys. They are also encouraged to praise the child after they give them the toys, and repeat the process until the child follows the verbal instructions.
 
 Props: plastic pig, plastic horse, plastic dog, plastic cat, plastic cow
 
@@ -67,13 +67,13 @@ Parents are told to show the child toys of the same shape but different sizes, t
 
 Props: two buckets, big car, small car, big horse, small horse
 
-### Video E (18-23.9 months) "The Orchestra"
+### Video E (18-23.9 months) "The orchestra"
 
 Parents are told to give their child a musical instrument to play. They are also encouraged to play a song and see if the child follows the rhythm.
 
 Props: maracas, drum, tambourine, clapper
 
-### Video F (18-23.9 months) "My Yellow Toys"
+### Video F (18-23.9 months) "My yellow toys"
 
 Parents are told to show their child yellow toys and to ask, "What color are they?" They are also told to give the child toys of different colors, to ask them to only play with the yellow ones, and to praise the child after they do so.
 

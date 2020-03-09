@@ -926,7 +926,3 @@ render_appendix('appendix.Rmd')
 ```
 
 
-```{r echo = FALSE, results = 'asis'}
-render_appendix('appendix.Rmd')
-```
-

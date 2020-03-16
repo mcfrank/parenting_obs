@@ -151,7 +151,7 @@ e2_18to24 = nrow(subset(d, Age>=1.5))
 load(paste(e2path,"joint_attention/Exp2_joint_attention_data.RData",sep=''))
 d$Condition <- factor(d$condition, levels = c("con","exp"), labels = c("Science Video","Activity Video"))
 d$Age = d$age 
-e2ja <- d %>% mutate(bids = bids_tot,
+e2ja <- d %>% mutate(bids = bids,
                      age = as.numeric(langcog::scale(age, scale=FALSE)),
                      pja_length = pja_length/1000,
                      cja_length = cja_length/1000,
@@ -257,7 +257,8 @@ A joint attention episode was considered _coordinated_ if both participants visu
 Full details of our guidelines for coding joint attention are available in SI.
 
 A second coder independently coded a third of the videos (i.e., 20 of the 60 videos, approximately equally distributed across ages) to establish reliability. 
-The two coders had a reliability of ICC = 0.80 with 95% confidence interval (CI) = [0.57,0.92] for number of parent bids for JA; ICC = 0.20 with 95% CI = [-0.26,0.58] for number of passive JA episodes; ICC = 0.66 with 95% CI = [0.32,0.85] for number of coordinated JA episodes; ICC = 0.24 with 95% CI = [-0.21,0.61] for total duration of passive JA episodes, and ICC = 0.62 with 95% CI = [0.27,0.83] for total duration of coordinated JA episodes. 
+The two coders had a reliability of ICC = 0.79 with 95% confidence interval (CI) = [0.55,0.91] for number of parent bids for JA; ICC = 0.34 with 95% CI = [-0.11,0.67] for number of passive JA episodes; ICC = 0.66 with 95% CI = [0.32,0.85] for number of coordinated JA episodes; ICC = 0.33 with 95% CI = [-0.11,0.67] for total duration of passive JA episodes, and ICC = 0.60 with 95% CI = [0.24,0.82] for total duration of coordinated JA episodes. 
+
 
 ## Results and Discussion
 
@@ -293,19 +294,19 @@ get_stan_glmer_reporting_values <- function(model, cond, digits=2) {
 
 modTTR <- stan_glmer(TTR ~ condition * age + (1|video), data=e1ld)
 summary(modTTR) 
-e1TTR = get_stan_glmer_reporting_values(modTTR, "conditionexp") # -.10
-p_direction(modTTR, effects="all") # orchestra 73.9%
+e1TTR = get_stan_glmer_reporting_values(modTTR, "conditionexp") # -.11
+p_direction(modTTR, effects="all") # orchestra 78.7%
 
 modMTLD <- stan_glmer(MTLD ~ condition * age + (1|video), data=e1ld)
 summary(modMTLD) 
-e1MTLD = get_stan_glmer_reporting_values(modMTLD, "conditionexp") # -6.27
+e1MTLD = get_stan_glmer_reporting_values(modMTLD, "conditionexp") # -8.48
 p_direction(modMTLD, effects="all")
 
 # predict word tokens
 tokens_mod <- stan_glmer(tokens ~ condition * age + (1|video), control = list(adapt_delta = 0.99), data=e1ld) 
 summary(tokens_mod)
-e1tokens = get_stan_glmer_reporting_values(tokens_mod, "conditionexp") # 57.1
-p_direction(tokens_mod, effects="all") # orchestra 84.2%
+e1tokens = get_stan_glmer_reporting_values(tokens_mod, "conditionexp") # 59.5
+p_direction(tokens_mod, effects="all") # orchestra 89.7%
 
 # predict word types
 types_mod <- stan_glmer(types ~ condition * age + (1|video), control = list(adapt_delta = 0.99), data=e1ld)
@@ -344,7 +345,7 @@ get_stan_glmer_reporting_values(types_modE, 'conditionexp:AA')
 # predict # of conversational turns
 modCT <- stan_glmer(Conversational_Turns ~ condition * age + (1|video), data=e1ld)
 summary(modCT) 
-get_stan_glmer_reporting_values(modCT, "conditionexp") # pd = .91
+get_stan_glmer_reporting_values(modCT, "conditionexp") # pd = .92
 # E1 CT: exp early significant (+ effect)
 # E2 CT: age nearly significany (+ effect)
 ```
@@ -655,8 +656,8 @@ Details of the videos used in the Activity Video conditions are in the Appendix.
 The procedure for Experiment 2 matched that of Experiment 1, except that parents in the Control Video condition watched a control video before the play session. 
 Consistent with the No-Video control condition in Experiment 1, parents in the Control Video condition were told to play with their child as they would at home, and were not given additional instructions.
 The coding procedure also matched that of Experiment 1. 
-A second coder independently coded a third of the videos (i.e., 26 of the 84 videos, approximately equally distributed across ages) to establish reliability. 
-The two coders had a reliability of ICC = 0.80 with 95% confidence interval (CI) = [0.60,0.90] for number of parent bids for JA; ICC = 0.74 with 95% CI = [0.59,0.87] for number of passive JA episodes; ICC = 0.78 with 95% CI = [0.58,0.90] for number of coordinated JA episodes; ICC = 0.72 with 95% CI = [0.46,0.86] for total duration of passive JA episodes, and ICC = 0.88 with 95% CI = [0.75,0.94] for total duration of coordinated JA episodes. 
+To establish reliability a second coder independently coded 25 of the 84 videos, approximately equally distributed across ages. 
+The two coders had a reliability of ICC = 0.81 with 95% confidence interval (CI) = [0.62,0.91] for number of parent bids for JA; ICC = 0.74 with 95% CI = [0.48,0.88] for number of passive JA episodes; ICC = 0.80 with 95% CI = [0.61,0.91] for number of coordinated JA episodes; ICC = 0.72 with 95% CI = [0.44,0.86] for total duration of passive JA episodes, and ICC = 0.88 with 95% CI = [0.75,0.94] for total duration of coordinated JA episodes. 
 
 
 ## Results and Discussion

@@ -1,6 +1,6 @@
 ---
-title: "Parenting Observational Study"
-author: "Emily"
+title: "Parenting Observational Study E1"
+author: "Emily & George"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -26,7 +26,7 @@ Looking at the effect of electronically-delivered parenting interventions on par
 
 Preliminaries.
 
-```{r echo=FALSE}
+```{r include=FALSE}
 rm(list=ls())
 knitr::opts_chunk$set(fig.width=8, fig.height=5, 
                       echo=TRUE, warning=FALSE, message=FALSE, cache=TRUE)
@@ -39,78 +39,79 @@ library(stringr)
 library(langcog)
 library(xtable)
 library(Hmisc)
-theme_set(theme_bw())
+theme_set(ggthemes::theme_few() + theme(legend.title = element_text(size=18), legend.text = element_text(size=16), 
+        axis.text.x  = element_text(vjust=0.5, size=16), axis.text.y  = element_text(vjust=0.5, size=16),
+        axis.title.x = element_text(size=18), axis.title.y = element_text(size=18)))
 ```
 
 Read in files and consolidate to the same directory. 
 
 ```{r}
-d.raw <- data.frame() 
-files <- dir("data/")
+# for rate coding (JA/minute), we coded the start / end of play sessions because they were not exactly 3 minutes
+play_duration <- read.csv("parenting_obs_play_duration_E1.csv", header=T)
+play_duration <- play_duration %>% 
+  mutate(play_duration = play_stop_sec - play_start_sec)
+sort(play_duration$play_duration) # shortest: 167 seconds
+summary(play_duration$play_duration) # median = 201.5, mean=205.9
+# use play_duration$verbalcue_start_sec instead of play_start? (when it exists)
 
-for (f in files) {
 
-  jf <- paste("data/",f,sep="")
-  jd <- read.csv(jf)
+combine_datavyu_files <- function(data_dir) {
+  d.long <- data.frame()
+  files <- dir(data_dir)
+
+  for (f in files) {
+    jf <- paste(data_dir, f, sep="")
+    jd <- read.csv(jf)
   
-  SID <- str_replace(f, ".csv", "")
-  line <- jd$JointAttention.ordinal
-  phase_onset <- jd$JointAttention.onset
-  phase_offset <- jd$JointAttention.offset
-  pja <- jd$JointAttention.pJA
-  cja <- jd$JointAttention.cJA
-  bid <- jd$JointAttention.bids
-  
-  id <- data.frame(SID = SID,
-                   line = line,
-                   phase_onset = phase_onset,
-                   phase_offset = phase_offset, 
-                   pja = pja,
-                   cja = cja,
-                   bid = bid)
-  
-  l_pja <- id%>%
-    mutate(phase_length = phase_offset - phase_onset)%>%
-    filter(pja == 1)%>%
-    group_by(SID, pja)%>%
-    summarise(pja_length = sum(phase_length))%>%
-    select(-pja)
-  
-  l_cja <- id%>%
-    mutate(phase_length = phase_offset - phase_onset)%>%
-    filter(cja == 1)%>%
-    group_by(SID, cja)%>%
-    summarise(cja_length = sum(phase_length))%>%
-    select(-cja)
+    # (assumes something happened early in the vid and late in the vid..)
+    #vid_duration = jd[nrow(jd),]$JointAttention.offset - jd[1,]$JointAttention.onset
+    #if(vid_duration < 180000) print(paste(f, "final - first coded time is less than 180 s:",vid_duration))
+    SID = str_replace(f, ".csv", "")
+    vid_duration = play_duration[which(play_duration$SID==SID),]$play_duration
     
-  c_pja <- id%>%
-    group_by(SID)%>%
-    summarise(pja = sum(pja))
+    jd$phase_length = jd$JointAttention.offset - jd$JointAttention.onset
+    if(length(which(jd$phase_length < 0))!=0) print(paste(f, "episode with negative duration!"))
   
-  c_cja <- id%>%
-    group_by(SID)%>%
-    summarise(cja = sum(cja)) 
+    id <- data.frame(SID = SID, # "012017_01_recode"
+                   line = jd$JointAttention.ordinal, # numbered list of episodes e.g. 0 1 2 3 4 5 6 7
+                   phase_length = jd$phase_length,
+                   pja = jd$JointAttention.pJA, # was episode passive?
+                   cja = jd$JointAttention.cJA,
+                   bid = jd$JointAttention.bids, # parent bids (1=parent, 0=kid)
+                   vid_duration = vid_duration
+                )
   
-  c_bids <- id%>%
-    group_by(SID)%>%
-    summarise(bids = sum(bid)) 
-
-  sd <- c_bids%>%
-    left_join(c_cja)%>%
-    left_join(c_pja)%>%
-    left_join(c_cja)%>%
-    left_join(l_pja)%>%
-    left_join(l_cja)
-    
-sd$pja_length[is.na(sd$pja_length)] <- 0
-sd$cja_length[is.na(sd$cja_length)] <- 0
-
-sd <- sd %>%
-  mutate(total_ja = pja + cja)%>%
-  mutate(total_lja = pja_length + cja_length)
-
-d.raw <- bind_rows(d.raw, sd)
+    d.long <- rbind(d.long, id)
+    #d.raw <- bind_rows(d.raw, sd)
+  }
+  return(d.long)
 }
+
+d.long <- combine_datavyu_files("data/")
+
+d.long[which(d.long$phase_length<0),] # 3, but only bids so duration doesn't matter
+
+dim(d.long %>% filter((cja==1 | pja==1) & phase_length<3000)) # 150
+
+d.long[which(d.long$phase_length<3000),c("cja","pja")] = 0 # any episodes <3s not counted (except bids)
+
+d.long[which(rowSums(d.long[,c("pja","cja","bid")])==0),] # now several rows are not even classified as bids - should elim
+
+# summarise per subject
+# Emily only coded unsuccessful parent bids in Exp 1, assuming that any cJA episode started with a parent bid
+d.raw <- d.long %>% group_by(SID) %>%
+  mutate(vid_duration = vid_duration / 60, # seconds to minutes
+         phase_length = phase_length / 1000) %>% # ms to seconds
+  summarise(bids=sum(bid) + sum(cja), pja_length=sum(pja*phase_length), cja_length=sum(cja*phase_length),
+            pja=sum(pja), cja=sum(cja), vid_duration=vid_duration[1]) %>%
+  mutate(total_ja = pja + cja, total_lja = pja_length + cja_length)
+
+# normalize to rates (e.g., bids/minute and seconds / min duration of JA)
+vid_dur = d.raw$vid_duration
+d.raw[,2:9] = d.raw[,2:9] / d.raw$vid_duration
+d.raw$vid_duration = vid_dur
+
 ```
 
 Read in trial info and demographics. 
@@ -143,7 +144,7 @@ d <- d.raw %>%
   select(-sid)
 ```
 
-#Demographics
+# Demographics
 
 ```{r}
 demos <- conditions%>%
@@ -164,121 +165,70 @@ table(demos$Condition, demos$ethnicity)
 table(demos$Condition, demos$parent_ed)
 ```
 
-#Reliability
+# Reliability
 
 Import reliability coder's data (20 participants were coded for reliability).
 ```{r}
-d.raw_rel <- data.frame()
-files <- dir("rel_data/")
+d.long_rel <- combine_datavyu_files("rel_data/")
 
-for (f in files) {
-  jf <- paste("rel_data/",f,sep="")
-  jd <- read.csv(jf)
-  
-  SID <- str_replace(f, ".csv", "")
-  line <- jd$JointAttention.ordinal
-  phase_onset <- jd$JointAttention.onset
-  phase_offset <- jd$JointAttention.offset
-  pja <- jd$JointAttention.pJA
-  cja <- jd$JointAttention.cJA
-  bid <- jd$JointAttention.bids
-  
-  id <- data.frame(SID = SID,
-                   line = line,
-                   phase_onset = phase_onset,
-                   phase_offset = phase_offset, 
-                   pja = pja,
-                   cja = cja,
-                   bid = bid)
-  
-  l_pja <- id%>%
-    mutate(phase_length = phase_offset - phase_onset)%>%
-    filter(pja == 1)%>%
-    group_by(SID, pja)%>%
-    summarise(pja_length = sum(phase_length))%>%
-    select(-pja)
-  
-  l_cja <- id%>%
-    mutate(phase_length = phase_offset - phase_onset)%>%
-    filter(cja == 1)%>%
-    group_by(SID, cja)%>%
-    summarise(cja_length = sum(phase_length))%>%
-    select(-cja)
-    
-  c_pja <- id%>%
-    group_by(SID)%>%
-    summarise(pja = sum(pja))
-  
-  c_cja <- id%>%
-    group_by(SID)%>%
-    summarise(cja = sum(cja)) 
-  
-  c_bids <- id%>%
-    group_by(SID)%>%
-    summarise(bids = sum(bid)) 
+d.long_rel[which(d.long_rel$phase_length<0),] 
+# SID=120916_03	 line=7	 -1275	 0	1	 1	 - cja + bid, so should double-check
 
-  sd <- c_bids%>%
-    left_join(c_cja)%>%
-    left_join(c_pja)%>%
-    left_join(c_cja)%>%
-    left_join(l_pja)%>%
-    left_join(l_cja)
-    
-sd$pja_length[is.na(sd$pja_length)] <- 0
-sd$cja_length[is.na(sd$cja_length)] <- 0
+dim(d.long_rel %>% filter((cja==1 | pja==1) & phase_length<3000)) # 39
 
-sd <- sd %>%
-  mutate(total_ja = pja + cja)%>%
-  mutate(total_lja = pja_length + cja_length)
+d.long_rel[which(d.long_rel$phase_length<3000),c("cja","pja")] = 0 # any episodes <3s not counted (except bids)
 
-d.raw_rel <- bind_rows(d.raw_rel, sd)
-}
+# summarise per subject
+d.raw_rel <- d.long_rel %>% group_by(SID) %>%
+  mutate(vid_duration = vid_duration / 60, # seconds to minutes
+         phase_length = phase_length / 1000) %>% # ms to seconds
+  summarise(bids=sum(bid) + sum(cja), pja_length=sum(pja*phase_length), cja_length=sum(cja*phase_length),
+            pja=sum(pja), cja=sum(cja), vid_duration=vid_duration[1]) %>%
+  mutate(total_ja = pja + cja, total_lja = pja_length + cja_length)
+
+# normalize to rates (e.g., bids/minute)
+d.raw_rel[,2:9] = d.raw_rel[,2:9] / d.raw_rel$vid_duration
+
 ```
 
-Reliability.
+## Check Reliability
 ```{r}
-d.raw_rel <- d.raw_rel%>%
-  mutate(bids_rel = bids, pja_rel = pja, cja_rel = cja, l_pja_rel = pja_length, l_cja_rel = cja_length)%>%
+d.raw_rel <- d.raw_rel %>%
+  mutate(bids_rel = bids, pja_rel = pja, cja_rel = cja, l_pja_rel = pja_length, l_cja_rel = cja_length) %>%
   select(SID, bids_rel, pja_rel, cja_rel, l_cja_rel, l_pja_rel)
 
-bids_mat <- d.raw_rel%>%
-  left_join(d.raw)%>%
-  select(bids, bids_rel)
+d.raw %>% summarise(bids = mean(bids), cja=mean(cja), pja=mean(pja), l_pja=mean(pja_length), l_cja=mean(cja_length))
 
-psych::ICC(bids_mat, missing = FALSE, alpha = 0.05)
-  
-pja_mat <- d.raw_rel%>%
-  left_join(d.raw)%>%
-  select(pja, pja_rel)
+d.raw <- d.raw %>% mutate(l_pja = pja_length, l_cja = cja_length)
 
-psych::ICC(pja_mat, missing = FALSE, alpha = 0.05)
+d_rel <- d.raw_rel %>% left_join(d.raw, by="SID") %>%
+  select(SID, bids, bids_rel, pja, pja_rel, cja, cja_rel, l_cja, l_cja_rel, l_pja, l_pja_rel)
 
-cja_mat <- d.raw_rel%>%
-  left_join(d.raw)%>%
-  select(cja, cja_rel)
 
-psych::ICC(cja_mat, missing = FALSE, alpha = 0.05)
+get_ICC2 <- function(dat)  {
+  rel = psych::ICC(dat, missing = FALSE, alpha = 0.05)
+  return(rel$results[2,])
+}
 
-l_pja_mat <- d.raw_rel%>%
-  left_join(d.raw)%>%
-  select(pja_length, l_pja_rel)
+bids_rel = get_ICC2(d_rel[,c("bids","bids_rel")]) # .79 [.55, .91]
 
-psych::ICC(l_pja_mat, missing = FALSE, alpha = 0.05)
+pja_rel = get_ICC2(d_rel[,c("pja","pja_rel")]) # eps pass JA .34 [-.11, .67]
 
-l_cja_mat <- d.raw_rel%>%
-  left_join(d.raw)%>%
-  select(cja_length, l_cja_rel)
+cja_rel = get_ICC2(d_rel[,c("cja","cja_rel")]) # eps coord JA .66 [.32, .85]
 
-psych::ICC(l_cja_mat, missing = FALSE, alpha = 0.05)
+l_pja_rel = get_ICC2(d_rel[,c("l_pja","l_pja_rel")]) # pass JA length .33 [-.11, .67]
+
+l_cja_rel = get_ICC2(d_rel[,c("l_cja","l_cja_rel")]) # coord JA length .60 [.24, .82]
+
+save(d, file="Exp1_joint_attention_data.RData")
 ```
 
 Inter-rater reliability is very high for number of bids, high for number of episodes of coordinated joint attention, but there is less agreement for episodes passive joint attention. 
 
-#Plots
+# Plots
 
-Total number of bids (successful and unsuccessful)
-```{r, width=4, height=4}
-save(d, file="Exp1_joint_attention_data.RData")
+Total parent bids (successful and unsuccessful) per minute.
+```{r, echo=F, width=4, height=4}
 ms_bids <- d %>%
   group_by(Condition) %>%
   multi_boot_standard(col = "bids_tot") 
@@ -291,16 +241,12 @@ ggplot(ms_bids, aes(x = Condition, y = mean, fill = Condition)) +
   geom_bar(stat="identity") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total bids for Joint Attention") +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() + 
-  theme(legend.position="none") 
+  xlab("Condition") + ylab("Bids for Joint Attention per Min.") 
 ```
 
 Total episodes of joint attention.
 
-```{r}
+```{r, echo=F}
 ms_tja <- d %>%
   group_by(Condition) %>%
   multi_boot_standard(col = "total_ja") 
@@ -314,20 +260,12 @@ ggplot(ms_tja, aes(x = Condition, y = mean, fill = Condition)) +
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
   xlab("Condition") + 
-  ylab("Total episodes of Joint Attention") +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() + 
-  theme(legend.title = element_text(size=18), 
-        legend.text = element_text(size=16), 
-        axis.text.x  = element_text(vjust=0.5, size=16),
-        axis.title.x = element_text(size=18), 
-        axis.text.y  = element_text(vjust=0.5, size=16),
-        axis.title.y = element_text(size=18))
+  ylab("Episodes of JA per Min.") 
 ```
 
 
 Episodes of passive joint attention.
-```{r}
+```{r, echo=F}
 ms_pja <- d %>%
   group_by(Condition) %>%
   multi_boot_standard(col = "pja") 
@@ -336,19 +274,11 @@ ggplot(ms_pja, aes(x = Condition, y = mean, fill = Condition)) +
   geom_bar(stat="identity") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Episodes of Passive Joint Attention")  +
-  langcog::scale_colour_solarized() + 
-  theme(legend.title = element_text(size=18), 
-        legend.text = element_text(size=16), 
-        axis.text.x  = element_text(vjust=0.5, size=16),
-        axis.title.x = element_text(size=18), 
-        axis.text.y  = element_text(vjust=0.5, size=16),
-        axis.title.y = element_text(size=18))
+  xlab("Condition") +  ylab("Episodes of Passive JA per Min.")  
 ```
 
 Episodes of coordinated joint attention
-```{r}
+```{r, echo=F}
 ms_cja <- d %>%
   group_by(Condition) %>%
   multi_boot_standard(col = "cja") 
@@ -356,20 +286,12 @@ ms_cja <- d %>%
 ggplot(ms_cja, aes(x = Condition, y = mean, fill = Condition)) + 
   geom_bar(stat="identity") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
-             position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Episodes of Coordinated Joint Attention")  +
-  langcog::scale_colour_solarized()  + 
-  theme(legend.title = element_text(size=18), 
-        legend.text = element_text(size=16), 
-        axis.text.x  = element_text(vjust=0.5, size=16),
-        axis.title.x = element_text(size=18), 
-        axis.text.y  = element_text(vjust=0.5, size=16),
-        axis.title.y = element_text(size=18))
+             position = position_dodge(width = .9)) +
+  xlab("Condition") + ylab("Episodes of Coordinated JA per Min.")
 ```
 
 Total duration of passive joint attention.
-```{r}
+```{r, echo=F}
 ms_lpja <- d %>%
   filter(!is.na(Condition))%>%
   group_by(Condition) %>%
@@ -379,14 +301,11 @@ ggplot(ms_lpja, aes(x = Condition, y = mean, fill = Condition)) +
   geom_bar(stat="identity") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total Duration Passive Joint Attention")  +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() 
+  xlab("Condition") + ylab("Seconds of Passive JA per Min.")
 ```
 
 Total duration of coordinated joint attention.
-```{r}
+```{r, echo=F}
 ms_lcja <- d %>%
   filter(!is.na(Condition))%>%
   group_by(Condition) %>%
@@ -396,18 +315,15 @@ ggplot(ms_lcja, aes(x = Condition, y = mean, fill = Condition)) +
   geom_bar(stat="identity") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total Duration Coordinated Joint Attention")  +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() 
+  xlab("Condition") + ylab("Seconds of Coordinated JA per Min.")
 ```
 
-##Demographics
+## Demographics
 
-###Child gender
+### Child gender
 
 Total bids by gender.
-```{r}
+```{r, echo=F}
 # total bids
 ms_bids <- d %>%
   group_by(Condition, gender) %>%
@@ -417,14 +333,11 @@ ggplot(ms_bids, aes(x = Condition, y = mean, fill=gender)) +
   geom_bar(stat="identity", position = "dodge") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total bids for Joint Attention")  +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() 
+  xlab("Condition") + ylab("Bids for Joint Attention per Min.") 
 ```
 
 Total duration of passive joint attention by gender
-```{r}
+```{r, echo=F}
 ms_lpja <- d %>%
   filter(!is.na(Condition))%>%
   group_by(Condition, gender) %>%
@@ -434,14 +347,11 @@ ggplot(ms_lpja, aes(x = Condition, y = mean, fill=gender)) +
   geom_bar(stat="identity", position = "dodge") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total Duration Passive Joint Attention")  +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() 
+  xlab("Condition") + ylab("Seconds of Passive JA per Min.")
 ```
 
 Total duration of coordinated joint attention by gender
-```{r}
+```{r, echo=F}
 ms_lcja <- d %>%
   filter(!is.na(Condition))%>%
   group_by(Condition, gender) %>%
@@ -451,18 +361,15 @@ ggplot(ms_lcja, aes(x = Condition, y = mean, fill=gender)) +
   geom_bar(stat="identity", position = "dodge") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total Duration Coordinated Joint Attention")  +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() 
+  xlab("Condition") + ylab("Seconds of Coordinated JA per Min.")
 ```
 
-###Child age
+### Child age
 
 Children were separated into 3 age groups: 6-12 months, 12-18 months, and 18-24 months.
 
 Total bids by age.
-```{r}
+```{r, echo=F}
 # total bids
 ms_bids <- d %>%
   group_by(Condition, age_group) %>%
@@ -474,14 +381,11 @@ ggplot(ms_bids, aes(x = Condition, y = mean, fill=age_group)) +
   geom_bar(stat="identity", position= "dodge") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total bids for Joint Attention")  +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() 
+  xlab("Condition") + ylab("Bids for JA per Min.")
 ```
 
 Total duration of passive joint attention by age
-```{r}
+```{r, echo=F}
 ms_lpja <- d %>%
   filter(!is.na(Condition))%>%
   group_by(Condition, age_group) %>%
@@ -493,14 +397,11 @@ ggplot(ms_lpja, aes(x = Condition, y = mean, fill = age_group)) +
   geom_bar(stat="identity", position = "dodge") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total Duration Passive Joint Attention")  +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() 
+  xlab("Condition") + ylab("Seconds of Passive JA per Min.")
 ```
 
 Total duration of coordinated joint attention by age
-```{r}
+```{r, echo=F}
 ms_lcja <- d %>%
   filter(!is.na(Condition))%>%
   group_by(Condition, age_group) %>%
@@ -512,30 +413,24 @@ ggplot(ms_lcja, aes(x = Condition, y = mean, fill = age_group)) +
   geom_bar(stat="identity", position = "dodge") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), 
              position = position_dodge(width = .9))+
-  xlab("Condition") + 
-  ylab("Total Duration Coordinated Joint Attention")  +
-  langcog::scale_colour_solarized()  +
-  ggthemes::theme_few() 
+  xlab("Condition") + ylab("Seconds of Coordinated JA per Min.")
 ```
 
-###Parenting attitudes and education
+### Parenting attitudes and education
 
 Do PAQ scores predict the number of bids for joint attention by parents?
-```{r}
+```{r, echo=F}
 d_plot <- d %>%
   gather("subscale","score", AA:RR)
 
 ggplot(d_plot, aes(x = score, y = bids_tot, col = subscale)) +
-  geom_jitter() + 
-  xlim(0,6) +
+  geom_jitter() + xlim(0,6) +
   geom_smooth(method="lm", se=FALSE)  + 
-  facet_wrap(~Condition)+
-  ggthemes::theme_few() +
-  langcog::scale_colour_solarized() 
+  facet_wrap(~Condition)
 ```
 
 Does parent education predict the number of bids for joint attention by parents?
-```{r}
+```{r, echo=F}
 d_plot <- d %>%
   gather("subscale","score", AA:RR)
 
@@ -543,12 +438,10 @@ ggplot(d_plot, aes(x = parent_ed, y = bids_tot)) +
   geom_jitter() + 
   xlim(0,6) +
   geom_smooth(method="lm", se=FALSE)  + 
-  facet_wrap(~Condition)+
-  ggthemes::theme_few() +
-  langcog::scale_colour_solarized() 
+  facet_wrap(~Condition)
 ```
 
-#Analysis
+# Analysis
 
 Is the duration of joint attention correlated with age in months?
 
@@ -556,11 +449,10 @@ Is the duration of joint attention correlated with age in months?
 cormat <- d %>%
   select(age_months, pja_length, cja_length, total_lja)
 rcorr(as.matrix(cormat))
-
 ```
 
 
-Mixed effects models.
+## Mixed effects models.
 
 Prepare data.
 ```{r}
@@ -579,44 +471,39 @@ lmer_data <- d %>%
 Total number of bids
 ```{r}
 maximal_mod <- lmer(bids_tot ~ Condition *  EL  + Condition * AA + Condition * RR + age + gender + parent_ed +
-                           (1| Video), 
-                         data = lmer_data)
+                           (1| Video), data = lmer_data)
 summary(maximal_mod)
 ```
 
 Episodes of coordinated joint attention.
 ```{r}
 maximal_mod <- lmer(cja ~ Condition *  EL  + Condition * AA + Condition * RR  + age + gender + parent_ed +
-                           (1| Video), 
-                         data = lmer_data)
+                           (1| Video), data = lmer_data)
 summary(maximal_mod)
 ```
 
 Episodes of passive joint attention.
 ```{r}
 maximal_mod <- lmer(pja ~ Condition *  EL  + Condition * AA + Condition * RR  + age + gender + parent_ed +
-                           (1| Video), 
-                         data = lmer_data)
+                           (1| Video), data = lmer_data)
 summary(maximal_mod)
 ```
 
 Total duration of passive joint attention.
 ```{r}
 maximal_mod <- lmer(pja_length ~ Condition *  EL  + Condition * AA + Condition * RR  + age + gender + parent_ed +
-                           (1| Video), 
-                         data = lmer_data)
+                           (1| Video), data = lmer_data)
 summary(maximal_mod)
 ```
 
 Total duration of coordinated joint attention.
 ```{r}
 maximal_mod <- lmer(cja_length ~ Condition *  EL  + Condition * AA + Condition * RR  + age + gender + parent_ed +
-                           (1| Video), 
-                         data = lmer_data)
+                           (1| Video), data = lmer_data)
 summary(maximal_mod)
 ```
 
-#Conclusions
+# Conclusions
 
 There is a main effect of condition on total bids for joint attention. Parents in the experimental condition (i.e., those who saw a video demonstrating an activity) made a greater number of bids for joint attention with their child.
 

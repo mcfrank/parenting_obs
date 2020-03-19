@@ -22,3 +22,5 @@ knitr
 Rcpp
 rstanarm
 scales
+bayestestR
+shiny

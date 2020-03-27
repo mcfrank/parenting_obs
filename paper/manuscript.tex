@@ -66,7 +66,7 @@
 \shorttitle{Impacts of videos on parent-child interaction}
 \affiliation{
 \vspace{0.5cm}
-\textsuperscript{1} Department of Psychology, Stanford University\\\textsuperscript{2} Nextdoor, Inc.\\\textsuperscript{3} Gallaudet University\\\textsuperscript{4} Cornell University}
+\textsuperscript{1} Department of Psychology, Stanford University\\\textsuperscript{2} Gallaudet University\\\textsuperscript{3} Cornell University}
 \keywords{digital parenting advice; joint attention; lexical diversity; guided play\newline\indent Word count: 4629}
 \usepackage{csquotes}
 \usepackage{upgreek}
@@ -94,7 +94,7 @@
 \usepackage{float}
 
 \title{Understanding the impacts of video-guided activities on parent-child interaction}
-\author{George Kachergis\textsuperscript{1}, Emily Hembacher\textsuperscript{2}, Veronica Cristiano\textsuperscript{3}, Hanwen Vivian Zhang\textsuperscript{4}, \& Michael C. Frank\textsuperscript{1}}
+\author{George Kachergis\textsuperscript{1}, Emily Hembacher\textsuperscript{1}, Veronica Cristiano\textsuperscript{2}, Hanwen Vivian Zhang\textsuperscript{3}, \& Michael C. Frank\textsuperscript{1}}
 \date{}
 
 \authornote{
@@ -229,12 +229,12 @@ Although we initially preregistered TTR as our measure of lexical diversity (sin
 Thus, we also measure lexical diversity with MTLD, which is calculated as the mean length of sequential word strings in a text that maintain a given TTR value (here we use the value proposed by McCarthy \& Jarvis (2010): 0.720).
 
 We fit a Bayesian mixed-effects linear regression predicting TTR as a function of condition, age (centered), and their interaction with a random intercept per video using rstanarm (Goodrich, Gabry, Ali, \& Brilleman, 2018).
-For effects that are at least 95\% likely to be non-zero according to the posterior distribution, we report estimated coefficients (\(\beta\)) as well as 95\% Bayesian credible intervals (95\% CI), demarcating the range within which 95\% of the posterior falls.
-There was lower TTR in the Activity Video condition (mean: 0.32) than in the No Video condition (mean: 0.43, \(\beta=\)-0.14, 95\% CI={[}-0.29, 0.01{]}).
-A similar regression instead predicting MTLD also found lower lexical diversity in the Activity Video condition (mean MTLD: 17.87) than in the No Video condition (mean: 27.09, \(\beta=\)-6.76, 95\% CI={[}-26.25, 12.20{]}), with no predicted influence of age.
+For effects that are at least 95\% likely to be non-zero according to the posterior distribution, we report estimated coefficients (\(\beta\)) as well as 89\% Bayesian credible intervals (89\% CI)\footnote{89\% CIs are recommended for Bayesian analyses because unless the effective sample size (ESS) is on the order of 10,000, the 95\% credible interval is unstable (Kruschke, 2014; McElreath, 2018). Our ESS is approximately 2,100, and thus we go with the tighter, more stable interval.}, demarcating the range within which 89\% of the posterior falls, meaning that given the observed data, the effect has 89\% probability of falling within this range.
+There was lower TTR in the Activity Video condition (mean: 0.32) than in the No Video condition (mean: 0.43, \(\beta=\)-0.14, 95\% CI={[}-0.26, -0.01{]}).
+A similar regression instead predicting MTLD also found lower lexical diversity in the Activity Video condition (mean MTLD: 17.87) than in the No Video condition (mean: 27.09, \(\beta=\)-6.76, 95\% CI={[}-22.46, 8.45{]}), with no predicted influence of age.
 Figure \ref{fig:lexdiv} shows the mean of each lexical diversity measure (TTR and MTLD) by condition.
 
-We also conducted similar regressions predicting the rate of word tokens and types per minute of play, finding an effect of condition on the number of word tokens (\(\beta=\) 34.34, 95\% CI={[}0.26, 67.83{]}), with parents using more tokens in the Activity Video condition (mean: 61, bootstrapped 95\% confidence interval (conf. int.): {[}193,259{]}) than in the No Video condition (mean: 41, 95\% conf. int.: {[}139,194{]}).
+We also conducted similar regressions predicting the rate of word tokens and types per minute of play, finding an effect of condition on the number of word tokens (\(\beta=\) 32.41, 95\% CI={[}-2.06, 65.94{]}), with parents using more tokens in the Activity Video condition (mean: 69, bootstrapped 95\% confidence interval (conf. int.): {[}193, 259{]}) than in the No Video condition (mean: 52, 95\% conf. int.: {[}139, 194{]}).
 
 \begin{figure}[H]
 
@@ -249,7 +249,7 @@ We also conducted similar regressions predicting the rate of word tokens and typ
 \subsubsection{Joint Attention}\label{joint-attention}}
 
 We fit a Bayesian mixed-effects linear regression predicting the rate of parent bids (per minute) for joint attention (JA) as a function of fixed effects of condition, age (centered), and their interaction, with random intercepts per video.
-Parents' bid rate was greater in the Activity Video condition (mean: 1.83, sd: 0.79) than in the No Video condition (mean: 1.10, sd: 0.83, \(\beta=0.71\), 95\% CI={[}0.15, 1.27{]}).
+Parents' bid rate was greater in the Activity Video condition (mean: 1.83, sd: 0.79) than in the No Video condition (mean: 1.10, sd: 0.83, \(\beta=0.71\), 95\% CI={[}0.27, 1.16{]}).
 Mixed-effects regressions with the same structure were performed predicting the rate of episodes of coordinated and passive JA, and the time spent in coordinated and passive JA (seconds per minute of play).
 There were no notable effects on the rate of episodes nor on the time spent in coordinated or passive JA episodes.
 Figure \ref{fig:JA} (top) shows the mean rate of bids and episodes of JA by condition in Experiment 1.
@@ -259,8 +259,8 @@ Figure \ref{fig:JA} (top) shows the mean rate of bids and episodes of JA by cond
 
 We also fit Bayesian mixed-effects linear regression models predicting each of the above lexical diversity and joint attention dependent variables as a function of fixed effects of condition, age (centered), gender, parent's education level, and the subscales of the EPAQ: Early Learning (EL), Affection and Attachment (AA), and Rules and Respect (RR), along with interactions of condition and EL, AA, and RR.
 These models included random intercepts per video.
-Of these exploratory regressions, only the regression predicting the rate of passive JA episodes showed an effect involving these demographic variables: parents scoring higher on the Rules and Respect (RR) subscale had a lower rate of passive JA episodes (\(\beta=NA\), 95\% CI={[}-0.65, -0.02{]}).
-However, higher RR parents in the Activity Video condition did not show a decrease in passive JA (interaction of condition and RR: \(\beta=0.60\), 95\% CI={[}0.11, 1.04{]}).
+Of these exploratory regressions, only the regression predicting the rate of passive JA episodes showed an effect involving these demographic variables: parents scoring higher on the Rules and Respect (RR) subscale had a lower rate of passive JA episodes (\(\beta=NA\), 95\% CI={[}-0.60, -0.08{]}).
+However, higher RR parents in the Activity Video condition did not show a decrease in passive JA (interaction of condition and RR: \(\beta=0.60\), 95\% CI={[}0.22, 0.95{]}).
 
 To better understand the intervention's effect on language use, we analyzed which words were characteristic of parents' speech in each condition, comparing the difference in frequency rank of each word (lemma) in the two conditions, as well as contrasting the corpus overall with a general English-language word frequency list (see SI for the interactive corpus characteristic plot).
 Words that were strongly indicative of being from the Activity Video condition include \enquote{give}, \enquote{big}, \enquote{small}, \enquote{ribbit}, \enquote{thank}, \enquote{have}, and \enquote{bus}, while words that were most characteristic of the No Video condition include \enquote{shake}, \enquote{ready}, \enquote{oh}, \enquote{on}, \enquote{going}, \enquote{going}, \enquote{see}, \enquote{let}, and the child's name.
@@ -289,7 +289,7 @@ In sum, the results of Experiment 1 suggest that digital parenting advice can in
 
 Experiment 1 found that parents who watched an activity video made more bids for joint attention and spoke more words overall to their children, but had lower lexical diversity compared to parents who played with their children as they normally would at home.
 Might it be that parents who are focused on a specific activity show reduced lexical diversity due to their focus on engaging their child in the activity?
-Experiment 2 focuses on replicating the key findings using a stronger control group, as well as a restricted number of preregistered predictions.\footnote{Preregistration: \href{https://osf.io/2bpdf}{https://osf.io/2bpdf/}.}
+Experiment 2 focuses on replicating the key findings using a stronger control group, as well as a restricted number of preregistered predictions.\footnote{Although the preregistration implied the use of standard linear mixed-effects regression through the specification of adopting an alpha level of .005 for statistical significance, the non-convergence of some of the below regressions led us to switch to Bayesian regression. Using a Bayesian analysis also has the added benefit of not requiring arbitrary decisions about changing alpha levels to attempt to correct for multiple comparisons (Gelman, 2008).}
 
 \hypertarget{method-1}{%
 \subsection{Method}\label{method-1}}
@@ -338,7 +338,7 @@ We then turn to preregistered regressions of parental bids for joint attention a
 \subsubsection{Lexical Diversity}\label{lexical-diversity-1}}
 
 We fit a Bayesian mixed-effects linear regression predicting TTR as a function of age (centered) and condition with an interaction term, and with random intercepts per video.
-This revealed lower TTR after the Activity Video (mean: 0.38) than after the Science Video (mean: 0.48, \(\beta=-0.09\), , 95\% CI={[}-0.15, -0.04{]}).
+This revealed lower TTR after the Activity Video (mean: 0.38) than after the Science Video (mean: 0.48, \(\beta=-0.09\), , 95\% CI={[}-0.14, -0.05{]}).
 The preregistered regression predicting the number of tokens used by parents revealed no effects.
 An exploratory mixed-effects linear regression predicting MTLD found no effect of age or condition.
 Figure \ref{fig:lexdiv} (bottom left and middle) shows the mean of each lexical diversity measure (TTR and MTLD) by condition.
@@ -473,6 +473,9 @@ Hirsh-Pasek, K., Adamson, L. B., Bakeman, R., Owen, M. T., Golinkoff, R. M., Pac
 \leavevmode\hypertarget{ref-spacy2}{}%
 Honnibal, I., Matthew AND Montani. (2017). SpaCy 2: Natural language understanding with bloom embeddings, convolutional neural networks and incremental parsing. \emph{To Appear}.
 
+\leavevmode\hypertarget{ref-Kruschke2014}{}%
+Kruschke, J. (2014). \emph{Doing bayesian data analysis: A tutorial with r, jags, and stan}. Academic Press.
+
 \leavevmode\hypertarget{ref-Malvern2004}{}%
 Malvern, D., Richards, B. J., Chipere, N., \& Durán, P. (2004). \emph{Lexical diversity and language development}. Palgrave Macmillan.
 
@@ -481,6 +484,9 @@ Marchman, V. A., \& Fernald, A. (2008). Speed of word recognition and vocabulary
 
 \leavevmode\hypertarget{ref-McCarthy2010}{}%
 McCarthy, P. M., \& Jarvis, S. (2010). MTLD, vocd-d, and hd-d: A validation study of sophisticated approaches to lexical diversity assessment. \emph{Behavior Research Methods}, \emph{42}(2), 381--392.
+
+\leavevmode\hypertarget{ref-McElreath2018}{}%
+McElreath, R. (2018). \emph{Statistical rethinking: A bayesian course with examples in r and stan}. Chapman; Hall/CRC.
 
 \leavevmode\hypertarget{ref-PerryPreschool2004}{}%
 Schweinhart, L. J., Montie, J., Xiang, Z., Barnett, W. S., Belfield, C. R., \& Nores, M. (2004). \emph{Lifetime effects: The highscope perry preschool study through age 40}. Ypsilanti, MI: HighScope Press.
@@ -530,6 +536,9 @@ Hirsh-Pasek, K., Adamson, L. B., Bakeman, R., Owen, M. T., Golinkoff, R. M., Pac
 \leavevmode\hypertarget{ref-spacy2}{}%
 Honnibal, I., Matthew AND Montani. (2017). SpaCy 2: Natural language understanding with bloom embeddings, convolutional neural networks and incremental parsing. \emph{To Appear}.
 
+\leavevmode\hypertarget{ref-Kruschke2014}{}%
+Kruschke, J. (2014). \emph{Doing bayesian data analysis: A tutorial with r, jags, and stan}. Academic Press.
+
 \leavevmode\hypertarget{ref-Malvern2004}{}%
 Malvern, D., Richards, B. J., Chipere, N., \& Durán, P. (2004). \emph{Lexical diversity and language development}. Palgrave Macmillan.
 
@@ -538,6 +547,9 @@ Marchman, V. A., \& Fernald, A. (2008). Speed of word recognition and vocabulary
 
 \leavevmode\hypertarget{ref-McCarthy2010}{}%
 McCarthy, P. M., \& Jarvis, S. (2010). MTLD, vocd-d, and hd-d: A validation study of sophisticated approaches to lexical diversity assessment. \emph{Behavior Research Methods}, \emph{42}(2), 381--392.
+
+\leavevmode\hypertarget{ref-McElreath2018}{}%
+McElreath, R. (2018). \emph{Statistical rethinking: A bayesian course with examples in r and stan}. Chapman; Hall/CRC.
 
 \leavevmode\hypertarget{ref-PerryPreschool2004}{}%
 Schweinhart, L. J., Montie, J., Xiang, Z., Barnett, W. S., Belfield, C. R., \& Nores, M. (2004). \emph{Lifetime effects: The highscope perry preschool study through age 40}. Ypsilanti, MI: HighScope Press.

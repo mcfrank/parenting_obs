@@ -49,8 +49,10 @@ Read in files and consolidate to the same directory.
 ```{r echo=F}
 # for rate coding (JA/minute), we coded the start / end of play sessions because they were not exactly 3 minutes
 play_duration <- read.csv("parenting_obs_play_duration_E2.csv", header=T)
+play_duration$start_sec = with(play_duration, ifelse(is.na(verbalcue_start_sec), # if no verbal cue use play start
+                                                           play_start_sec, verbalcue_start_sec))
 play_duration <- play_duration %>% 
-  mutate(play_duration = play_stop_sec - play_start_sec)
+  mutate(play_duration = play_stop_sec - start_sec)
 sort(play_duration$play_duration) # 1 pretty short session: 131 seconds
 summary(play_duration$play_duration) # median = 184.5, mean=185.8
 # use play_duration$verbalcue_start_sec instead of play_start? (when it exists)

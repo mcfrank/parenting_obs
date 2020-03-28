@@ -211,7 +211,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 The quantity and quality of early language input has been found to be strongly associated with later language and academic outcomes [@Hart1995; @Marchman2008; @Cartmill2013; @HirshPasek2015]. Thus, because of the potential for large downstream effects [@Heckman2006], there is tremendous interest in interventions that change children's language environment. 
 And because parents define a large portion of that environment, especially before the onset of formal schooling, parent behavior is a critical locus for such interventions. 
-Many effective parenting interventions require large resource investments and require many hours of in-person contact [@Jamaica2014; @PerryPreschool2004], making implementation at scale a daunting proposition. 
+Many effective parenting interventions require large resource investments and require many hours of in-person contact [@Jamaica2014; @PerryPreschool2004; @Leung2018], making implementation at scale a daunting proposition. 
 For this reason, many researchers targeting early language are interested in delivering parenting interventions remotely -- through texts, apps, and videos delivered on digital devices. 
 But what do parents take away from these short messages about what to do with or how to talk with their children?
 
@@ -238,7 +238,7 @@ Our current experiments were designed to make a direct test of this question: Ho
 In two experiments, we collected data from parent-child dyads in a local children's museum. 
 We showed parents in the experimental group a single short video modeling an interactive toy-based activity along with a scientific justification. 
 Parents in the control group received either no video (Experiment 1) or a video of a recent finding in developmental psychology (Experiment 2). 
-We then gave the toys from the video to all dyads and videotaped their interactions, coding for language quantity and quality as well as joint attention. 
+We then gave the toys from the video to all dyads and videotaped their interactions, coding for caregivers' language quantity and quality as well as joint attention. 
 
 
 # Experiment 1
@@ -332,13 +332,17 @@ get_stan_glmer_reporting_values <- function(model, cond, digits=3) {
   return(c(beta,ci))
 }
 
-
+print_CI <- function(mod) {
+  string = paste0("89% CI=[",mod['89pLB'],", ",mod['89pUB'],"]", ", *pd*= ",mod['pd'])
+  return(string)
+}
 
 modTTR <- stan_glmer(TTR ~ condition * age + (1|video), data=e1ld)
 summary(modTTR) # n_eff ~2100 (is n_eff / n = Effective Sample Size (ESS)?)
 
 e1TTR = get_stan_glmer_reporting_values(modTTR, "conditionexp") # -.14  !!!
 p_direction(modTTR, effects="all") # orchestra 78.7%
+#print_CI(e1TTR)
 
 #ci_hdi <- ci(modTTR, method = "HDI") # [-0.25, -0.01]
 #ci_eti <- ci(modTTR, method = "ETI") # [-0.26, -0.01]
@@ -357,7 +361,7 @@ p_direction(tokens_mod, effects="all") # orchestra 89.7%
 # predict word types
 types_mod <- stan_glmer(types ~ condition * age + (1|video), control = list(adapt_delta = 0.99), data=e1ld)
 summary(types_mod) # nothing 
-p_direction(types_mod, effects="all") # condition 83%, age 92.5%..
+p_direction(types_mod, effects="all") # condition 80%, age 78, cond*age 84%..
 
 e1_lexdiv <- e1ld %>% group_by(condition) %>%
   summarise(TTR=mean(TTR), MTLD=mean(MTLD), tokens=mean(tokens)) # types=mean(types) # con=16.7, exp=18.1
@@ -370,11 +374,11 @@ e1model_string = "~ condition*EL + condition*AA + condition*RR  + age + gender +
 modTTRE <- stan_glmer(paste("TTR", e1model_string), data=e1ld)
 summary(modTTRE) # conditionexp, RR, genderM, parent_ed 
 get_stan_glmer_reporting_values(modTTRE, 'conditionexp') # -.11
-p_direction(modTTRE, effects="all") # EL 75, RR 86%, parent_ed 83.5
+p_direction(modTTRE, effects="all") # RR 91.00%  parent_ed 92.17%
 
 modMTLDE <- stan_glmer(paste("MTLD", e1model_string), data=e1ld)
 summary(modMTLDE) #
-p_direction(modMTLDE, effects="all") # RR 81.5% genderM 88.9% 
+p_direction(modMTLDE, effects="all") # AA 85.60% RR 85.02% age 55.80% genderM 85.12%
 
 tokens_modE <- stan_glmer(paste("tokens", e1model_string),  data=e1ld) 
 summary(tokens_modE) # condition 54.4 
@@ -398,9 +402,9 @@ p_direction(modCT, effects="all")
 ```
 
 We fit a Bayesian mixed-effects linear regression predicting TTR as a function of condition, age (centered), and their interaction with a random intercept per video using rstanarm [@rstanarm]. 
-For effects that are at least 95% likely to be non-zero according to the posterior distribution, we report estimated coefficients ($\beta$) as well as 89% Bayesian credible intervals (89% CI)[^4], demarcating the range within which 89% of the posterior falls, meaning that given the observed data, the effect has 89% probability of falling within this range.
-There was lower TTR in the Activity Video condition (mean: `r round(subset(e1_lexdiv, condition=='exp')$TTR, 2)`) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$TTR, 2)`, $\beta=$`r e1TTR["conditionexp"]`, 89% CI=[`r e1TTR['89pLB']`, `r e1TTR['89pUB']`]). 
-A similar regression instead predicting MTLD also found lower lexical diversity in the Activity Video condition (mean MTLD: `r round(subset(e1_lexdiv, condition=='exp')$MTLD, 2)`) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$MTLD, 2)`, $\beta=$`r e1MTLD["conditionexp"]`, 89% CI=[`r e1MTLD['89pLB']`, `r e1MTLD['89pUB']`]), with no predicted influence of age.
+For effects that are at least 95% likely to be non-zero according to the posterior distribution (i.e., probability of direction: *pd*; @Makowski2019), we report estimated coefficients ($\beta$) as well as 89% Bayesian credible intervals (89% CI)[^4], demarcating the range within which 89% of the posterior falls, meaning that given the observed data, the effect has 89% probability of falling within this range.
+There was lower TTR in the Activity Video condition (mean: `r round(subset(e1_lexdiv, condition=='exp')$TTR, 2)`) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$TTR, 2)`, $\beta=$`r e1TTR["conditionexp"]`, `r print_CI(e1TTR)`). 
+<!-- A similar regression instead predicting MTLD also found lower lexical diversity in the Activity Video condition (mean MTLD: `r round(subset(e1_lexdiv, condition=='exp')$MTLD, 2)`) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$MTLD, 2)`, $\beta=$`r e1MTLD["conditionexp"]`, `r print_CI(e1MTLD)`]), with no predicted influence of age. -->
 Figure \ref{fig:lexdiv} shows the mean of each lexical diversity measure (TTR and MTLD) by condition.
 
 [^4]: 89% CIs are recommended for Bayesian analyses because unless the effective sample size (ESS) is on the order of 10,000, the 95% credible interval is unstable [@Kruschke2014; @McElreath2018]. Our ESS is approximately 2,100, and thus we go with the tighter, more stable interval.
@@ -418,7 +422,7 @@ e1_type <- e1ld %>% group_by(Condition) %>%
   tidyboot_mean(types)
 ```
 
-We also conducted similar regressions predicting the rate of word tokens and types per minute of play, finding an effect of condition on the number of word tokens ($\beta=$ `r e1tokens["conditionexp"]`, 89% CI=[`r e1tokens['89pLB']`, `r e1tokens['89pUB']`]), with parents using more tokens in the Activity Video condition (mean: `r round(subset(e1_lexdiv, condition=='exp')$tokens, 0)`, bootstrapped 95% confidence interval (conf. int.): [`r round(subset(e1_tok, Condition=="Activity Video")$ci_lower, 0)`, `r round(subset(e1_tok, Condition=="Activity Video")$ci_upper, 0)`]) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$tokens, 0)`, 95% conf. int.: [`r round(subset(e1_tok, Condition=="No Video")$ci_lower, 0)`, `r round(subset(e1_tok, Condition=="No Video")$ci_upper, 0)`]).
+We also conducted similar regressions predicting the rate of word tokens and types per minute of play, finding an effect of condition on the number of word tokens ($\beta=$ `r e1tokens["conditionexp"]`, `r print_CI(e1tokens)`), with parents using more tokens in the Activity Video condition (mean: `r round(subset(e1_lexdiv, condition=='exp')$tokens, 0)`, bootstrapped 95% confidence interval (conf. int.): [`r round(subset(e1_tok, Condition=="Activity Video")$ci_lower, 0)`, `r round(subset(e1_tok, Condition=="Activity Video")$ci_upper, 0)`]) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$tokens, 0)`, 95% conf. int.: [`r round(subset(e1_tok, Condition=="No Video")$ci_lower, 0)`, `r round(subset(e1_tok, Condition=="No Video")$ci_upper, 0)`]).
 
 
 ```{r e1tab, echo=F, include=F}
@@ -1000,9 +1004,4 @@ r_refs(file = "library.bib")
 render_appendix('appendix.Rmd')
 ```
 
-
-
-```{r echo = FALSE, results = 'asis'}
-render_appendix('appendix.Rmd')
-```
 

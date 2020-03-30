@@ -37,7 +37,7 @@ abstract: |
   We showed parents a short video depicting an age-appropriate parent-child activity from a commercial parenting app, and found that the quality of parent-child interactions increases in some ways as a result of the intervention. 
   Specifically, after watching the activity video, parents spoke more and made more bids for joint attention with the child.
 keywords          : "digital parenting advice; joint attention; lexical diversity; guided play"
-wordcount         : "4629"
+wordcount         : "4938"
 
 bibliography      : ["library.bib"]
 
@@ -92,9 +92,8 @@ addline_format <- function(x,...){
 
 ```{r load-exp1-lexical-data, include=F}
 e1path = "../parenting_obs_e1/"
-#load(paste(e1path,"Exp1_cleaned_data.RData",sep='')) # merged dataframe ready for plotting
 
-d = read.csv("../exp1_lexical_diversityAdd.csv") # with Conversational_Turns, but only has 53 subjects !!
+d = read.csv("../language_analyses/exp1_lexical_diversity.csv") 
 
 e1_parent_ed = table(d$parent_ed)
 
@@ -120,7 +119,8 @@ e1ld <- e1ld %>% left_join(e1_play_duration, by=c("sid"="SID"))
 e1ld <- e1ld %>% 
   mutate(types = (types / play_duration), 
          tokens = (tokens / play_duration),
-         Conversational_Turns = (Conversational_Turns / play_duration))
+         TTR = (TTR / play_duration),
+         MTLD = (MTLD / play_duration))
 
 e1_6to12 = table(subset(e1ld, age<1)$condition) # con 9, exp 10
 e1_12to18 = table(subset(e1ld, age<1.5 & age>=1)$condition) # con 11 exp 9
@@ -153,17 +153,16 @@ load(paste(e2path,"Exp2_cleaned_data.RData",sep=''))
 e2Age <- d %>% mutate(Age = age) %>%
   select(sid, Age)
 e2_parent_ed = table(d$parent_ed) # unscaled parent_ed
-#d = read.csv("exp2_lexical_diversity_data.csv")
-d = read.csv("../exp2_lexical_diversityAdd.csv")
+d = read.csv("../language_analyses/exp2_lexical_diversity.csv")
 d <- d %>% left_join(e2Age, by="sid")
 
-e2data <- d %>%
+e2ld <- d %>%
   mutate(condition = as.factor(condition), 
          gender = as.factor(gender),
          video = as.factor(video)) %>%
   select(-X.1, -X)
 
-e2data$Condition = factor(d$condition, levels = c("con", "exp"), labels = c("Science Video", "Activity Video"))
+e2ld$Condition = factor(d$condition, levels = c("con", "exp"), labels = c("Science Video", "Activity Video"))
 
 e2_gender = table(d$gender)
 e2_12to18 = table(subset(d, Age<1.5)$Condition) # Activity Vid 20, Science Vid 21
@@ -172,7 +171,7 @@ e2_18to24 = table(subset(d, Age>=1.5)$Condition) # Activity Vid 22, Science Vid 
 #e2_dur = read.csv(paste0(e2path,"joint_attention/parenting_obs_play_duration_E2.csv"))
 #e2_dur <- e2_dur %>% mutate(vid_dur=video_duration_sec / 60) %>% # sec / min
 #  select(sid, vid_dur)
-#e2data <- e2data %>% left_join(e2_dur, by="sid")
+#e2ld <- e2ld %>% left_join(e2_dur, by="sid")
 
 e2_play_duration <- read.csv(paste0(e2path,"joint_attention/parenting_obs_play_duration_E2.csv"), header=T)
 e2_play_duration$start_sec = with(e2_play_duration, ifelse(is.na(verbalcue_start_sec), 
@@ -180,13 +179,14 @@ e2_play_duration$start_sec = with(e2_play_duration, ifelse(is.na(verbalcue_start
 e2_play_duration <- e2_play_duration %>% 
   mutate(play_duration = (play_stop_sec - start_sec) / 60) %>% # sec to min
   select(sid, play_duration)
-e2data <- e2data %>% left_join(e2_play_duration, by="sid")
+e2ld <- e2ld %>% left_join(e2_play_duration, by="sid")
 
 # convert types and tokens to rate: types/min and tokens/min
-e2data <- e2data %>% 
+e2ld <- e2ld %>% 
   mutate(types = (types / play_duration), 
          tokens = (tokens / play_duration),
-         Conversational_Turns = (Conversational_Turns / play_duration))
+         TTR = (TTR / play_duration),
+         MTLD = (MTLD / play_duration))
 ```
 
 ```{r load-exp2-joint-attention-data, echo=F}
@@ -209,7 +209,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 # Introduction
 
-The quantity and quality of early language input has been found to be strongly associated with later language and academic outcomes [@Hart1995; @Marchman2008; @Cartmill2013; @HirshPasek2015]. Thus, because of the potential for large downstream effects [@Heckman2006], there is tremendous interest in interventions that change children's language environment. 
+The quantity and quality of early language input has been found to be strongly associated with later language and academic outcomes [@Hart1995; @Marchman2008; @Cartmill2013; @HirshPasek2015; see @Schwab2016 for a review]. Thus, because of the potential for large downstream effects [@Heckman2006], there is tremendous interest in interventions that change children's language environment. 
 And because parents define a large portion of that environment, especially before the onset of formal schooling, parent behavior is a critical locus for such interventions. 
 Many effective parenting interventions require large resource investments and require many hours of in-person contact [@Jamaica2014; @PerryPreschool2004; @Leung2018], making implementation at scale a daunting proposition. 
 For this reason, many researchers targeting early language are interested in delivering parenting interventions remotely -- through texts, apps, and videos delivered on digital devices. 
@@ -299,12 +299,12 @@ A joint attention episode was considered _coordinated_ if both participants visu
 Full details of our guidelines for coding joint attention are available in SI.
 
 A second coder independently coded a third of the videos (i.e., 20 of the 60 videos, approximately equally distributed across ages) to establish reliability. 
-The two coders had a reliability of ICC = 0.79 with 95% confidence interval (CI) = [0.55, 0.91] for rate of parent bids for JA (number of bids per minute); ICC = 0.34 with 89% CI = [-0.11, 0.67] for rate of passive JA episodes (per minute); ICC = 0.66 with 89% CI = [0.32, 0.85] for rate of coordinated JA episodes; ICC = 0.33 with 89% CI = [-0.11, 0.67] for rate (seconds per minute) of passive JA episodes, and ICC = 0.60 with 89% CI = [0.24, 0.82] for rate (seconds per minute) of coordinated JA episodes. 
+The two coders had a reliability of ICC = 0.79 with 95% confidence interval (CI) = [0.55, 0.91] for rate of parent bids for JA (number of bids per minute); ICC = 0.34 with 95% CI = [-0.11, 0.67] for rate of passive JA episodes (per minute); ICC = 0.66 with 95% CI = [0.32, 0.85] for rate of coordinated JA episodes; ICC = 0.33 with 95% CI = [-0.11, 0.67] for rate (seconds per minute) of passive JA episodes, and ICC = 0.60 with 95% CI = [0.24, 0.82] for rate (seconds per minute) of coordinated JA episodes. 
 
 
 ## Results and Discussion
 
-Parents' child-directed speech during the play sessions was transcribed; child utterances were not considered.
+Parents' child-directed speech during the play sessions (mean duration: `r round(mean(e1ld$play_duration), 2)` min) was transcribed; child utterances were not considered.
 Although Experiment 1 was not preregistered, for consistency the transcripts and hand-coded joint attention data were analyzed according to our preregistration for Experiment 2[^3], with any deviations or exploratory analyses noted.
 Below we first report the lexical diversity results, followed by the joint attention results.
 
@@ -312,7 +312,7 @@ Below we first report the lexical diversity results, followed by the joint atten
 
 ### Lexical Diversity
 
-For each transcript of child-directed speech, the words were lemmatized using ``spacy2`` [@spacy2], and the word *types* (unique words) and *tokens* (total words) were then tallied and converted to rates (e.g., tokens per minute of play), and the type-token ratio (TTR) was calculated as a measure of lexical diversity. 
+For each transcript of child-directed speech, the caregivers' unique word *types* and *tokens* (total words) uttered were tallied and converted to rates (e.g., tokens per minute of play), and the type-token ratio (TTR) was calculated as a measure of lexical diversity. 
 Although we initially preregistered TTR as our measure of lexical diversity (since it is a simple, commonly used measure), it has been noted that TTR is correlated with the length of a text, which has led to the development of new measures such as the measure of textual lexical diversity [MTLD; @McCarthy2010]. 
 Thus, we also measure lexical diversity with MTLD, which is calculated as the mean length of sequential word strings in a text that maintain a given TTR value (here we use the value proposed by @McCarthy2010: 0.720).
 
@@ -339,7 +339,7 @@ print_CI <- function(mod) {
 
 modTTR <- stan_glmer(TTR ~ condition * age + (1|video), data=e1ld)
 summary(modTTR) # n_eff ~2100 (is n_eff / n = Effective Sample Size (ESS)?)
-
+diagnostic_posterior(modTTR) # 2500-4100
 e1TTR = get_stan_glmer_reporting_values(modTTR, "conditionexp") # -.14  !!!
 p_direction(modTTR, effects="all") # orchestra 78.7%
 #print_CI(e1TTR)
@@ -359,7 +359,8 @@ e1tokens = get_stan_glmer_reporting_values(tokens_mod, "conditionexp") # 19.45
 p_direction(tokens_mod, effects="all") # orchestra 89.7%
 
 # predict word types
-types_mod <- stan_glmer(types ~ condition * age + (1|video), control = list(adapt_delta = 0.99), data=e1ld)
+types_mod <- stan_glmer(types ~ condition * age + (1|video), control = list(adapt_delta = 0.99), data=e1ld,
+                        adapt_delta = .97)
 summary(types_mod) # nothing 
 p_direction(types_mod, effects="all") # condition 80%, age 78, cond*age 84%..
 
@@ -388,26 +389,19 @@ p_direction(tokens_modE, effects="all") # RR 71% parent_ed 90%
 # predict word types
 types_modE <- stan_glmer(paste("types", e1model_string), data=e1ld) 
 summary(types_modE) 
-p_direction(types_modE, effects="all") # EL 82.5% AA 87% genderM 93.2%, parent_ed 93.5% cond:AA 94.5%
+p_direction(types_modE, effects="all") # cond 82.5% EL 82.5% AA 87% genderM 93.2%, parent_ed 93.5% cond:AA 94.5%
 get_stan_glmer_reporting_values(types_modE, 'parent_ed') 
-get_stan_glmer_reporting_values(types_modE, 'conditionexp:AA') 
+e1types_condAA = get_stan_glmer_reporting_values(types_modE, 'conditionexp:AA') # ADD THIS TO TEXT
 
-# predict # of conversational turns - COULD REPORT THIS
-modCT <- stan_glmer(Conversational_Turns ~ condition * age + (1|video), data=e1ld)
-summary(modCT) 
-get_stan_glmer_reporting_values(modCT, "conditionexp") # pd = .96 mean=2.52 [-.20,5.28]
-p_direction(modCT, effects="all")
-# E1 CT: exp early significant (+ effect)
-# E2 CT: age nearly significant (+ effect)
 ```
 
 We fit a Bayesian mixed-effects linear regression predicting TTR as a function of condition, age (centered), and their interaction with a random intercept per video using rstanarm [@rstanarm]. 
 For effects that are at least 95% likely to be non-zero according to the posterior distribution (i.e., probability of direction: *pd*; @Makowski2019), we report estimated coefficients ($\beta$) as well as 89% Bayesian credible intervals (89% CI)[^4], demarcating the range within which 89% of the posterior falls, meaning that given the observed data, the effect has 89% probability of falling within this range.
 There was lower TTR in the Activity Video condition (mean: `r round(subset(e1_lexdiv, condition=='exp')$TTR, 2)`) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$TTR, 2)`, $\beta=$`r e1TTR["conditionexp"]`, `r print_CI(e1TTR)`). 
-<!-- A similar regression instead predicting MTLD also found lower lexical diversity in the Activity Video condition (mean MTLD: `r round(subset(e1_lexdiv, condition=='exp')$MTLD, 2)`) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$MTLD, 2)`, $\beta=$`r e1MTLD["conditionexp"]`, `r print_CI(e1MTLD)`]), with no predicted influence of age. -->
+A similar regression instead predicting MTLD also found lower lexical diversity in the Activity Video condition (mean MTLD: `r round(subset(e1_lexdiv, condition=='exp')$MTLD, 2)`) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$MTLD, 2)`, $\beta=$`r e1MTLD["conditionexp"]`, `r print_CI(e1MTLD)`]), with no predicted influence of age.
 Figure \ref{fig:lexdiv} shows the mean of each lexical diversity measure (TTR and MTLD) by condition.
 
-[^4]: 89% CIs are recommended for Bayesian analyses because unless the effective sample size (ESS) is on the order of 10,000, the 95% credible interval is unstable [@Kruschke2014; @McElreath2018]. Our ESS is approximately 2,100, and thus we go with the tighter, more stable interval.
+[^4]: 89% CIs are recommended for Bayesian analyses because unless the effective sample size (ESS) is on the order of 10,000, the 95% credible interval is unstable [@Kruschke2014; @McElreath2018]. Our ESS ranges from 2,000-5,000, and thus we go with the tighter, more stable interval.
 
 ```{r e1tokens, echo=F, include=F}
 e1ld$Condition = factor(e1ld$condition, levels = c("con", "exp"), labels = c("No Video", "Activity Video"))
@@ -422,7 +416,7 @@ e1_type <- e1ld %>% group_by(Condition) %>%
   tidyboot_mean(types)
 ```
 
-We also conducted similar regressions predicting the rate of word tokens and types per minute of play, finding an effect of condition on the number of word tokens ($\beta=$ `r e1tokens["conditionexp"]`, `r print_CI(e1tokens)`), with parents using more tokens in the Activity Video condition (mean: `r round(subset(e1_lexdiv, condition=='exp')$tokens, 0)`, bootstrapped 95% confidence interval (conf. int.): [`r round(subset(e1_tok, Condition=="Activity Video")$ci_lower, 0)`, `r round(subset(e1_tok, Condition=="Activity Video")$ci_upper, 0)`]) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$tokens, 0)`, 95% conf. int.: [`r round(subset(e1_tok, Condition=="No Video")$ci_lower, 0)`, `r round(subset(e1_tok, Condition=="No Video")$ci_upper, 0)`]).
+We also conducted similar regressions predicting the rate of word tokens and types per minute of play, finding an effect of condition on the rate of word tokens ($\beta=$ `r e1tokens["conditionexp"]`, `r print_CI(e1tokens)`), with parents using tokens at a higher rate in the Activity Video condition (mean: `r round(subset(e1_lexdiv, condition=='exp')$tokens, 0)` tokens/min, bootstrapped 95% confidence interval (conf. int.): [`r round(subset(e1_tok, Condition=="Activity Video")$ci_lower, 0)`, `r round(subset(e1_tok, Condition=="Activity Video")$ci_upper, 0)`]) than in the No Video condition (mean: `r round(subset(e1_lexdiv, condition=='con')$tokens, 0)`, 95% conf. int.: [`r round(subset(e1_tok, Condition=="No Video")$ci_lower, 0)`, `r round(subset(e1_tok, Condition=="No Video")$ci_upper, 0)`]).
 
 
 ```{r e1tab, echo=F, include=F}
@@ -431,7 +425,7 @@ e1 <- e1ld %>% group_by(Condition) %>%
             "Mean MTLD"=mean(MTLD), MTLDsd=sd(MTLD),
             "Mean types"=mean(types), types.sd=sd(types),
             "Mean tokens"= mean(tokens), tokens.sd=sd(tokens))
-names(e1) = c("Condition","TTR (M)", "(sd)", "MTLD (M)", "(sd)", "Types (M)", "(sd)", "Tokens (M)", "(sd)")
+names(e1) = c("Condition","TTR/min (M)", "(sd)", "MTLD/min (M)", "(sd)", "Types/min (M)", "(sd)", "Tokens/min (M)", "(sd)")
 kable(e1, digits=2, caption="Lexical diversity measures in Experiment 1.")
 ```
 
@@ -470,33 +464,33 @@ e1tokens <- ggplot(e1_tok, aes(x=Condition, y = mean, fill = Condition)) + geom_
 
 ```{r fig-lexdiv, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=6.5, fig.height=5.5, fig.cap = "\\label{fig:lexdiv} Mean lexical diversity scores (left: Type/Token ratio, middle: MTLD) and mean number of tokens used by condition (right) in Experiment 1 (top) and Experiment 2 (bottom). Error bars show bootstrapped 95\\% confidence intervals, and gray dots indicate values for each participant."}
 
-ttr2 <- e2data %>% group_by(Condition) %>%
+ttr2 <- e2ld %>% group_by(Condition) %>%
   tidyboot_mean(TTR) 
 
 e2ttr <- ggplot(ttr2, aes(x=Condition, y=mean, fill=Condition)) + geom_bar(stat="identity") + # labels=addline_format(c("Science Video", "Activity Video"))
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), position = position_dodge(width = .9)) +
-  geom_point(data=e2data, aes(x=Condition, y=TTR), alpha=.2, position = position_jitterdodge()) +
+  geom_point(data=e2ld, aes(x=Condition, y=TTR), alpha=.2, position = position_jitterdodge()) +
   xlab("Condition") + ylab("Type/Token Ratio (TTR)") +
   langcog::scale_fill_solarized() + ggthemes::theme_few() +
   theme(legend.position="none") + ggtitle("Experiment 2") + small_text
 
-mtld2 <- e2data %>% group_by(Condition) %>%
+mtld2 <- e2ld %>% group_by(Condition) %>%
   tidyboot_mean(MTLD) 
 
 e2mtld <- ggplot(mtld2, aes(x = Condition, y = mean, fill = Condition)) + 
   geom_bar(stat="identity") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), position = position_dodge(width = .9)) +
-  geom_point(data=e2data, aes(x=Condition, y=MTLD), alpha=.2, position = position_jitterdodge()) +
+  geom_point(data=e2ld, aes(x=Condition, y=MTLD), alpha=.2, position = position_jitterdodge()) +
   xlab("Condition") + ylab("MTLD") +
   langcog::scale_fill_solarized() + ggthemes::theme_few() +
   theme(legend.position="none") + ggtitle(" ") + small_text
 
-e2tok <- e2data %>% group_by(Condition) %>%
+e2tok <- e2ld %>% group_by(Condition) %>%
   tidyboot_mean(tokens) 
 
 e2tokens <- ggplot(e2tok, aes(x = Condition, y = mean, fill = Condition)) + geom_bar(stat="identity") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), position = position_dodge(width = .9)) +
-  geom_point(data=e2data, aes(x=Condition, y=tokens), alpha=.2, position = position_jitterdodge()) +
+  geom_point(data=e2ld, aes(x=Condition, y=tokens), alpha=.2, position = position_jitterdodge()) +
   xlab("Condition") + ylab("Mean Word Tokens per Minute") +
   langcog::scale_fill_solarized() + ggthemes::theme_few() +
   theme(legend.position="none") + ggtitle(" ") + small_text
@@ -568,7 +562,7 @@ p_direction(e1cja_time_mod, effects="all") # cond*age 85%
 ```
 
 We fit a Bayesian mixed-effects linear regression predicting the rate of parent bids (per minute) for joint attention (JA) as a function of fixed effects of condition, age (centered), and their interaction, with random intercepts per video. 
-Parents' bid rate was greater in the Activity Video condition (mean: `r round(subset(e1bids_M, Condition=="Activity Video")$mean,2)`, sd: `r round(subset(e1bids_M, Condition=="Activity Video")$sd,2)`) than in the No Video condition (mean: `r round(subset(e1bids_M, Condition=="No Video")$mean,2)`, sd: `r round(subset(e1bids_M, Condition=="No Video")$sd,2)`, $\beta=`r e1bids["ConditionActivity Video"]`$, 89% CI=[`r e1bids['89pLB']`, `r e1bids['89pUB']`]). 
+Parents' bid rate was greater in the Activity Video condition (mean: `r round(subset(e1bids_M, Condition=="Activity Video")$mean,2)`, sd: `r round(subset(e1bids_M, Condition=="Activity Video")$sd,2)`) than in the No Video condition (mean: `r round(subset(e1bids_M, Condition=="No Video")$mean,2)`, sd: `r round(subset(e1bids_M, Condition=="No Video")$sd,2)`, $\beta=`r e1bids["ConditionActivity Video"]`$, `r print_CI(e1bids)`). 
 Mixed-effects regressions with the same structure were performed predicting the rate of episodes of coordinated and passive JA, and the time spent in coordinated and passive JA (seconds per minute of play).
 There were no notable effects on the rate of episodes nor on the time spent in coordinated or passive JA episodes.
 Figure \@ref(fig:JA) (top) shows the mean rate of bids and episodes of JA by condition in Experiment 1.
@@ -614,8 +608,8 @@ p_direction(e1cja_time_mod, effects="all") # condition 85.1%
 
 We also fit Bayesian mixed-effects linear regression models predicting each of the above lexical diversity and joint attention dependent variables as a function of fixed effects of condition, age (centered), gender, parent's education level, and the subscales of the EPAQ: Early Learning (EL), Affection and Attachment (AA), and Rules and Respect (RR), along with interactions of condition and EL, AA, and RR. 
 These models included random intercepts per video. 
-Of these exploratory regressions, only the regression predicting the rate of passive JA episodes showed an effect involving these demographic variables: parents scoring higher on the Rules and Respect (RR) subscale had a lower rate of passive JA episodes ($\beta=`r e1pjaRR["ConditionActivity Video:RR"]`$, 89% CI=[`r e1pjaRR['89pLB']`, `r e1pjaRR['89pUB']`]).
-However, higher RR parents in the Activity Video condition did not show a decrease in passive JA (interaction of condition and RR:  $\beta=`r e1pjaE["ConditionActivity Video:RR"]`$, 89% CI=[`r e1pjaE['89pLB']`, `r e1pjaE['89pUB']`]).
+Of these exploratory regressions, only the regression predicting the rate of passive JA episodes showed an effect involving these demographic variables: parents scoring higher on the Rules and Respect (RR) subscale had a lower rate of passive JA episodes ($\beta=`r e1pjaRR["ConditionActivity Video:RR"]`$, `r print_CI(e1pjaRR)`).
+However, higher RR parents in the Activity Video condition did not show a decrease in passive JA (interaction of condition and RR:  $\beta=`r e1pjaE["ConditionActivity Video:RR"]`$, `r print_CI(e1pjaE)`).
 
 To better understand the intervention's effect on language use, we analyzed which words were characteristic of parents' speech in each condition, comparing the difference in frequency rank of each word (lemma) in the two conditions, as well as contrasting the corpus overall with a general English-language word frequency list (see SI for the interactive corpus characteristic plot). 
 Words that were strongly indicative of being from the Activity Video condition include "give", "big", "small", "ribbit", "thank", "have", and "bus", while words that were most characteristic of the No Video condition include "shake", "ready", "oh", "on", "going", "going", "see", "let", and the child's name. 
@@ -711,7 +705,7 @@ Experiment 2 focuses on replicating the key findings using a stronger control gr
 
 
 ### Participants. 
-`r nrow(e2data)` infants (F = `r e2_gender['F']`, M = `r e2_gender['M']`) aged 12-24 months 
+`r nrow(e2ld)` infants (F = `r e2_gender['F']`, M = `r e2_gender['M']`) aged 12-24 months 
 (`r e2_12to18["Activity Video"]` 12-17.9 month-olds in the Activity Video condition; 
 `r e2_12to18["Science Video"]` 12-17.9 month-olds in the Science Video condition; 
 `r e2_18to24["Activity Video"]` 18-24 month-olds in the Activity Video condition;
@@ -736,16 +730,16 @@ The procedure for Experiment 2 matched that of Experiment 1, except that parents
 Consistent with the No-Video control condition in Experiment 1, parents in the Control Video condition were told to play with their child as they would at home, and were not given additional instructions.
 The coding procedure also matched that of Experiment 1. 
 To establish reliability a second coder independently coded 25 of the 84 videos, approximately equally distributed across ages. 
-The two coders had a reliability of ICC = 0.81 with 95% confidence interval (CI) = [0.62,0.91] for number of parent bids for JA; ICC = 0.74 with 89% CI = [0.48, 0.88] for number of passive JA episodes; ICC = 0.80 with 89% CI = [0.61, 0.91] for number of coordinated JA episodes; ICC = 0.72 with 89% CI = [0.44, 0.86] for total duration of passive JA episodes, and ICC = 0.88 with 89% CI = [0.75, 0.94] for total duration of coordinated JA episodes. 
+The two coders had a reliability of ICC = 0.81 with 95% confidence interval (CI) = [0.62,0.91] for number of parent bids for JA; ICC = 0.74 with 95% CI = [0.48, 0.88] for number of passive JA episodes; ICC = 0.80 with 95% CI = [0.61, 0.91] for number of coordinated JA episodes; ICC = 0.72 with 95% CI = [0.44, 0.86] for total duration of passive JA episodes, and ICC = 0.88 with 95% CI = [0.75, 0.94] for total duration of coordinated JA episodes. 
 
 
 ## Results and Discussion
 
-Parents' child-directed speech was transcribed and processed, and bids and episodes of joint attention were coded according to the same procedure used in Experiment 1.
-We first report preregistered regressions[^5] predicting TTR and number of tokens, as well as an exploratory regression predicting MTLD.
+Parents' child-directed speech during the play sessions (mean duration: `r round(mean(e2ld$play_duration), 2)` min) was transcribed and processed, and bids and episodes of joint attention were coded according to the same procedure used in Experiment 1.
+We first report preregistered regressions[^6] predicting TTR and number of tokens per minute of play, as well as an exploratory regression predicting MTLD per minute.
 We then turn to preregistered regressions of parental bids for joint attention and the total number of JA episodes.
 
-[^5]: Although the preregistration implied the use of standard linear mixed-effects regression through the specification of adopting an alpha level of .005 for statistical significance, the non-convergence of some of the below regressions led us to switch to Bayesian regression. Using a Bayesian analysis also has the added benefit of not requiring arbitrary decisions about changing alpha levels to attempt to correct for multiple comparisons (Gelman, 2008).
+[^6]: Although the preregistration implied the use of standard linear mixed-effects regression through the specification of adopting an alpha level of .005 for statistical significance, the non-convergence of some of the below regressions led us to switch to Bayesian regression. Using a Bayesian analysis also has the added benefit of not requiring arbitrary decisions about changing alpha levels to attempt to correct for multiple comparisons (Gelman, 2008).
 
 ### Lexical Diversity
 ```{r, e2-lexdiv-regressions, echo=F, include=F}
@@ -763,14 +757,14 @@ We then turn to preregistered regressions of parental bids for joint attention a
 # Notes: 
 # - including (1|sid) never works: "Error: number of levels of each grouping factor must be < number of observations", so we back off to (1|video)
 # Predicting lexical diversity based on experimental condition. 
-e2TTR_m <- stan_lmer(TTR ~ age * condition + (1 | video), data=e2data) 
+e2TTR_m <- stan_lmer(TTR ~ age * condition + (1 | video), data=e2ld) 
 summary(e2TTR_m) # conditionexp beta=-.1 89% CI=[-.2,0.0]
 e2TTR <- get_stan_glmer_reporting_values(e2TTR_m,"conditionexp") # -.09 [-.15,-.04]
 p_direction(e2TTR_m, effects="all") # age 85.6% age:cond 78%
 
 
 # predict word tokens
-e2tokens_m <- stan_lmer(log(tokens) ~ age * condition + (1 | video), data=e2data)
+e2tokens_m <- stan_lmer(log(tokens) ~ age * condition + (1 | video), data=e2ld)
 summary(e2tokens_m) # NA 
 print(e2tokens_m, digits=2)
 p_direction(e2tokens_m, effects="all") 
@@ -791,11 +785,11 @@ get_stan_glmer_reporting_values(e2tokens_m,"conditionexp")
 # )
 
 
-e2MTLD_m <- stan_lmer(MTLD ~ age * condition + (1 | video), data=e2data)
+e2MTLD_m <- stan_lmer(MTLD ~ age * condition + (1 | video), data=e2ld)
 summary(e2MTLD_m) # NA
 p_direction(e2MTLD_m, effects="all") # cond 77.9% age:cond 84.2%
 
-e2_lexdiv <- e2data %>% group_by(condition) %>%
+e2_lexdiv <- e2ld %>% group_by(condition) %>%
   summarise(TTR=mean(TTR), MTLD=mean(MTLD), tokens=mean(tokens)) 
 # predict word types (NOT A PREREGISTERED REGRESSION)
 #types_mod <- lmer(types ~ age * condition + (1 | video), data=lmer_data)
@@ -803,7 +797,7 @@ e2_lexdiv <- e2data %>% group_by(condition) %>%
 ```
 
 We fit a Bayesian mixed-effects linear regression predicting TTR as a function of age (centered) and condition with an interaction term, and with random intercepts per video.
-This revealed lower TTR after the Activity Video (mean: `r round(e2_lexdiv[2,]$TTR, 2)`) than after the Science Video (mean: `r round(e2_lexdiv[1,]$TTR, 2)`, $\beta=`r e2TTR["conditionexp"]`$, , 89% CI=[`r e2TTR['89pLB']`, `r e2TTR['89pUB']`]). 
+This revealed lower TTR after the Activity Video (mean: `r round(e2_lexdiv[2,]$TTR, 2)`) than after the Science Video (mean: `r round(e2_lexdiv[1,]$TTR, 2)`, $\beta=`r e2TTR["conditionexp"]`$, , `r print_CI(e2TTR)`). 
 The preregistered regression predicting the number of tokens used by parents revealed no effects. 
 An exploratory mixed-effects linear regression predicting MTLD found no effect of age or condition.
 Figure \ref{fig:lexdiv} (bottom left and middle) shows the mean of each lexical diversity measure (TTR and MTLD) by condition.
@@ -812,7 +806,7 @@ The means of the lexical measures are shown in Table \ref{e2tab}.
 
 
 ```{r e2tab, echo=F}
-e2 <- e2data %>% group_by(Condition) %>%
+e2 <- e2ld %>% group_by(Condition) %>%
   summarise("Mean TTR"=mean(TTR), TTRsd=sd(TTR),
             "Mean MTLD"=mean(MTLD), MTLDsd=sd(MTLD),
             "Mean types"=mean(types), types.sd=sd(types),
@@ -826,12 +820,12 @@ kable(e2, digits=2, caption="\\label{e2tab} Lexical diversity measures in Experi
 
 ```{r e2token-type, include=F}
 # NOT INCLUDED
-e2typ <- e2data %>% group_by(Condition) %>%
+e2typ <- e2ld %>% group_by(Condition) %>%
   tidyboot_mean(types) 
 
 e2types <- ggplot(e2typ, aes(x = Condition, y = mean, fill = Condition)) + geom_bar(stat="identity") + 
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), position = position_dodge(width = .9)) +
-  geom_point(data=e2data, aes(x=Condition, y=types), alpha=.2, position = position_jitterdodge()) +
+  geom_point(data=e2ld, aes(x=Condition, y=types), alpha=.2, position = position_jitterdodge()) +
   xlab("Condition") + ylab("Word Types per Minute") +
   langcog::scale_fill_solarized() + ggthemes::theme_few() +
   theme(legend.position="none") 
@@ -840,7 +834,7 @@ e2types <- ggplot(e2typ, aes(x = Condition, y = mean, fill = Condition)) + geom_
 ```
 
 ```{r, e2-effect-size, echo=F, include=F}
-ttr_means <- e2data %>% group_by(Condition) %>%
+ttr_means <- e2ld %>% group_by(Condition) %>%
   summarise(mean = mean(TTR), sd = sd(TTR))
 cohens_d(ttr_means)
 ```
@@ -868,12 +862,12 @@ p_direction(e2tja_m, effects="all") # age, cond, age:cond
 ```
 
 We fit Bayesian mixed-effects linear regressions predicting the rate of parental bids for joint attention and the rate of JA episodes as a function of fixed effects of condition, age (centered), and their interaction, with random intercepts per video.
-Shown in Figure \ref{fig:JA} (left bottom), parents made bids for JA at a greater rate after watching the Activity Video (mean: `r round(subset(e2_bids, Condition=="Activity Video")$mean,2)`, 95% conf. int.: [`r round(subset(e2_bids, Condition=="Activity Video")$ci_lower,2)`, `r round(subset(e2_bids, Condition=="Activity Video")$ci_upper,2)`]; $\beta=`r e2bids["ConditionActivity Video"]`$, 89% CI = [`r e2bids["89pLB"]`, `r e2bids["89pUB"]`]) than after the Science Video (mean: `r round(subset(e2_bids, Condition=="Science Video")$mean,2)`, 95% conf. int.: [`r round(subset(e2_bids, Condition=="Science Video")$ci_lower,2)`, `r round(subset(e2_bids, Condition=="Science Video")$ci_upper,2)`]). 
+Shown in Figure \ref{fig:JA} (left bottom), parents made bids for JA at a greater rate after watching the Activity Video (mean: `r round(subset(e2_bids, Condition=="Activity Video")$mean,2)`, 95% conf. int.: [`r round(subset(e2_bids, Condition=="Activity Video")$ci_lower,2)`, `r round(subset(e2_bids, Condition=="Activity Video")$ci_upper,2)`]; $\beta=`r e2bids["ConditionActivity Video"]`$, `r print_CI(e2bids)`)) than after the Science Video (mean: `r round(subset(e2_bids, Condition=="Science Video")$mean,2)`, 95% conf. int.: [`r round(subset(e2_bids, Condition=="Science Video")$ci_lower,2)`, `r round(subset(e2_bids, Condition=="Science Video")$ci_upper,2)`]). 
 There were no other effects on parental bids for JA.
 
-The regression predicting rate of JA episodes revealed an effect of condition ($\beta=`r e2tjaCond["ConditionActivity Video"]`$, 89% CI = [`r e2tjaCond["89pLB"]`, `r e2tjaCond["89pUB"]`]), with JA episodes occurring at a greater rate after the Activity Video (mean: `r round(subset(e2_tja, Condition=="Activity Video")$mean,2)`, 95% conf. int.: [`r round(subset(e2_tja, Condition=="Activity Video")$ci_lower,2)`, `r round(subset(e2_tja, Condition=="Activity Video")$ci_upper,2)`]) than after the Control Video (mean: `r round(subset(e2_tja, Condition=="Science Video")$mean,2)`, 95% conf. int.: [`r round(subset(e2_tja, Condition=="Science Video")$ci_lower,2)`, `r round(subset(e2_tja, Condition=="Science Video")$ci_upper,2)`]).
-Older children also participated in JA episodes at a lesser rate than younger children ($\beta=`r e2tjaAge["age"]`$, 89% CI = [`r e2tjaAge["89pLB"]`, `r e2tjaAge["89pUB"]`]). 
-However, this age effect was moderated in the Activity Video condition ($\beta=`r e2tjaAgeCond["age:ConditionActivity Video"]`$, 89% CI = [`r e2tjaAgeCond["89pLB"]`, `r e2tjaAgeCond["89pUB"]`]): shown in Figure \ref{fig:JA} (right bottom), older children did not engage in episodes of JA at a lower rate after an activity video.
+The regression predicting rate of JA episodes revealed an effect of condition ($\beta=`r e2tjaCond["ConditionActivity Video"]`$, e2tjaCond, with JA episodes occurring at a greater rate after the Activity Video (mean: `r round(subset(e2_tja, Condition=="Activity Video")$mean,2)`, 95% conf. int.: [`r round(subset(e2_tja, Condition=="Activity Video")$ci_lower,2)`, `r round(subset(e2_tja, Condition=="Activity Video")$ci_upper,2)`]) than after the Control Video (mean: `r round(subset(e2_tja, Condition=="Science Video")$mean,2)`, 95% conf. int.: [`r round(subset(e2_tja, Condition=="Science Video")$ci_lower,2)`, `r round(subset(e2_tja, Condition=="Science Video")$ci_upper,2)`]).
+Older children also participated in JA episodes at a lesser rate than younger children ($\beta=`r e2tjaAge["age"]`$, `r print_CI(e2tjaAge)`). 
+However, this age effect was moderated in the Activity Video condition ($\beta=`r e2tjaAgeCond["age:ConditionActivity Video"]`$, `r print_CI(e2tjaAgeCond)`): shown in Figure \ref{fig:JA} (right bottom), older children did not engage in episodes of JA at a lower rate after an activity video.
 
 
 
@@ -914,11 +908,11 @@ p_direction(e2tjat_m, effects="all") # age 85.3%, cond 89%, age:cond 90.4%
 ### Exploratory Analyses
 
 Four additional exploratory regressions with a similar structure were carried out to predict the number and duration of coordinated and passive JA episodes.
-The regression predicting the rate of coordinated JA episodes found an effect of condition ($\beta=`r e2cjaCond["ConditionActivity Video"]`$, 89% CI = [`r e2cjaCond["89pLB"]`, `r e2cjaCond["89pUB"]`]), with a greater rate of coordinated JA episodes occurring after the Activity Video (mean: `r round(subset(e2_cja, Condition=="Activity Video")$mean,2)`, 95% CI: [`r round(subset(e2_cja, Condition=="Activity Video")$ci_lower,2)`, `r round(subset(e2_cja, Condition=="Activity Video")$ci_upper,2)`]) than after the Control Video (mean: `r round(subset(e2_cja, Condition=="Science Video")$mean,2)`, 95% CI: [`r round(subset(e2_cja, Condition=="Science Video")$ci_lower,2)`, `r round(subset(e2_cja, Condition=="Science Video")$ci_upper,2)`]).
-There was an interaction of age and condition ($\beta=`r e2cjaAgeCond["age:ConditionActivity Video"]`$, 89% CI = [`r e2cjaAgeCond["89pLB"]`, `r e2cjaAgeCond["89pUB"]`]), shown in Figure \ref{fig:e2ja-coord}, revealing that after an Activity Video older children participated in coordinated JA episodes at a greater rate than children in the Control Video condition.
+The regression predicting the rate of coordinated JA episodes found an effect of condition ($\beta=`r e2cjaCond["ConditionActivity Video"]`$, `r print_CI(e2cjaCond)`), with a greater rate of coordinated JA episodes occurring after the Activity Video (mean: `r round(subset(e2_cja, Condition=="Activity Video")$mean,2)`, 95% CI: [`r round(subset(e2_cja, Condition=="Activity Video")$ci_lower,2)`, `r round(subset(e2_cja, Condition=="Activity Video")$ci_upper,2)`]) than after the Control Video (mean: `r round(subset(e2_cja, Condition=="Science Video")$mean,2)`, 95% CI: [`r round(subset(e2_cja, Condition=="Science Video")$ci_lower,2)`, `r round(subset(e2_cja, Condition=="Science Video")$ci_upper,2)`]).
+There was an interaction of age and condition ($\beta=`r e2cjaAgeCond["age:ConditionActivity Video"]`$, `r print_CI(e2cjaAgeCond)`), shown in Figure \ref{fig:e2ja-coord}, revealing that after an Activity Video older children participated in coordinated JA episodes at a greater rate than children in the Control Video condition.
 The regression predicting the time spent in coordinated JA episodes found no notable effects.
 
-Older children both engaged in episodes of passive JA at a greater rate with their caregiver ($\beta=`r e2pja["age"]`$, 89% CI = [`r e2pja["89pLB"]`, `r e2pja["89pUB"]`]), and spent more time in passive JA with their caregiver ($\beta=`r e2pjat["age"]`$, 89% CI = [`r e2pjat["89pLB"]`, `r e2pjat["89pUB"]`]).
+Older children both engaged in episodes of passive JA at a greater rate with their caregiver ($\beta=`r e2pja["age"]`$, `r print_CI(e2pja)`), and spent more time in passive JA with their caregiver ($\beta=`r e2pjat["age"]`$, `r print_CI(e2pjat)`).
 Overall, these results show that the older children in our sample engage in more and longer episodes of joint attention with their caregivers, and that activity videos in particular lead to more episodes of coordinated JA.
 
 As for Experiment 1, we conducted a corpus characteristic analysis to examine differences parents' language use in the two conditions.

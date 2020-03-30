@@ -1,0 +1,156 @@
+---
+title: 'Appendix: Bayesian Analysis Overview'
+output: pdf_document
+---
+
+```{r setup, include = FALSE}
+suppressPackageStartupMessages(c("dplyr","langcog","tidyr","ggplot2","lme4"))
+library("papaja")
+library(png)
+library(grid)
+library(ggplot2)
+library(xtable)
+library(psych)
+library(langcog)
+library(tidyverse)
+library(ggthemes)
+library(lme4)
+library(lmerTest)
+library(tidyboot)
+library(knitr)
+library(brms)
+library(rstanarm)
+library(bayestestR)
+library(bayesplot)
+
+source("multiplot.R")
+select <- dplyr::select # masked by MASS
+theme_set(theme_few())
+
+# labels=addline_format(c("Activity Video", "Science Video"))
+addline_format <- function(x,...){
+    gsub('\\s','\n',x)
+}
+
+get_stan_glmer_reporting_values <- function(model, cond, digits=3) {
+  ci95 <- posterior_interval(model, prob = 0.95, pars = cond)
+  ci89 <- posterior_interval(model, prob = 0.89, pars = cond) # 89% CIs as recommended by Kruschke and others
+  pd = p_direction(model)
+  pd = pd[which(pd$Parameter==cond),]$pd
+  ci = round(c(ci95,ci89,pd), digits)
+  names(ci) = c("95pLB","95pUB","89pLB","89pUB","pd") # 95% and 89% lower and upper bounds
+  beta = round(model$coefficients[cond], digits)
+  return(c(beta,ci))
+}
+```
+
+
+
+```{r analysis-preferences, echo=F}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+```{r load-exp1-lexical-data, include=F}
+e1path = "../parenting_obs_e1/"
+
+d = read.csv("../language_analyses/exp1_lexical_diversity.csv") 
+
+e1_parent_ed = table(d$parent_ed)
+
+e1ld <- d %>%
+  mutate(condition = factor(condition), 
+         gender = as.factor(gender),
+         video = as.factor(video))
+
+e1_gender = table(e1ld$gender)
+
+# rate calculations (tokens / min, words / min)
+e1_play_duration <- read.csv(paste0(e1path,"joint_attention/parenting_obs_play_duration_E1.csv"), header=T)
+e1_play_duration$start_sec = with(e1_play_duration, ifelse(is.na(verbalcue_start_sec), 
+                                                           play_start_sec, verbalcue_start_sec))
+e1_play_duration <- e1_play_duration %>% 
+  mutate(play_duration = (play_stop_sec - start_sec) / 60) %>% # sec to mins
+  select(SID, play_duration)
+e1ld <- e1ld %>% left_join(e1_play_duration, by=c("sid"="SID"))
+
+
+# convert types and tokens to rate: types/min and tokens/min
+e1ld <- e1ld %>% 
+  mutate(types = (types / play_duration), 
+         tokens = (tokens / play_duration),
+         TTR = (TTR / play_duration),
+         MTLD = (MTLD / play_duration))
+
+e1model_string = "~ condition*EL + condition*AA + condition*RR  + age + gender + parent_ed + (1|video)"
+```
+
+Here we look at one of the regressions from Experiment 1 in detail in order to explain and illustrate the rationale of the Bayesian analysis, in particular the *probability of direction* (*pd*) and the 89% CI (credible interval). For this example we take the exploratory regression from Experiment 1 predicting parents' rate of word types with fixed effects of condition (*No Video* or *Activity Video*), each subscale of the EPAQ (EL: Early Learning, AA: Affection and Attachment, and RR: Rules & Respect), parent education (parent_ed), the child's age (centered) and gender. The model also included interactions for condition and each subscale of the EPAQ, as well as a random intecept for each video.
+The model syntax was: types \~ condition\*EL + condition\*AA + condition\*RR  + age + gender + parent_ed + (1|video).
+Table 1 reports the mean of each coefficient's posterior distribution, along with the lower and upper bounds for the 89% credible interval, and the probability of direction (*pd*).
+
+```{r, run-regression, echo=F, include=F}
+types_modE <- stan_glmer(paste("types", e1model_string), data=e1ld) 
+summary(types_modE) 
+diagnostic_posterior(types_modE) 
+
+e1ed = get_stan_glmer_reporting_values(types_modE, 'parent_ed') 
+pd = p_direction(types_modE, effects="fixed") # cond 82.5% EL 82.5% AA 87% genderM 93.2%, parent_ed 93.5% cond:AA 94.5%
+```
+
+
+```{r, p-direction, echo=F, fig.cap="Mean, *pd*, and 89% CIs of the coefficient posterior distributions."}
+
+cols = c("Mean","89% CI Lower","89% CI Upper")
+pd[,cols] = NA
+for(i in 2:nrow(pd)) {
+  tmp = get_stan_glmer_reporting_values(types_modE, pd[i,]$Parameter) 
+  pd[i,cols] = c(tmp[pd[i,]$Parameter], tmp["89pLB"], tmp["89pUB"])
+}
+kable(pd[2:nrow(pd),c("Parameter","pd", cols)], digits=2, row.names=F)
+```
+
+What do these values mean? 
+Let's take a closer look at the posterior distribution of the parent education (parent_ed) coefficient. 
+Shown below in Figure 1, the 87% of this distribution that is greater than 0 is shaded orange, which corresponds to the probability of direction *pd* = 0.87, which has the straightforward interpretation of being the probability that an effect has the same sign as the median value of the posterior. Thus, *pd* has a range of 0.5 (if the distribution is equally-distributed around 0: a likely true null effect) to 1.0 (if the posterior is entirely positive or negative).
+Since *pd* < 0.95 in this case (corresponding to a $p$<.05 threshold in the null hypothesis significance-testing framework), we do not consider parent education to have a notable effect on the rate of types used during play, but the posterior distribution is interpretable.
+Also shown are the mean estimated coefficient value (red line) and 89% credible intervals (blue lines), within which 89% of the posterior distribution falls.
+
+```{r, parent-ed-effect, echo=F, fig.cap="Figure 1. Posterior distribution of parent education coefficient with mean (red), 89% CIs (blue), and *pd* (orange portion) shown.", fig.width=4, fig.height=2.0}
+dat = types_modE %>% posterior_samples("parent_ed") %>%
+  estimate_density(extend=TRUE)
+
+dat %>% 
+  ggplot(aes(x=x, y=y)) +
+  geom_area(fill="grey") +
+  geom_ribbon(data=subset(dat, x>0),aes(ymax=y),ymin=0,
+              fill="orange",colour=NA,alpha=0.6) + 
+  theme_classic() + ylab("Posterior Density") + xlab("Candidate Values of Parent Education Coefficient") +
+  geom_vline(xintercept=e1ed["89pLB"], color="royalblue", size=1) +
+  geom_vline(xintercept=e1ed["89pUB"], color="royalblue", size=1) +
+  geom_vline(xintercept=0, size=1, lty="dashed") + 
+  geom_vline(xintercept=e1ed["parent_ed"], size=1, color="red")
+```
+
+Figure 2 shows the posteriors for all of the coefficients in this regression. 
+Only the interaction between condition and the Affection and Attachment subscale of the EPAQ was notable (by *pd* in Table 1), but as indicated by their *pd* values, much of the mass some other parameters' posteriors are skewed negative (e.g., conditionexp: the Activity Video condition; EL: the Early Learning subscale of the EPAQ), while others are more evenly-distributed (e.g., RR, $pd$ = 0.51).
+
+```{r, plot-posteriors, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown."}
+posterior <- as.matrix(types_modE)
+
+#plot_title <- ggtitle("Posterior distributions", "with means and 89% credible intervals")
+mcmc_areas(posterior,
+           pars = c("conditionexp", 
+                    "EL", "AA", "RR", 
+                    "age", "genderM", "parent_ed", 
+                    "conditionexp:EL",
+                    "conditionexp:AA",
+                    "conditionexp:RR"),
+           prob = 0.89,
+           prob_outer = 0.95,
+           point_est = "mean") + #+ plot_title
+  theme(plot.margin=unit(c(-30,2,2,2),"mm"))
+```
+
+

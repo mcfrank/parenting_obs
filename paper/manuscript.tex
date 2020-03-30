@@ -118,7 +118,7 @@ Specifically, after watching the activity video, parents spoke more and made mor
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-The quantity and quality of early language input has been found to be strongly associated with later language and academic outcomes (Cartmill et al., 2013; Hart \& Risley, 1995; Hirsh-Pasek et al., 2015; Marchman \& Fernald, 2008). Thus, because of the potential for large downstream effects (Heckman, 2006), there is tremendous interest in interventions that change children's language environment.
+The quantity and quality of early language input has been found to be strongly associated with later language and academic outcomes (Cartmill et al., 2013; Hart \& Risley, 1995; Hirsh-Pasek et al., 2015; Marchman \& Fernald, 2008; see Schwab \& Lew-Williams, 2016 for a review). Thus, because of the potential for large downstream effects (Heckman, 2006), there is tremendous interest in interventions that change children's language environment.
 And because parents define a large portion of that environment, especially before the onset of formal schooling, parent behavior is a critical locus for such interventions.
 Many effective parenting interventions require large resource investments and require many hours of in-person contact (Gertler et al., 2014; Leung, Hernandez, \& Suskind, 2018; Schweinhart et al., 2004), making implementation at scale a daunting proposition.
 For this reason, many researchers targeting early language are interested in delivering parenting interventions remotely -- through texts, apps, and videos delivered on digital devices.
@@ -212,29 +212,29 @@ A joint attention episode was considered \emph{coordinated} if both participants
 Full details of our guidelines for coding joint attention are available in SI.
 
 A second coder independently coded a third of the videos (i.e., 20 of the 60 videos, approximately equally distributed across ages) to establish reliability.
-The two coders had a reliability of ICC = 0.79 with 95\% confidence interval (CI) = {[}0.55, 0.91{]} for rate of parent bids for JA (number of bids per minute); ICC = 0.34 with 89\% CI = {[}-0.11, 0.67{]} for rate of passive JA episodes (per minute); ICC = 0.66 with 89\% CI = {[}0.32, 0.85{]} for rate of coordinated JA episodes; ICC = 0.33 with 89\% CI = {[}-0.11, 0.67{]} for rate (seconds per minute) of passive JA episodes, and ICC = 0.60 with 89\% CI = {[}0.24, 0.82{]} for rate (seconds per minute) of coordinated JA episodes.
+The two coders had a reliability of ICC = 0.79 with 95\% confidence interval (CI) = {[}0.55, 0.91{]} for rate of parent bids for JA (number of bids per minute); ICC = 0.34 with 95\% CI = {[}-0.11, 0.67{]} for rate of passive JA episodes (per minute); ICC = 0.66 with 95\% CI = {[}0.32, 0.85{]} for rate of coordinated JA episodes; ICC = 0.33 with 95\% CI = {[}-0.11, 0.67{]} for rate (seconds per minute) of passive JA episodes, and ICC = 0.60 with 95\% CI = {[}0.24, 0.82{]} for rate (seconds per minute) of coordinated JA episodes.
 
 \hypertarget{results-and-discussion}{%
 \subsection{Results and Discussion}\label{results-and-discussion}}
 
-Parents' child-directed speech during the play sessions was transcribed; child utterances were not considered.
+Parents' child-directed speech during the play sessions (mean duration: 3.25 min) was transcribed; child utterances were not considered.
 Although Experiment 1 was not preregistered, for consistency the transcripts and hand-coded joint attention data were analyzed according to our preregistration for Experiment 2\footnote{Preregistration: \href{https://osf.io/2bpdf}{https://osf.io/2bpdf/}}, with any deviations or exploratory analyses noted.
 Below we first report the lexical diversity results, followed by the joint attention results.
 
 \hypertarget{lexical-diversity}{%
 \subsubsection{Lexical Diversity}\label{lexical-diversity}}
 
-For each transcript of child-directed speech, the words were lemmatized using \texttt{spacy2} (Honnibal, 2017), and the word \emph{types} (unique words) and \emph{tokens} (total words) were then tallied and converted to rates (e.g., tokens per minute of play), and the type-token ratio (TTR) was calculated as a measure of lexical diversity.
+For each transcript of child-directed speech, the caregivers' unique word \emph{types} and \emph{tokens} (total words) uttered were tallied and converted to rates (e.g., tokens per minute of play), and the type-token ratio (TTR) was calculated as a measure of lexical diversity.
 Although we initially preregistered TTR as our measure of lexical diversity (since it is a simple, commonly used measure), it has been noted that TTR is correlated with the length of a text, which has led to the development of new measures such as the measure of textual lexical diversity (MTLD; McCarthy \& Jarvis, 2010).
 Thus, we also measure lexical diversity with MTLD, which is calculated as the mean length of sequential word strings in a text that maintain a given TTR value (here we use the value proposed by McCarthy \& Jarvis (2010): 0.720).
 
 We fit a Bayesian mixed-effects linear regression predicting TTR as a function of condition, age (centered), and their interaction with a random intercept per video using rstanarm (Goodrich, Gabry, Ali, \& Brilleman, 2018).
 For effects that are at least 95\% likely to be non-zero according to the posterior distribution (i.e., probability of direction: \emph{pd}; Makowski, Ben-Shachar, Chen, \& Lüdecke (2019)), we report estimated coefficients (\(\beta\)) as well as 89\% Bayesian credible intervals (89\% CI)\footnote{89\% CIs are recommended for Bayesian analyses because unless the effective sample size (ESS) is on the order of 10,000, the 95\% credible interval is unstable (Kruschke, 2014; McElreath, 2018). Our ESS is approximately 2,100, and thus we go with the tighter, more stable interval.}, demarcating the range within which 89\% of the posterior falls, meaning that given the observed data, the effect has 89\% probability of falling within this range.
-There was lower TTR in the Activity Video condition (mean: 0.32) than in the No Video condition (mean: 0.43, \(\beta=\)-0.14, 89\% CI={[}-0.26, -0.01{]}) TEST 89\% CI={[}-0.263, -0.014{]}, \emph{pd}= 0.965.
-A similar regression instead predicting MTLD also found lower lexical diversity in the Activity Video condition (mean MTLD: 17.87) than in the No Video condition (mean: 27.09, \(\beta=\)-6.76, 89\% CI={[}-22.46, 8.45{]}), with no predicted influence of age.
+There was lower TTR in the Activity Video condition (mean: 0.10) than in the No Video condition (mean: 0.14, \(\beta=\)-0.04, 89\% CI={[}-0.052, -0.027{]}, \emph{pd}= 1).
+A similar regression instead predicting MTLD also found lower lexical diversity in the Activity Video condition (mean MTLD: 5.46) than in the No Video condition (mean: 8.49, \(\beta=\)-3.04, 89\% CI={[}-4.505, -1.448{]}, \emph{pd}= 0.998{]}), with no predicted influence of age.
 Figure \ref{fig:lexdiv} shows the mean of each lexical diversity measure (TTR and MTLD) by condition.
 
-We also conducted similar regressions predicting the rate of word tokens and types per minute of play, finding an effect of condition on the number of word tokens (\(\beta=\) 32.41, 89\% CI={[}-2.06, 65.94{]}), with parents using more tokens in the Activity Video condition (mean: 69, bootstrapped 95\% confidence interval (conf. int.): {[}193, 259{]}) than in the No Video condition (mean: 52, 95\% conf. int.: {[}139, 194{]}).
+We also conducted similar regressions predicting the rate of word tokens and types per minute of play, finding an effect of condition on the rate of word tokens (\(\beta=\) 16.50, 89\% CI={[}5.778, 27.201{]}, \emph{pd}= 0.994), with parents using tokens at a higher rate in the Activity Video condition (mean: 69 tokens/min, bootstrapped 95\% confidence interval (conf. int.): {[}193, 259{]}) than in the No Video condition (mean: 52, 95\% conf. int.: {[}139, 194{]}).
 
 \begin{figure}[H]
 
@@ -249,7 +249,7 @@ We also conducted similar regressions predicting the rate of word tokens and typ
 \subsubsection{Joint Attention}\label{joint-attention}}
 
 We fit a Bayesian mixed-effects linear regression predicting the rate of parent bids (per minute) for joint attention (JA) as a function of fixed effects of condition, age (centered), and their interaction, with random intercepts per video.
-Parents' bid rate was greater in the Activity Video condition (mean: 1.83, sd: 0.79) than in the No Video condition (mean: 1.10, sd: 0.83, \(\beta=0.71\), 89\% CI={[}0.27, 1.16{]}).
+Parents' bid rate was greater in the Activity Video condition (mean: 1.83, sd: 0.79) than in the No Video condition (mean: 1.10, sd: 0.83, \(\beta=0.71\), 89\% CI={[}0.27, 1.16{]}, \emph{pd}= 0.99).
 Mixed-effects regressions with the same structure were performed predicting the rate of episodes of coordinated and passive JA, and the time spent in coordinated and passive JA (seconds per minute of play).
 There were no notable effects on the rate of episodes nor on the time spent in coordinated or passive JA episodes.
 Figure \ref{fig:JA} (top) shows the mean rate of bids and episodes of JA by condition in Experiment 1.
@@ -259,8 +259,8 @@ Figure \ref{fig:JA} (top) shows the mean rate of bids and episodes of JA by cond
 
 We also fit Bayesian mixed-effects linear regression models predicting each of the above lexical diversity and joint attention dependent variables as a function of fixed effects of condition, age (centered), gender, parent's education level, and the subscales of the EPAQ: Early Learning (EL), Affection and Attachment (AA), and Rules and Respect (RR), along with interactions of condition and EL, AA, and RR.
 These models included random intercepts per video.
-Of these exploratory regressions, only the regression predicting the rate of passive JA episodes showed an effect involving these demographic variables: parents scoring higher on the Rules and Respect (RR) subscale had a lower rate of passive JA episodes (\(\beta=NA\), 89\% CI={[}-0.60, -0.08{]}).
-However, higher RR parents in the Activity Video condition did not show a decrease in passive JA (interaction of condition and RR: \(\beta=0.60\), 89\% CI={[}0.22, 0.96{]}).
+Of these exploratory regressions, only the regression predicting the rate of passive JA episodes showed an effect involving these demographic variables: parents scoring higher on the Rules and Respect (RR) subscale had a lower rate of passive JA episodes (\(\beta=NA\), 89\% CI={[}-0.599, -0.078{]}, \emph{pd}= 0.98).
+However, higher RR parents in the Activity Video condition did not show a decrease in passive JA (interaction of condition and RR: \(\beta=0.60\), 89\% CI={[}0.221, 0.955{]}, \emph{pd}= 0.992).
 
 To better understand the intervention's effect on language use, we analyzed which words were characteristic of parents' speech in each condition, comparing the difference in frequency rank of each word (lemma) in the two conditions, as well as contrasting the corpus overall with a general English-language word frequency list (see SI for the interactive corpus characteristic plot).
 Words that were strongly indicative of being from the Activity Video condition include \enquote{give}, \enquote{big}, \enquote{small}, \enquote{ribbit}, \enquote{thank}, \enquote{have}, and \enquote{bus}, while words that were most characteristic of the No Video condition include \enquote{shake}, \enquote{ready}, \enquote{oh}, \enquote{on}, \enquote{going}, \enquote{going}, \enquote{see}, \enquote{let}, and the child's name.
@@ -289,7 +289,7 @@ In sum, the results of Experiment 1 suggest that digital parenting advice can in
 
 Experiment 1 found that parents who watched an activity video made more bids for joint attention and spoke more words overall to their children, but had lower lexical diversity compared to parents who played with their children as they normally would at home.
 Might it be that parents who are focused on a specific activity show reduced lexical diversity due to their focus on engaging their child in the activity?
-Experiment 2 focuses on replicating the key findings using a stronger control group, as well as a restricted number of preregistered predictions.\footnote{Although the preregistration implied the use of standard linear mixed-effects regression through the specification of adopting an alpha level of .005 for statistical significance, the non-convergence of some of the below regressions led us to switch to Bayesian regression. Using a Bayesian analysis also has the added benefit of not requiring arbitrary decisions about changing alpha levels to attempt to correct for multiple comparisons (Gelman, 2008).}
+Experiment 2 focuses on replicating the key findings using a stronger control group, as well as a restricted number of preregistered predictions.\footnote{Preregistration: \href{https://osf.io/2bpdf}{https://osf.io/2bpdf/}.}
 
 \hypertarget{method-1}{%
 \subsection{Method}\label{method-1}}
@@ -325,20 +325,20 @@ The procedure for Experiment 2 matched that of Experiment 1, except that parents
 Consistent with the No-Video control condition in Experiment 1, parents in the Control Video condition were told to play with their child as they would at home, and were not given additional instructions.
 The coding procedure also matched that of Experiment 1.
 To establish reliability a second coder independently coded 25 of the 84 videos, approximately equally distributed across ages.
-The two coders had a reliability of ICC = 0.81 with 95\% confidence interval (CI) = {[}0.62,0.91{]} for number of parent bids for JA; ICC = 0.74 with 89\% CI = {[}0.48, 0.88{]} for number of passive JA episodes; ICC = 0.80 with 89\% CI = {[}0.61, 0.91{]} for number of coordinated JA episodes; ICC = 0.72 with 89\% CI = {[}0.44, 0.86{]} for total duration of passive JA episodes, and ICC = 0.88 with 89\% CI = {[}0.75, 0.94{]} for total duration of coordinated JA episodes.
+The two coders had a reliability of ICC = 0.81 with 95\% confidence interval (CI) = {[}0.62,0.91{]} for number of parent bids for JA; ICC = 0.74 with 95\% CI = {[}0.48, 0.88{]} for number of passive JA episodes; ICC = 0.80 with 95\% CI = {[}0.61, 0.91{]} for number of coordinated JA episodes; ICC = 0.72 with 95\% CI = {[}0.44, 0.86{]} for total duration of passive JA episodes, and ICC = 0.88 with 95\% CI = {[}0.75, 0.94{]} for total duration of coordinated JA episodes.
 
 \hypertarget{results-and-discussion-1}{%
 \subsection{Results and Discussion}\label{results-and-discussion-1}}
 
-Parents' child-directed speech was transcribed and processed, and bids and episodes of joint attention were coded according to the same procedure used in Experiment 1.
-We first report preregistered regressions\footnote{Although the preregistration implied the use of standard linear mixed-effects regression through the specification of adopting an alpha level of .005 for statistical significance, the non-convergence of some of the below regressions led us to switch to Bayesian regression. Using a Bayesian analysis also has the added benefit of not requiring arbitrary decisions about changing alpha levels to attempt to correct for multiple comparisons (Gelman, 2008).} predicting TTR and number of tokens, as well as an exploratory regression predicting MTLD.
+Parents' child-directed speech during the play sessions (mean duration: 3.08 min) was transcribed and processed, and bids and episodes of joint attention were coded according to the same procedure used in Experiment 1.
+We first report preregistered regressions\footnote{Although the preregistration implied the use of standard linear mixed-effects regression through the specification of adopting an alpha level of .005 for statistical significance, the non-convergence of some of the below regressions led us to switch to Bayesian regression. Using a Bayesian analysis also has the added benefit of not requiring arbitrary decisions about changing alpha levels to attempt to correct for multiple comparisons (Gelman, 2008).} predicting TTR and number of tokens per minute of play, as well as an exploratory regression predicting MTLD per minute.
 We then turn to preregistered regressions of parental bids for joint attention and the total number of JA episodes.
 
 \hypertarget{lexical-diversity-1}{%
 \subsubsection{Lexical Diversity}\label{lexical-diversity-1}}
 
 We fit a Bayesian mixed-effects linear regression predicting TTR as a function of age (centered) and condition with an interaction term, and with random intercepts per video.
-This revealed lower TTR after the Activity Video (mean: 0.38) than after the Science Video (mean: 0.48, \(\beta=-0.09\), , 89\% CI={[}-0.14, -0.05{]}).
+This revealed lower TTR after the Activity Video (mean: 0.12) than after the Science Video (mean: 0.15, \(\beta=-0.03\), , 89\% CI={[}-0.046, -0.014{]}, \emph{pd}= 0.997).
 The preregistered regression predicting the number of tokens used by parents revealed no effects.
 An exploratory mixed-effects linear regression predicting MTLD found no effect of age or condition.
 Figure \ref{fig:lexdiv} (bottom left and middle) shows the mean of each lexical diversity measure (TTR and MTLD) by condition.
@@ -353,9 +353,9 @@ The means of the lexical measures are shown in Table \ref{e2tab}.
 \hline
 Condition & TTR (M) & (sd) & MTLD (M) & (sd) & Types (M) & (sd) & Tokens (M) & (sd)\\
 \hline
-Science Video & 0.48 & 0.08 & 22.45 & 10.57 & 25.14 & 9.2 & 55.30 & 23.69\\
+Science Video & 0.15 & 0.03 & 7.28 & 3.41 & 28.05 & 8.54 & 61.85 & 23.58\\
 \hline
-Activity Video & 0.38 & 0.12 & 20.63 & 8.66 & 20.31 & 8.7 & 59.42 & 30.51\\
+Activity Video & 0.12 & 0.04 & 6.74 & 2.80 & 26.57 & 8.39 & 77.22 & 32.09\\
 \hline
 \end{tabular}
 \end{table}
@@ -364,22 +364,22 @@ Activity Video & 0.38 & 0.12 & 20.63 & 8.66 & 20.31 & 8.7 & 59.42 & 30.51\\
 \subsubsection{Joint Attention}\label{joint-attention-1}}
 
 We fit Bayesian mixed-effects linear regressions predicting the rate of parental bids for joint attention and the rate of JA episodes as a function of fixed effects of condition, age (centered), and their interaction, with random intercepts per video.
-Shown in Figure \ref{fig:JA} (left bottom), parents made bids for JA at a greater rate after watching the Activity Video (mean: 4.20, 95\% conf. int.: {[}3.81, 4.63{]}; \(\beta=1.02\), 89\% CI = {[}0.51, 1.53{]}) than after the Science Video (mean: 3.18, 95\% conf. int.: {[}2.81, 3.54{]}).
+Shown in Figure \ref{fig:JA} (left bottom), parents made bids for JA at a greater rate after watching the Activity Video (mean: 4.20, 95\% conf. int.: {[}3.81, 4.63{]}; \(\beta=1.02\), 89\% CI={[}0.51, 1.53{]}, \emph{pd}= 1)) than after the Science Video (mean: 3.18, 95\% conf. int.: {[}2.81, 3.54{]}).
 There were no other effects on parental bids for JA.
 
-The regression predicting rate of JA episodes revealed an effect of condition (\(\beta=0.50\), 89\% CI = {[}0.16, 0.84{]}), with JA episodes occurring at a greater rate after the Activity Video (mean: 2.86, 95\% conf. int.: {[}2.61, 3.15{]}) than after the Control Video (mean: 2.36, 95\% conf. int.: {[}2.13, 2.61{]}).
-Older children also participated in JA episodes at a lesser rate than younger children (\(\beta=-1.55\), 89\% CI = {[}-2.46, -0.63{]}).
-However, this age effect was moderated in the Activity Video condition (\(\beta=1.70\), 89\% CI = {[}0.33, 2.99{]}): shown in Figure \ref{fig:JA} (right bottom), older children did not engage in episodes of JA at a lower rate after an activity video.
+The regression predicting rate of JA episodes revealed an effect of condition (\(\beta=0.50\), e2tjaCond, with JA episodes occurring at a greater rate after the Activity Video (mean: 2.86, 95\% conf. int.: {[}2.61, 3.15{]}) than after the Control Video (mean: 2.36, 95\% conf. int.: {[}2.13, 2.61{]}).
+Older children also participated in JA episodes at a lesser rate than younger children (\(\beta=-1.55\), 89\% CI={[}-2.46, -0.63{]}, \emph{pd}= 0.99).
+However, this age effect was moderated in the Activity Video condition (\(\beta=1.70\), 89\% CI={[}0.33, 2.99{]}, \emph{pd}= 0.97): shown in Figure \ref{fig:JA} (right bottom), older children did not engage in episodes of JA at a lower rate after an activity video.
 
 \hypertarget{exploratory-analyses-1}{%
 \subsubsection{Exploratory Analyses}\label{exploratory-analyses-1}}
 
 Four additional exploratory regressions with a similar structure were carried out to predict the number and duration of coordinated and passive JA episodes.
-The regression predicting the rate of coordinated JA episodes found an effect of condition (\(\beta=0.46\), 89\% CI = {[}0.14, 0.77{]}), with a greater rate of coordinated JA episodes occurring after the Activity Video (mean: 2.18, 95\% CI: {[}1.89, 2.47{]}) than after the Control Video (mean: 1.72, 95\% CI: {[}1.53, 1.94{]}).
-There was an interaction of age and condition (\(\beta=1.60\), 89\% CI = {[}0.40, 2.87{]}), shown in Figure \ref{fig:e2ja-coord}, revealing that after an Activity Video older children participated in coordinated JA episodes at a greater rate than children in the Control Video condition.
+The regression predicting the rate of coordinated JA episodes found an effect of condition (\(\beta=0.46\), 89\% CI={[}0.143, 0.769{]}, \emph{pd}= 0.989), with a greater rate of coordinated JA episodes occurring after the Activity Video (mean: 2.18, 95\% CI: {[}1.89, 2.47{]}) than after the Control Video (mean: 1.72, 95\% CI: {[}1.53, 1.94{]}).
+There was an interaction of age and condition (\(\beta=1.60\), 89\% CI={[}0.405, 2.874{]}, \emph{pd}= 0.984), shown in Figure \ref{fig:e2ja-coord}, revealing that after an Activity Video older children participated in coordinated JA episodes at a greater rate than children in the Control Video condition.
 The regression predicting the time spent in coordinated JA episodes found no notable effects.
 
-Older children both engaged in episodes of passive JA at a greater rate with their caregiver (\(\beta=-0.88\), 89\% CI = {[}-1.51, -0.17{]}), and spent more time in passive JA with their caregiver (\(\beta=-0.01\), 89\% CI = {[}-0.01, 0.00{]}).
+Older children both engaged in episodes of passive JA at a greater rate with their caregiver (\(\beta=-0.88\), 89\% CI={[}-1.514, -0.166{]}, \emph{pd}= 0.972), and spent more time in passive JA with their caregiver (\(\beta=-0.01\), 89\% CI={[}-0.01, -0.002{]}, \emph{pd}= 0.99).
 Overall, these results show that the older children in our sample engage in more and longer episodes of joint attention with their caregivers, and that activity videos in particular lead to more episodes of coordinated JA.
 
 As for Experiment 1, we conducted a corpus characteristic analysis to examine differences parents' language use in the two conditions.
@@ -470,9 +470,6 @@ Hembacher, E., \& Frank, M. C. (2020). The early parenting attitudes questionnai
 \leavevmode\hypertarget{ref-HirshPasek2015}{}%
 Hirsh-Pasek, K., Adamson, L. B., Bakeman, R., Owen, M. T., Golinkoff, R. M., Pace, A., \ldots{} Suma, K. (2015). The contribution of early communication quality to low-income children's language success. \emph{Psychological Science}, \emph{26}(7), 1071--1083. \url{http://doi.org/10.1177/0956797615581493}
 
-\leavevmode\hypertarget{ref-spacy2}{}%
-Honnibal, I., Matthew AND Montani. (2017). SpaCy 2: Natural language understanding with bloom embeddings, convolutional neural networks and incremental parsing. \emph{To Appear}.
-
 \leavevmode\hypertarget{ref-Kruschke2014}{}%
 Kruschke, J. (2014). \emph{Doing bayesian data analysis: A tutorial with r, jags, and stan}. Academic Press.
 
@@ -493,6 +490,9 @@ McCarthy, P. M., \& Jarvis, S. (2010). MTLD, vocd-d, and hd-d: A validation stud
 
 \leavevmode\hypertarget{ref-McElreath2018}{}%
 McElreath, R. (2018). \emph{Statistical rethinking: A bayesian course with examples in r and stan}. Chapman; Hall/CRC.
+
+\leavevmode\hypertarget{ref-Schwab2016}{}%
+Schwab, J. F., \& Lew-Williams, C. (2016). Language learning, socioeconomic status, and child-directed speech. \emph{WIREs Cognitive Science}, \emph{7}, 264--275. \url{http://doi.org/10.1002/wcs.1393}
 
 \leavevmode\hypertarget{ref-PerryPreschool2004}{}%
 Schweinhart, L. J., Montie, J., Xiang, Z., Barnett, W. S., Belfield, C. R., \& Nores, M. (2004). \emph{Lifetime effects: The highscope perry preschool study through age 40}. Ypsilanti, MI: HighScope Press.
@@ -539,9 +539,6 @@ Hembacher, E., \& Frank, M. C. (2020). The early parenting attitudes questionnai
 \leavevmode\hypertarget{ref-HirshPasek2015}{}%
 Hirsh-Pasek, K., Adamson, L. B., Bakeman, R., Owen, M. T., Golinkoff, R. M., Pace, A., \ldots{} Suma, K. (2015). The contribution of early communication quality to low-income children's language success. \emph{Psychological Science}, \emph{26}(7), 1071--1083. \url{http://doi.org/10.1177/0956797615581493}
 
-\leavevmode\hypertarget{ref-spacy2}{}%
-Honnibal, I., Matthew AND Montani. (2017). SpaCy 2: Natural language understanding with bloom embeddings, convolutional neural networks and incremental parsing. \emph{To Appear}.
-
 \leavevmode\hypertarget{ref-Kruschke2014}{}%
 Kruschke, J. (2014). \emph{Doing bayesian data analysis: A tutorial with r, jags, and stan}. Academic Press.
 
@@ -562,6 +559,9 @@ McCarthy, P. M., \& Jarvis, S. (2010). MTLD, vocd-d, and hd-d: A validation stud
 
 \leavevmode\hypertarget{ref-McElreath2018}{}%
 McElreath, R. (2018). \emph{Statistical rethinking: A bayesian course with examples in r and stan}. Chapman; Hall/CRC.
+
+\leavevmode\hypertarget{ref-Schwab2016}{}%
+Schwab, J. F., \& Lew-Williams, C. (2016). Language learning, socioeconomic status, and child-directed speech. \emph{WIREs Cognitive Science}, \emph{7}, 264--275. \url{http://doi.org/10.1002/wcs.1393}
 
 \leavevmode\hypertarget{ref-PerryPreschool2004}{}%
 Schweinhart, L. J., Montie, J., Xiang, Z., Barnett, W. S., Belfield, C. R., \& Nores, M. (2004). \emph{Lifetime effects: The highscope perry preschool study through age 40}. Ypsilanti, MI: HighScope Press.

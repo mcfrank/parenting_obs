@@ -21,6 +21,5 @@ tidyboot
 knitr
 Rcpp
 rstanarm
-scales
 bayestestR
-shiny
+scales

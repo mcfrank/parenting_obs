@@ -42,6 +42,22 @@ get_stan_glmer_reporting_values <- function(model, cond, digits=3) {
   beta = round(model$coefficients[cond], digits)
   return(c(beta,ci))
 }
+
+# pars are specific to E1
+plot_posterior <- function(mod, title="") {
+  posterior <- as.matrix(mod)
+  plot_title <- ggtitle(title)
+  mcmc_areas(posterior,
+           pars = c("conditionexp", 
+                    "EL", "AA", "RR", 
+                    "age", "genderM", "parent_ed", 
+                    "conditionexp:EL",
+                    "conditionexp:AA",
+                    "conditionexp:RR"),
+           prob = 0.89, prob_outer = 0.95, point_est = "mean") + 
+           theme(plot.margin=unit(c(-25,2,2,2),"mm")) +
+           annotate("text", x = -0, y = 10.63, label = title)
+}
 ```
 
 
@@ -97,6 +113,11 @@ diagnostic_posterior(types_modE)
 
 e1ed = get_stan_glmer_reporting_values(types_modE, 'parent_ed') 
 pd = p_direction(types_modE, effects="fixed") # cond 82.5% EL 82.5% AA 87% genderM 93.2%, parent_ed 93.5% cond:AA 94.5%
+
+
+tok_modE1 <- stan_glmer(paste("tokens", e1model_string), data=e1ld) 
+mtld_modE1 <- stan_glmer(paste("MTLD", e1model_string), data=e1ld) 
+ttr_modE1 <- stan_glmer(paste("TTR", e1model_string), data=e1ld) 
 ```
 
 
@@ -117,7 +138,7 @@ Shown below in Figure 1, the 87% of this distribution that is greater than 0 is 
 Since *pd* < 0.95 in this case (corresponding to a $p$<.05 threshold in the null hypothesis significance-testing framework), we do not consider parent education to have a notable effect on the rate of types used during play, but the posterior distribution is interpretable.
 Also shown are the mean estimated coefficient value (red line) and 89% credible intervals (blue lines), within which 89% of the posterior distribution falls.
 
-```{r, parent-ed-effect, echo=F, fig.cap="Figure 1. Posterior distribution of parent education coefficient with mean (red), 89% CIs (blue), and *pd* (orange portion) shown.", fig.width=4, fig.height=2.0}
+```{r, parent-ed-effect, echo=F, fig.cap="Posterior distribution of parent education coefficient with mean (red), 89% CIs (blue), and *pd* (orange portion) shown.", fig.width=4, fig.height=2.0}
 dat = types_modE %>% posterior_samples("parent_ed") %>%
   estimate_density(extend=TRUE)
 
@@ -137,20 +158,28 @@ Figure 2 shows the posteriors for all of the coefficients in this regression.
 Only the interaction between condition and the Affection and Attachment subscale of the EPAQ was notable (by *pd* in Table 1), but as indicated by their *pd* values, much of the mass some other parameters' posteriors are skewed negative (e.g., conditionexp: the Activity Video condition; EL: the Early Learning subscale of the EPAQ), while others are more evenly-distributed (e.g., RR, $pd$ = 0.51).
 
 ```{r, plot-posteriors, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown."}
-posterior <- as.matrix(types_modE)
-
-#plot_title <- ggtitle("Posterior distributions", "with means and 89% credible intervals")
-mcmc_areas(posterior,
-           pars = c("conditionexp", 
-                    "EL", "AA", "RR", 
-                    "age", "genderM", "parent_ed", 
-                    "conditionexp:EL",
-                    "conditionexp:AA",
-                    "conditionexp:RR"),
-           prob = 0.89,
-           prob_outer = 0.95,
-           point_est = "mean") + #+ plot_title
-  theme(plot.margin=unit(c(-30,2,2,2),"mm"))
+plot_posterior(types_modE, title="Exp. 1: Word Types")
 ```
 
+
+```{r, plot-token-posterior, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown."}
+
+#e1ed = get_stan_glmer_reporting_values(tok_modE1, 'parent_ed') 
+#pd = p_direction(tok_modE1, effects="fixed") # cond 82.5% EL 82.5% AA 87% genderM 93.2%, parent_ed 93.5% cond:AA 94.5%
+
+plot_posterior(tok_modE1, "Exp. 1: Word Tokens")
+
+```
+
+
+
+```{r, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions for regression predicting TTR, with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown.", warning=F}
+plot_posterior(ttr_modE1, "Exp. 1: TTR")
+```
+
+
+
+```{r, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions for regression predicting MTLD, with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown."}
+plot_posterior(mtld_modE1, "Exp. 1: MTLD")
+```
 

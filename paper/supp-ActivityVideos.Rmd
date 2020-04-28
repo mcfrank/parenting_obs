@@ -1,7 +1,8 @@
 ---
-title: "Appendix: Activity Videos"
+title: "Supplemental Materials: Activity Videos"
 output: pdf_document
 ---
+<!-- 522 words -->
 
 ## Experiment 1 Activities
 
@@ -45,15 +46,13 @@ Props: maracas, drum, tambourine, clapper
 
 ### Video A (12-17.9 months) "Give me the toy"
 
-Parents are told to ask their child to hand over individual toys. They are also encouraged to praise the child after they give them the toys, and repeat the process until the child follows the verbal instructions.
+(The same as Video C in Exp. 1, but with different props.)
 
 Props: plastic pig, plastic horse, plastic dog, plastic cat, plastic cow
 
 ### Video B (12-17.9 months) "Classifying my toys"
 
-Parents are told to place toys of different sizes (big or small) in two hoops. They are also encouraged to ask their child to distinguish between two objects and identify which one is larger.
-
-Props: two yellow and green rings, big car, small car, big horse, small horse
+(The same as Video D in Exp. 1.)
 
 ### Video C (12-17.9 months) "Geometric shapes jigsaw puzzle"
 
@@ -63,15 +62,11 @@ Props: A jigsaw puzzle of geometric shapes
 
 ### Video D (18-23.9 months) "My toys"
 
-Parents are told to show the child toys of the same shape but different sizes, to place one of the objects in a basket and to ask the child to take out the object. They are also encouraged to ask their child if the object is bigger or smaller compared to its pair.
-
-Props: two buckets, big car, small car, big horse, small horse
+(The same as Video E in Exp. 1.)
 
 ### Video E (18-23.9 months) "The orchestra"
 
-Parents are told to give their child a musical instrument to play. They are also encouraged to play a song and see if the child follows the rhythm.
-
-Props: maracas, drum, tambourine, clapper
+(The same as Video F in Exp. 1.)
 
 ### Video F (18-23.9 months) "My yellow toys"
 

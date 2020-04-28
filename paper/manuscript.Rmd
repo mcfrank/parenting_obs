@@ -32,9 +32,9 @@ authornote: |
 abstract: |
   Early parenting practices play an important role in shaping the future  outcomes of young children [@Hart1995; @Heckman2006]. 
   In particular, high-quality early interactions and language input appear to  facilitate language learning and result in higher levels of school performance. 
-  The rise of phone- and tablet-based parenting applications ("apps") holds the promise of delivering  low-cost, positive interventions on parenting style to a wide variety of populations. 
+  The rise of phone-based parenting applications ("apps") holds the promise of delivering  low-cost, positive interventions on parenting style to a wide variety of populations. 
   Of special interest are the parents of very young children, who are often difficult to reach in other ways. Yet little is known about the effects of communicating to parents through app-based interventions. 
-  We showed parents a short video depicting an age-appropriate parent-child activity from a commercial parenting app, and found that the quality of parent-child interactions increases in some ways as a result of the intervention. 
+  We showed parents short videos depicting age-appropriate parent-child activities from a commercial parenting app, and found that the quality of parent-child interactions increased in some ways as a result of the intervention. 
   Specifically, after watching the activity video, parents spoke more and made more bids for joint attention with the child.
 keywords          : "digital parenting advice; joint attention; lexical diversity; guided play"
 wordcount         : "4995"
@@ -54,7 +54,6 @@ documentclass     : "apa6"
 csl: apa6.csl
 classoption       : "man"
 output            : papaja::apa6_pdf
-appendix: "appendix.Rmd"
 ---
 
 ```{r global_options, include=FALSE}
@@ -276,7 +275,7 @@ Participants were randomly assigned to either the *Activity Video* condition or 
 Parents participating in the Activity Video condition were assigned to watch one of the two activity videos available for their child's age group, while parents in the No Video condition watched no video, and were simply asked to play with their child as they normally would.
 The two conditions were yoked: for each Activity Video participant who saw a particular video and received the associated props, a participant in the No Video condition received the same props to use without seeing the video.
 Parents also completed the Early Parenting Attitudes Questionnaire [EPAQ; @Hembacher2020]. 
-The EPAQ measures parents of young children's attitudes about parenting and child development along three dimensions: rules and respect, early learning, and affection and attachment (see SI).
+The EPAQ measures parents of young children's attitudes about parenting and child development along three dimensions: rules and respect, early learning, and affection and attachment ([see SI](https://osf.io/2bpdf/?view_only=69c0c6ca5d2649438e8642a57671ba79)).
 
 ### Procedure.
 After providing informed consent, parents in the Activity Video condition watched the assigned activity video on a laptop with headphones.
@@ -308,13 +307,13 @@ A second coder independently coded a third of the videos (i.e., 20 of the 60 vid
 The two coders had a reliability of ICC = 0.79 with 95% confidence interval (CI) = [0.55, 0.91] for rate of parent bids for JA (number of bids per minute); ICC = 0.34 with 95% CI = [-0.11, 0.67] for rate of passive JA episodes (per minute); ICC = 0.66 with 95% CI = [0.32, 0.85] for rate of coordinated JA episodes; ICC = 0.33 with 95% CI = [-0.11, 0.67] for time spent (seconds per minute) in passive JA episodes, and ICC = 0.60 with 95% CI = [0.24, 0.82] for time spent in coordinated JA episodes. 
 
 
-## Results and Discussion
+## Results
 
 Parents' child-directed speech during the play sessions (mean duration: `r round(mean(e1ld$play_duration), 2)` min) was transcribed; child utterances were not considered.
 Although Experiment 1 was not preregistered, for consistency the transcripts and hand-coded joint attention data were analyzed according to our preregistration for Experiment 2[^3], with any deviations or exploratory analyses noted.
 Below we first report the lexical diversity results, followed by the joint attention results.
 
-[^3]: Preregistration: [https://osf.io/2bpdf/](https://osf.io/2bpdf)
+[^3]: Preregistration: [https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982)
 
 ### Lexical Diversity
 
@@ -607,7 +606,7 @@ However, after an Activity Video, higher RR parents did not show this decrease i
 Parents with higher education also showed a lower rate of passive JA episodes ($\beta=`r e1pja_parent_ed['parent_ed']`$, `r print_CI(e1pja_parent_ed)`).
 Finally, parents with male children made bids for JA at a higher rate (mean: `r round(e1bidsE_M[2,]$mean,2)` bids/min) than those with female children (mean: `r round(e1bidsE_M[1,]$mean,2)`, $\beta=`r e1bidsE["genderM"]`$, `r print_CI(e1bidsE)`).
 
-To get a better sense of the intervention's effect on language use, we analyzed which words were characteristic of parents' speech in each condition, comparing the difference in frequency rank of each word (lemma) in the two conditions, as well as contrasting the corpus overall with a general English-language word frequency list (see SI for the interactive corpus characteristic plot). 
+To get a better sense of the intervention's effect on language use, we analyzed which words were characteristic of parents' speech in each condition, comparing the difference in frequency rank of each word (lemma) in the two conditions, as well as contrasting the corpus overall with a general English-language word frequency list ([see SI](https://osf.io/2bpdf/files/github/language_analyses/Exp1_characteristic_chart.html) for the interactive corpus characteristic plot). 
 Words that were strongly indicative of being from the Activity Video condition include "give", "big", "small", "ribbit", "thank", "have", and "bus", while words that were most characteristic of the No Video condition include "shake", "ready", "oh", "on", "going", "going", "see", "let", and the child's name. 
 
 ```{r fig-JA, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=6.5, fig.height=5.5, fig.cap = "\\label{fig:JA} Mean number of bids (left) and episodes (right) of joint attention (JA) by condition in Experiment 1 (top). For Experiment 2 (bottom), mean number of bids for JA by condition (left) and the number of episodes of JA by age and condition (right)."}
@@ -695,7 +694,7 @@ Experiment 1 found that parents who watched an activity video made more bids for
 Might it be that parents who are focused on a specific activity show reduced lexical diversity due to their focus on engaging their child in the activity?
 Experiment 2 focuses on replicating the key findings using a stronger control group, as well as a restricted number of preregistered predictions.[^5]
 
-[^5]: Preregistration: [https://osf.io/2bpdf/](https://osf.io/2bpdf). 
+[^5]: Preregistration: [https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982). 
 
 ## Method
 
@@ -729,7 +728,7 @@ To establish reliability a second coder independently coded 25 of the 84 videos,
 The two coders had a reliability of ICC = 0.81 with 95% confidence interval (CI) = [0.62,0.91] for number of parent bids for JA; ICC = 0.74 with 95% CI = [0.48, 0.88] for number of passive JA episodes; ICC = 0.80 with 95% CI = [0.61, 0.91] for number of coordinated JA episodes; ICC = 0.72 with 95% CI = [0.44, 0.86] for time spent (secs/min) in passive JA episodes, and ICC = 0.88 with 95% CI = [0.75, 0.94] for time spent in coordinated JA episodes. 
 
 
-## Results and Discussion
+## Results
 
 Parents' child-directed speech during the play sessions (mean duration: `r round(mean(e2ld$play_duration), 2)` min) was transcribed and processed, and bids and episodes of joint attention were coded according to the same procedure used in Experiment 1.
 We first report preregistered regressions[^6] predicting TTR and rate of word tokens, as well as an exploratory regression predicting MTLD.
@@ -810,22 +809,6 @@ apa_table(e2, caption = "Mean lexical diversity measures in Experiment 2.")
 
 
 
-
-```{r e2token-type, include=F}
-# NOT INCLUDED
-e2typ <- e2ld %>% group_by(Condition) %>%
-  tidyboot_mean(types) 
-
-e2types <- ggplot(e2typ, aes(x = Condition, y = mean, fill = Condition)) + geom_bar(stat="identity") + 
-  geom_linerange(aes(ymin = ci_lower, ymax = ci_upper), position = position_dodge(width = .9)) +
-  geom_point(data=e2ld, aes(x=Condition, y=types), alpha=.2, position = position_jitterdodge()) +
-  xlab("Condition") + ylab("Word Types per Minute") +
-  langcog::scale_fill_solarized() + ggthemes::theme_few() +
-  theme(legend.position="none") 
-
-#multiplot(e2tokens, e2types, cols=2)
-```
-
 ```{r, e2-effect-size, echo=F, include=F}
 ttr_means <- e2ld %>% group_by(Condition) %>%
   summarise(mean = mean(TTR), sd = sd(TTR))
@@ -898,7 +881,7 @@ The regression predicting the time spent in coordinated JA episodes found no not
 Older children both engaged in episodes of passive JA at a greater rate with their caregiver ($\beta=`r e2pja["age"]`$, `r print_CI(e2pja)`), and spent more time in passive JA with their caregiver ($\beta=`r e2pjat["age"]`$, `r print_CI(e2pjat)`).
 Overall, these results show that the older children in our sample engage in more and longer episodes of joint attention with their caregivers, and that activity videos in particular lead to more episodes of coordinated JA.
 
-As for Experiment 1, we conducted a corpus characteristic analysis to examine differences parents' language use in the two conditions.
+As for Experiment 1, we conducted a corpus characteristic analysis to examine differences parents' language use in the two conditions ([see SI](https://osf.io/2bpdf/files/github/language_analyses/Exp2_characteristic_chart.html)).
 The words that were strongly indicative of being from the Activity Video condition include "big", "little", "give", "small", "cow", "yellow", "take", and "put", while words that were most characteristic of the Science Video condition include "beep", "like", "neigh", "uh-oh", "say", "for", "does", and "did". 
 
 ```{r e2ja-coord, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=5.5, fig.height=3.5, fig.cap = "The number of episodes of coordinated JA by condition and age in Experiment 2."}
@@ -914,7 +897,7 @@ e2cja <- ggplot(e2cjad, aes(x = Condition, y = mean, fill = Condition)) + geom_b
   xlab("Condition") + ylab("Episodes of Coordinated JA") +
   langcog::scale_fill_solarized() + ggthemes::theme_few() + theme(legend.position="none") 
 
-e2cja_age = ggplot(e2ja, aes(x = age, y = cja, group=Condition, colour = Condition)) +
+e2cja_age = ggplot(e2ja, aes(x = Age, y = cja, group=Condition, colour = Condition)) +
   geom_point(alpha=.7) + geom_smooth(method='lm') + 
   xlab("Age (years)") + ylab("Episodes of Coordinated JA") +
   langcog::scale_colour_solarized() + ggthemes::theme_few() 
@@ -974,16 +957,4 @@ r_refs(file = "library.bib")
 
 <div id = "refs"></div>
 \endgroup
-
-
-
-```{r echo = FALSE, results = 'asis'}
-render_appendix('appendix.Rmd')
-```
-
-
-
-```{r echo = FALSE, results = 'asis'}
-render_appendix('appendix.Rmd')
-```
 

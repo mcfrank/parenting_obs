@@ -1,7 +1,8 @@
 ---
-title: 'Appendix: Bayesian Analysis Overview'
+title: 'Supplemental Materials: Bayesian Analysis Overview'
 output: pdf_document
 ---
+<!-- 424 words -->
 
 ```{r setup, include = FALSE}
 suppressPackageStartupMessages(c("dplyr","langcog","tidyr","ggplot2","lme4"))
@@ -138,7 +139,7 @@ Shown below in Figure 1, the 87% of this distribution that is greater than 0 is 
 Since *pd* < 0.95 in this case (corresponding to a $p$<.05 threshold in the null hypothesis significance-testing framework), we do not consider parent education to have a notable effect on the rate of types used during play, but the posterior distribution is interpretable.
 Also shown are the mean estimated coefficient value (red line) and 89% credible intervals (blue lines), within which 89% of the posterior distribution falls.
 
-```{r, parent-ed-effect, echo=F, fig.cap="Posterior distribution of parent education coefficient with mean (red), 89% CIs (blue), and *pd* (orange portion) shown.", fig.width=4, fig.height=2.0}
+```{r, parent-ed-effect, echo=F, fig.cap="Posterior distribution of parent education coefficient with mean (red), 89% CIs (blue), and *pd* (orange portion) shown.", fig.width=4, fig.height=2.0, warning=F}
 dat = types_modE %>% posterior_samples("parent_ed") %>%
   estimate_density(extend=TRUE)
 
@@ -157,12 +158,12 @@ dat %>%
 Figure 2 shows the posteriors for all of the coefficients in this regression. 
 Only the interaction between condition and the Affection and Attachment subscale of the EPAQ was notable (by *pd* in Table 1), but as indicated by their *pd* values, much of the mass some other parameters' posteriors are skewed negative (e.g., conditionexp: the Activity Video condition; EL: the Early Learning subscale of the EPAQ), while others are more evenly-distributed (e.g., RR, $pd$ = 0.51).
 
-```{r, plot-posteriors, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown."}
+```{r, plot-posteriors, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown.", warning=F}
 plot_posterior(types_modE, title="Exp. 1: Word Types")
 ```
 
 
-```{r, plot-token-posterior, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown."}
+```{r, plot-token-posterior, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown.", include=F}
 
 #e1ed = get_stan_glmer_reporting_values(tok_modE1, 'parent_ed') 
 #pd = p_direction(tok_modE1, effects="fixed") # cond 82.5% EL 82.5% AA 87% genderM 93.2%, parent_ed 93.5% cond:AA 94.5%
@@ -173,13 +174,13 @@ plot_posterior(tok_modE1, "Exp. 1: Word Tokens")
 
 
 
-```{r, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions for regression predicting TTR, with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown.", warning=F}
+```{r, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions for regression predicting TTR, with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown.", warning=F, include=F}
 plot_posterior(ttr_modE1, "Exp. 1: TTR")
 ```
 
 
 
-```{r, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions for regression predicting MTLD, with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown."}
+```{r, echo=F, fig.width=6, fig.height=6, fig.cap="Posterior distributions for regression predicting MTLD, with means and 89% credible intervals. The outermost 5% of each posterior distribution is clipped and not shown.", include=F}
 plot_posterior(mtld_modE1, "Exp. 1: MTLD")
 ```
 

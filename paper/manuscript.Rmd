@@ -27,8 +27,6 @@ affiliation:
   - id            : "3"
     institution    : "Cornell University"
 
-authornote: |
-  
 abstract: |
   Early parenting practices play an important role in shaping children’s future outcomes. 
   In particular, high-quality early interactions can facilitate language learning and school performance. 
@@ -39,9 +37,7 @@ abstract: |
   These results suggest that activity videos can lead to positive changes in parent engagement, providing support for the use of such videos in parenting interventions.
 keywords          : "language development; parent intervention; childhood development; joint attention; lexical diversity"
 wordcount         : "4954"
-
 bibliography      : ["library.bib"]
-
 floatsintext      : yes
 figurelist        : no
 tablelist         : no

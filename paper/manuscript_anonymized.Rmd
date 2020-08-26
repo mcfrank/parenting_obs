@@ -1,64 +1,64 @@
 ---
-title             : "Understanding the impacts of video-guided activities on parent-child interaction"
-shorttitle        : "Impacts of videos on parent-child interaction"
-
-author: 
-  - name          : "George Kachergis"
-    corresponding: yes
-    affiliation   : "1"
-    address       : "Stanford, CA 94305 USA"
-    email         : "kachergis@stanford.edu"
-  - name          : "Emily Hembacher"
-    affiliation   : "1"
-  - name          : "Veronica Cristiano"
-    affiliation   : "2"
-  - name          : "Hanwen Vivian Zhang"
-    affiliation   : "3"
-  - name          : "Michael C. Frank"
-    address       : "Stanford, CA 94305 USA"
-    email         : "mcfrank@stanford.edu"
-    affiliation   : "1"
-
-authornote: |
-  The data that support the findings of this study are openly available in OSF at http://doi.org/10.17605/OSF.IO/2BPDF
-
+title: "Understanding the impacts of video-guided activities on parent-child interaction"
+author:
+- name: XXXX
+  corresponding: yes
+  affiliation: '1'
+  address: XXXX
+  email: XXXX
+- name: XXXX
+  affiliation: '1'
+- name: XXXX
+  affiliation: '2'
+- name: XXXX
+  affiliation: '3'
+- name: XXXX
+  address: XXXX
+  email: XXXX
+  affiliation: '1'
+shorttitle: Impacts of videos on parent-child interaction
+output:
+  papaja::apa6_pdf: default
+  papaja::apa6_docx: default
+abstract: "Early parenting practices play an important role in shaping children’s
+  future outcomes. \nIn particular, high-quality early interactions can facilitate
+  language learning and school performance. \nThe rise of phone-based parenting applications
+  (\"apps\") could deliver low-cost interventions on parenting style to a wide variety
+  of populations, especially the parents of very young children, who are often difficult
+  to reach in other ways. \nYet little is known about the effects of communicating
+  to parents through app-based interventions. \nIn two studies (one preregistered),
+  we showed parents short videos depicting age-appropriate parent-child activities
+  from a parenting app. \nWe found that after watching the video, parents spoke more
+  and made more bids for joint attention, as compared with controls who watched no
+  video (experiment 1) or a science video (experiment 2). \nThese results suggest
+  that activity videos can lead to positive changes in parent engagement, providing
+  support for the use of such videos in parenting interventions.\n"
+keywords: language development; parent intervention; childhood development; joint
+  attention; lexical diversity
+wordcount: '5066'
+bibliography: library.bib
+floatsintext: no
+figurelist: no
+tablelist: no
+footnotelist: no
+linenumbers: yes
+mask: no
+draft: no
+header-includes: \usepackage{float}
+documentclass: apa6
+classoption: man
 affiliation:
-  - id            : "1"
-    institution   : "Department of Psychology, Stanford University"
-  - id            : "2"
-    institution    : "Gallaudet University"
-  - id            : "3"
-    institution    : "Cornell University"
-
-abstract: |
-  Early parenting practices play an important role in shaping children’s future outcomes. 
-  In particular, high-quality early interactions can facilitate language learning and school performance. 
-  The rise of phone-based parenting applications ("apps") could deliver low-cost interventions on parenting style to a wide variety of populations, especially the parents of very young children, who are often difficult to reach in other ways. 
-  Yet little is known about the effects of communicating to parents through app-based interventions. 
-  In two studies (one preregistered), we showed parents short videos depicting age-appropriate parent-child activities from a parenting app. 
-  We found that after watching the video, parents spoke more and made more bids for joint attention, as compared with controls who watched no video (experiment 1) or a science video (experiment 2). 
-  These results suggest that activity videos can lead to positive changes in parent engagement, providing support for the use of such videos in parenting interventions.
-keywords          : "language development; parent intervention; childhood development; joint attention; lexical diversity"
-wordcount         : "5066"
-bibliography      : ["library.bib"]
-floatsintext      : no
-figurelist        : no
-tablelist         : no
-footnotelist      : no
-linenumbers       : yes
-mask              : no
-draft             : no
-header-includes:
-  - \usepackage{float}
-documentclass     : "apa6"
-classoption       : "man"
-output            : papaja::apa6_pdf
+- id: '1'
+  institution: XXXX
+- id: '2'
+  institution: XXXX
+- id: '3'
+  institution: XXXX
+authornote: |
+  The data that support the findings of this study are openly available in OSF at [XXXX]
 ---
 
 ```{r global_options, include=FALSE}
-# The data that support the findings of this study are openly available in OSF at https://osf.io/2bpdf/?view_only=d4b230deba2a4f91bdb2aba29088d982
-#  The data that support the findings of this study are openly available in OSF at http://doi.org/10.17605/OSF.IO/2BPDF
-
 knitr::opts_chunk$set(fig.width=4, fig.height=3, fig.crop = F, 
                       fig.pos = "tb", fig.path='figs/',
                       echo=F, warning=F, cache=T, 
@@ -214,13 +214,13 @@ set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
-
-# Research Highlights 
+# Research Highlights
 
 * After watching short activity videos in a parenting app, parents made more attempts to engage with their children and spoke more to them.
 * Older toddlers showed greater engagement after parents watched the activity videos, relative to younger toddlers.
 * These activity videos led parents to set more goals for their child during play. 
 * Our findings suggest that parent-led activities guided by apps may be helpful in scaffolding the play of older toddlers.
+
 
 # Introduction
 
@@ -230,7 +230,7 @@ Many effective parenting interventions require large resource investments and re
 For this reason, many researchers targeting early language are interested in delivering parenting interventions remotely -- through texts, apps, and videos delivered on digital devices. 
 But what do parents take away from these short messages about what to do with or how to talk with their children?
 
-The content provided by digital parenting interventions runs the gamut from general parenting messages and facts from child development research to specific advice, coaching, and suggested activities. 
+The content provided by digital parenting interventions runs the gamut from general parenting messages and facts from child development research to specific advice and suggested activities. 
 A growing body of evidence suggests that these digital interventions can be effective across a range of cultures, income levels, and children's ages [for a review, see @Breitenstein2014].
 For example, in contrast to a face-to-face parent training intervention, a tablet-based version saw significantly higher session completion rates (51% attendance vs. 85% module completion) and comparable or larger effect sizes on parents' and children's (aged 2 to 5 years) behavior [@Breitenstein2016].
 Often, however, the theory of change presupposed by such interventions is relatively vague.
@@ -258,14 +258,14 @@ We then gave the toys from the video to all dyads and videotaped their interacti
 
 # Experiment 1
 
-In Experiment 1, we invited parents of 6- to 24-month-old infants visiting the Children's Discovery Museum in San Jose to complete video-guided activities from a commerical parenting app that delivers digital parenting advice in the form of short videos.
+In Experiment 1, we invited parents of 6- to 24-month-old infants visiting a children's museum in XXXX to complete video-guided activities from a commerical parenting app that delivers digital parenting advice in the form of short videos.
 Parents were randomly assigned to one of two conditions: parents in the _Activity Video_ condition watched a video from the app (matched to their child's age), and then performed the activity with their child using the props from the video. 
 Parents in the _No Video_ condition did not watch an activity video, but were given a set of the same age-appropriate props and asked to play with their infants as they normally would at home. 
 
 ## Method
 
-### Participants
-`r nrow(e1ld)` infants (F = `r e1_gender['F']`, M = `r e1_gender['M']`) aged 6-24 months (19 6-11.9 month-olds: 9 in the control condition, 10 in Activity Video; 20 12-17.9 month-olds: 11 control, 9 Activity Video; 21 18-24 month-olds: 10 control, 11 Activity Video) and their parents participated in a museum in northern California. 
+### Participants 
+`r nrow(e1ld)` infants (F = `r e1_gender['F']`, M = `r e1_gender['M']`) aged 6-24 months (19 6-11.9 month-olds: 9 in the control condition, 10 in Activity Video; 20 12-17.9 month-olds: 11 control, 9 Activity Video; 21 18-24 month-olds: 10 control, 11 Activity Video) and their parents participated in a museum in XXXX. 
 We included infants who were exposed to English at least 50 percent of the time (n = 58) or who were exposed less but whose participating parent reported that they primarily speak English with their child at home (n = 2). 
 62% of participants (n = 37) had been exposed to two or more languages, as indicated by their parent. 
 Parents identified their children as White (n = 25), Asian (n = 11), African American/Black (n = 2), Biracial (n = 12), other (n = 5), or declined to state (n = 5). 
@@ -285,7 +285,8 @@ Participants were randomly assigned to either the *Activity Video* condition or 
 Parents participating in the Activity Video condition were assigned to watch one of the two activity videos available for their child's age group, while parents in the No Video condition watched no video, and were simply asked to play with their child as they normally would.
 The two conditions were yoked: for each Activity Video participant who saw a particular video and received the associated props, a participant in the No Video condition received the same props to use without seeing the video.
 Parents also completed the Early Parenting Attitudes Questionnaire [EPAQ; @Hembacher2020]. 
-The EPAQ measures parents of young children's attitudes about parenting and child development along three dimensions: rules and respect, early learning, and affection and attachment ([see SI](https://osf.io/2bpdf/?view_only=69c0c6ca5d2649438e8642a57671ba79)).
+The EPAQ measures parents of young children's attitudes about parenting and child development along three dimensions: rules and respect, early learning, and affection and attachment ([see SI](XXX)).
+<!-- https://osf.io/2bpdf/?view_only=69c0c6ca5d2649438e8642a57671ba79 -->
 
 ### Procedure
 After providing informed consent, parents in the Activity Video condition watched the assigned activity video on a laptop with headphones.
@@ -323,7 +324,8 @@ Parents' child-directed speech during the play sessions (mean duration: `r round
 Although Experiment 1 was not preregistered, for consistency the transcripts and hand-coded joint attention data were analyzed according to our preregistration for Experiment 2[^3], with any deviations or exploratory analyses noted.
 Below we first report the lexical diversity results, followed by the joint attention results.
 
-[^3]: Preregistration: [https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982)
+[^3]: Preregistration: [XXX]
+<!-- https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982) -->
 
 ### Lexical Diversity
 
@@ -616,7 +618,8 @@ However, after an Activity Video, higher RR parents did not show this decrease i
 Parents with higher education also showed a lower rate of passive JA episodes ($\beta=`r e1pja_parent_ed['parent_ed']`$, `r print_CI(e1pja_parent_ed)`).
 Finally, parents with male children made bids for JA at a higher rate (mean: `r round(e1bidsE_M[2,]$mean,2)` bids/min) than those with female children (mean: `r round(e1bidsE_M[1,]$mean,2)`, $\beta=`r e1bidsE["genderM"]`$, `r print_CI(e1bidsE)`).
 
-To get a better sense of the intervention's effect on language use, we analyzed which words were characteristic of parents' speech in each condition, comparing the difference in frequency rank of each word (lemma) in the two conditions, as well as contrasting the corpus overall with a general English-language word frequency list ([see SI](https://osf.io/2bpdf/files/github/language_analyses/Exp1_characteristic_chart.html) for the interactive corpus characteristic plot). 
+To get a better sense of the intervention's effect on language use, we analyzed which words were characteristic of parents' speech in each condition, comparing the difference in frequency rank of each word (lemma) in the two conditions, as well as contrasting the corpus overall with a general English-language word frequency list ([see SI](https://cogsciguy.github.io/parenting_obs_language/Exp1_characteristic_chart.html)
+<!-- https://osf.io/2bpdf/files/github/language_analyses/Exp1_characteristic_chart.html) --> for the interactive corpus characteristic plot). 
 Words that were strongly indicative of being from the Activity Video condition include "give", "big", "small", "ribbit", "thank", "have", and "bus", while words that were most characteristic of the No Video condition include "shake", "ready", "oh", "on", "going", "going", "see", "let", and the child's name. 
 
 ```{r fig-JA, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=6.5, fig.height=5.5, fig.cap = "\\label{fig:JA} Mean number of bids (left) and episodes (right) of joint attention (JA) by condition in Experiment 1 (top). For Experiment 2 (bottom), mean number of bids for JA by condition (left) and the number of episodes of JA by age and condition (right)."}
@@ -704,11 +707,12 @@ Experiment 1 found that parents who watched an activity video made more bids for
 Might it be that parents who are focused on a specific activity show reduced lexical diversity due to their focus on engaging their child in the activity?
 Experiment 2 focuses on replicating the key findings using a stronger control group, as well as a restricted number of preregistered predictions.[^5]
 
-[^5]: Preregistration: [https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982). 
+[^5]: Preregistration: [XXX]
+<!-- [https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982). -->
 
 ## Method
 
-### Participants
+### Participants 
 `r nrow(e2ld)` infants (F = `r e2_gender['F']`, M = `r e2_gender['M']`) aged 12-24 months 
 (`r e2_12to18["Activity Video"]` 12-17.9 month-olds in the Activity Video condition; 
 `r e2_12to18["Science Video"]` 12-17.9 month-olds in the Science Video condition; 
@@ -720,7 +724,7 @@ Parents identified their children as White (n = 39), Asian (n = 20), African Ame
 Sixteen parents reported their child was of Hispanic origin. 
 Parents tended to be highly-educated, with reports of highest level of education ranging from some college (n = `r e2_parent_ed["3"]`), four-year college (n = `r e2_parent_ed["4"]`), some graduate school (n = `r e2_parent_ed["5"]`), to completed graduate school (n = `r e2_parent_ed["6"]`) or declined to state (n = 13).
 
-### Materials
+### Materials 
 The design of Experiment 2 was similar to that of Experiment 1, except that instead of seeing no video in the control condition, parents instead watched a video that was generally related to child development research, but did not give any specific instructions about how to interact with infants or children. 
 This condition was included to control for the possibility that differences in language output and joint attention in Experiment 1 could be due to simply cueing parents to think about infants' learning and cognitive development. 
 The videos presented in the Control Video condition were media clips (available on YouTube) of developmental psychologists explaining their research interleaved with footage of infants or toddlers engaged in developmental research studies. 
@@ -889,7 +893,8 @@ The regression predicting the time spent in coordinated JA episodes found no not
 Older children both engaged in episodes of passive JA at a greater rate with their caregiver ($\beta=`r e2pja["age"]`$, `r print_CI(e2pja)`), and spent more time in passive JA with their caregiver ($\beta=`r e2pjat["age"]`$, `r print_CI(e2pjat)`).
 Overall, these results show that the older children in our sample engage in more and longer episodes of joint attention with their caregivers, and that activity videos in particular lead to more episodes of coordinated JA.
 
-As for Experiment 1, we conducted a corpus characteristic analysis to examine differences parents' language use in the two conditions ([see SI](https://osf.io/2bpdf/files/github/language_analyses/Exp2_characteristic_chart.html)).
+As for Experiment 1, we conducted a corpus characteristic analysis to examine differences parents' language use in the two conditions ([see SI](https://cogsciguy.github.io/parenting_obs_language/Exp2_characteristic_chart.html)).
+<!-- (https://osf.io/2bpdf/files/github/language_analyses/Exp2_characteristic_chart.html)). -->
 The words that were strongly indicative of being from the Activity Video condition include "big", "little", "give", "small", "cow", "yellow", "take", and "put", while words that were most characteristic of the Science Video condition include "beep", "like", "neigh", "uh-oh", "say", "for", "does", and "did". 
 
 ```{r e2ja-coord, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=5.5, fig.height=3.5, fig.cap = "The number of episodes of coordinated JA by condition and age in Experiment 2."}
@@ -949,8 +954,11 @@ In sum, the results of this study show that digital parenting videos recommendin
 
 # Acknowledgements
 
+XXXX
+<!-- 
 This work was supported by a gift and a contract from Kinedu, Inc. to the Language and Cognition Lab. 
-Thanks to Samaher Radwan and Megan Merrick for behavioral coding of the videos, and to members of the Language and Cognition Lab at Stanford for helpful discussion.
+Thanks to Samaher Radwan and Megan Merrick for behavioral coding of the videos, and to members of the Language and Cognition Lab at Stanford for helpful discussion. 
+-->
 
 \newpage
 

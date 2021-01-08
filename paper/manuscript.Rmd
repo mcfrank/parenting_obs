@@ -258,7 +258,7 @@ We then gave the toys from the video to all dyads and videotaped their interacti
 
 # Experiment 1
 
-In Experiment 1, we invited parents of 6- to 24-month-old infants visiting the Children's Discovery Museum in San Jose to complete video-guided activities from a commerical parenting app that delivers digital parenting advice in the form of short videos.
+In Experiment 1, we invited parents of 6- to 24-month-old infants visiting the Children's Discovery Museum in San Jose to complete video-guided activities from a commercial parenting app that delivers digital parenting advice in the form of short videos.
 Parents were randomly assigned to one of two conditions: parents in the _Activity Video_ condition watched a video from the app (matched to their child's age), and then performed the activity with their child using the props from the video. 
 Parents in the _No Video_ condition did not watch an activity video, but were given a set of the same age-appropriate props and asked to play with their infants as they normally would at home. 
 
@@ -266,7 +266,7 @@ Parents in the _No Video_ condition did not watch an activity video, but were gi
 
 ### Participants
 `r nrow(e1ld)` infants (F = `r e1_gender['F']`, M = `r e1_gender['M']`) aged 6-24 months (19 6-11.9 month-olds: 9 in the control condition, 10 in Activity Video; 20 12-17.9 month-olds: 11 control, 9 Activity Video; 21 18-24 month-olds: 10 control, 11 Activity Video) and their parents participated in a museum in northern California. 
-We included infants who were exposed to English at least 50 percent of the time (n = 58) or who were exposed less but whose participating parent reported that they primarily speak English with their child at home (n = 2). 
+We included infants who were exposed to English more than 50 percent of the time (n = 58) or who were exposed less but whose participating parent reported that they primarily speak English with their child at home (n = 2). 
 62% of participants (n = 37) had been exposed to two or more languages, as indicated by their parent. 
 Parents identified their children as White (n = 25), Asian (n = 11), African American/Black (n = 2), Biracial (n = 12), other (n = 5), or declined to state (n = 5). 
 Fifteen parents reported that their child was of Hispanic origin. 
@@ -303,7 +303,7 @@ Parents were then asked to complete the EPAQ before being debriefed.
 
 
 ### Joint Attention Coding Procedure
-The video of each session was manually coded for episodes of joint attention (JA) using the Datavyu software [@datavyu]. 
+The video of each session was manually coded for episodes of joint attention (JA) using the Datavyu software [@datavyu], and coders were blind to condition. 
 The video taken at floor level was coded by default, but the other video was referred to if the participants were occluded or if there was technical difficulty with the first camera. 
 Each session's video was coded for episodes of coordinated JA, episodes of passive JA, and parental bids for JA. 
 Parental bids for JA were defined as any attempt to initiate joint attention (i.e labeling, pointing, or otherwise drawing attention to an object) that did not result in passive or coordinated JA. 
@@ -714,7 +714,7 @@ Experiment 2 focuses on replicating the key findings using a stronger control gr
 `r e2_12to18["Science Video"]` 12-17.9 month-olds in the Science Video condition; 
 `r e2_18to24["Activity Video"]` 18-24 month-olds in the Activity Video condition;
 `r e2_18to24["Science Video"]` 18-24 month-olds in the Science Video condition) and their parents participated in the same museum as Experiment 1. 
-We included infants who were exposed to English at least 75 percent of the time or who were exposed less but whose participating parent reported that they primarily speak English with their child at home. 
+We included infants who were exposed to English more than 50 percent of the time or who were exposed less but whose participating parent reported that they primarily speak English with their child at home. 
 Forty-nine percent of participants (n = 41) had been exposed to two or more languages as indicated by their parent. 
 Parents identified their children as White (n = 39), Asian (n = 20), African American/Black (n = 1), Biracial (n = 9), other (n = 7), or declined to state (n = 8). 
 Sixteen parents reported their child was of Hispanic origin. 

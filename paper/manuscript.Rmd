@@ -218,7 +218,8 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 # Introduction
 
-The quantity and quality of early language input has been found to be strongly associated with later language and academic outcomes [@Hart1995; @Marchman2008; @Cartmill2013; @HirshPasek2015; see @Schwab2016 for a review]. Thus, because of the potential for large downstream effects [@Heckman2006], there is tremendous interest in interventions that change children's language environment. 
+The quantity and quality of early language input has been found to be strongly associated with later language and academic outcomes [@Hart1995; @Marchman2008; @Rowe2012; @Cartmill2013; @HirshPasek2015; see @Schwab2016 for a review]. 
+Thus, because of the potential for large downstream effects [@Heckman2006], there is tremendous interest in interventions that change children's language environment. 
 And because parents define a large portion of that environment, especially before the onset of formal schooling, parent behavior is a critical locus for such interventions. 
 Many effective parenting interventions require large resource investments and require many hours of in-person contact [@Jamaica2014; @PerryPreschool2004; @Leung2018], making implementation at scale a daunting proposition. 
 For this reason, many researchers targeting early language are interested in delivering parenting interventions remotely -- through texts, apps, and videos delivered on digital devices. 
@@ -719,7 +720,7 @@ Sixteen parents reported their child was of Hispanic origin.
 Parents tended to be highly-educated, with reports of highest level of education ranging from some college (n = `r e2_parent_ed["3"]`), four-year college (n = `r e2_parent_ed["4"]`), some graduate school (n = `r e2_parent_ed["5"]`), to completed graduate school (n = `r e2_parent_ed["6"]`) or declined to state (n = 13).
 
 ### Materials
-The design of Experiment 2 was similar to that of Experiment 1, except that instead of seeing no video in the control condition, parents instead watched a video that was generally related to child development research, but did not give any specific instructions about how to interact with infants or children. 
+The design of Experiment 2 was the same as that of Experiment 1, except that instead of seeing no video in the control condition, parents instead watched a video that was generally related to child development research, but did not give any specific instructions about how to interact with infants or children. 
 This condition was included to control for the possibility that differences in language output and joint attention in Experiment 1 could be due to simply cueing parents to think about infants' learning and cognitive development. 
 The videos presented in the Control Video condition were media clips (available on YouTube) of developmental psychologists explaining their research interleaved with footage of infants or toddlers engaged in developmental research studies. 
 Thus, the content of the videos superficially matched those in the Activity Video condition, but did not suggest any particular activities.
@@ -727,7 +728,7 @@ The videos were trimmed to approximately match the average video length in the A
 Details of the videos used in the Activity Video conditions are in the Appendix.
 
 ### Procedure
-The procedure for Experiment 2 matched that of Experiment 1, except that parents in the Control Video condition watched a control video before the play session. 
+The procedure for Experiment 2 matched that of Experiment 1, except that parents randomly-assigned to the Control Video condition watched a control video before the play session. 
 Consistent with the No-Video control condition in Experiment 1, parents in the Control Video condition were told to play with their child as they would at home, and were not given additional instructions.
 The coding procedure also matched that of Experiment 1. 
 To establish reliability a second coder independently coded 25 of the 84 videos, approximately equally distributed across ages. 

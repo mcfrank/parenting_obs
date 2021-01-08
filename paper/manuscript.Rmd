@@ -292,14 +292,13 @@ To ensure that parents could give the video their full attention, the experiment
 Immediately following the video, each parent-child dyad was provided with the props to complete the video-guided activity that the parent had viewed. 
 The toys were placed on a large foam play mat, and parents were instructed to sit on the mat with their child and re-create the activity they had viewed for a period of approximately three minutes.[^2]
 In the No Video condition, after informed consent parents were told to play with their child as they would at home with the provided props for a period of three minutes. 
-They were not given any additional instructions about how to use the props.
-
-[^2]: Based on piloting, we estimated these activities would would only require three minutes to complete.
+They were not given any additional instructions about how to use the props.^[Based on piloting, we estimated these activities would would only require three minutes to complete.]
 
 In both conditions, two video cameras were used to record the play session from different angles, and parents were fitted with a wireless Shure lavalier microphone to record their child-directed speech. 
 After three minutes of play had elapsed, parents were told they could stop playing and the cameras and microphone were turned off.
 Parents were then asked to complete the EPAQ before being debriefed. 
 
+Experimenters were aware of the condition structure of the experiment and condition assignment of parents but made no comments or other intervention once the parent-child interaction began. 
 
 ### Joint Attention Coding Procedure
 The video of each session was manually coded for episodes of joint attention (JA) using the Datavyu software [@datavyu], and coders were blind to condition. 
@@ -314,6 +313,9 @@ Full details of our guidelines for coding joint attention are available in SI.
 
 A second coder independently coded a third of the videos (i.e., 20 of the 60 videos, approximately equally distributed across ages) to establish reliability. 
 The two coders had a reliability of ICC = 0.79 with 95% confidence interval (CI) = [0.55, 0.91] for rate of parent bids for JA (number of bids per minute); ICC = 0.34 with 95% CI = [-0.11, 0.67] for rate of passive JA episodes (per minute); ICC = 0.66 with 95% CI = [0.32, 0.85] for rate of coordinated JA episodes; ICC = 0.33 with 95% CI = [-0.11, 0.67] for time spent (seconds per minute) in passive JA episodes, and ICC = 0.60 with 95% CI = [0.24, 0.82] for time spent in coordinated JA episodes. 
+
+We assume that, because parents knew that they were being videotaped, they might alter their behaviors in response to the presence of the camera. 
+However, we assume that these alterations should be evenly distributed between conditions; thus inferences regarding condition differences in interaction should be unaffected by this factor. 
 
 
 ## Results

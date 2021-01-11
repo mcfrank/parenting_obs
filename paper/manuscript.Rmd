@@ -37,10 +37,10 @@ abstract: |
   Yet relatively little is known about the local effects of communicating to parents about how they should interact via videos. 
   In two studies (one preregistered), we investigated effects of short videos on parent behavior.
   We showed parents videos depicting age-appropriate parent-child activities from a parenting app. 
-  We found that after watching the video, parents spoke more and made more bids for joint attention, as compared with controls who watched no video (experiment 1) or a science video (experiment 2). 
+  We found that after watching the video, parents spoke more and made more bids for joint attention, as compared with controls who watched no video (experiment 1; N=60) or a science video (experiment 2; N=84). 
   These results suggest that activity videos can lead to local changes in parent engagement, providing support for the use of such videos as a part of broader app-based parenting interventions.
 keywords          : "language development; parent intervention; childhood development; joint attention; lexical diversity"
-wordcount         : "5066"
+wordcount         : "6279"
 bibliography      : ["library.bib"]
 floatsintext      : no
 figurelist        : no
@@ -230,13 +230,13 @@ The content provided by digital parenting interventions runs the gamut from gene
 A growing body of evidence suggests that these digital interventions can be effective across a range of cultures, income levels, and children's ages [for a review, see @Breitenstein2014].
 For example, in contrast to a face-to-face parent training intervention, a tablet-based version saw significantly higher session completion rates (51% attendance vs. 85% module completion) and comparable or larger effect sizes on parents' and children's (aged 2 to 5 years) behavior [@Breitenstein2016].
 Often, however, the theory of change presupposed by such interventions is relatively vague.
-Both within and outside the realm of academic interventions, messages to parents of young children often seek to provide knowledge about some aspect of development (e.g., early language), often in tandem with a suggestion regarding activities.
+Both within and outside the realm of academic interventions, messages to parents of young children often seek to provide knowledge about some aspect of development (e.g., early language; @earlylangint), often in tandem with a suggestion regarding activities (e.g., book reading; for a review see @Reese2010review).
 Such messages are assumed to inform parents' choice of behaviors, spurring them to engage in some target activity, which in turn is assumed to be more stimulating than what parents would have done otherwise. 
 
 This theory of change is typically grounded in ideas about guided play and early language stimulation. 
 Child-directed speech varies not only in quantity (i.e., the number of total tokens), but also in quality in terms of the diversity of the tokens [@Malvern2004] or the context-appropriateness of the speech [@Cartmill2013], both of which have been linked to children's subsequent language development.
 Further, language learning---especially the acquisition of early vocabulary in the first years---appears to be supported preferentially by parents and children _jointly attending_ to some object or activity [@Baldwin1991; @Bigelow2004].
-Episodes of joint attention are frequent during guided play, when parents set goals and scaffold their child's activities [@Wood1976; @Weisberg2013].
+Episodes of joint attention are frequent during guided play, when parents set goals (e.g., building a tower) and scaffold their child's activities [@Wood1976; @Weisberg2013].
 Thus, the current literature supports interventions that encourage parents to provide high-quality language and interaction through something like guided play---whether via reading books or playing with a shape-sorter at home, or via a conversation about categories in the supermarket.
 
 But is this theory of change correct in the case of digital parenting interventions? 
@@ -244,7 +244,7 @@ That is, does the provision of knowledge and activities via short videos or mess
 Alternatively, this approach could be flawed. 
 For example, focusing parents on a specific activity could cause them parents to over-focus on achieving the superficial goals of the activity while neglecting the broader goals of fostering more -- and more responsive -- interaction. 
 This problem might be especially likely with video messages, which could encourage parents to try to mimic a model's specific speech and/or actions.
-Attempting to reproduce the surface details of a video-guided activity could in turn result in less high-quality talk, with less responsiveness to their child's play.
+Attempting to reproduce the surface details of a video-guided activity could in turn result in less high-quality talk, with less responsiveness to their child's play, a target of parent responsiveness interventions [e.g., @Landry2008].
 (Speaking as a parent, one author of the current paper has found himself occasionally so engrossed in attempting to execute an activity with his children that he has lost track of whether the children are continuing to enjoy it!). 
 
 Thus, our goal was to gather information about whether the use of short video parenting messages as a component of broader interventions is supported by their local effects on parent-child interaction and language use. 
@@ -257,14 +257,14 @@ We then gave the toys from the video to all dyads and videotaped their interacti
 
 # Experiment 1
 
-In Experiment 1, we invited parents of 6- to 24-month-old infants visiting the Children's Discovery Museum in San Jose to complete video-guided activities from a commercial parenting app that delivers digital parenting advice in the form of short videos.
+In Experiment 1, we invited parents of 6- to 24-month-old infants visiting [a children's museum in XXXX] to complete video-guided activities from a commercial parenting app that delivers digital parenting advice in the form of short videos. <!-- the Children's Discovery Museum in San Jose -->
 Parents were randomly assigned to one of two conditions: parents in the _Activity Video_ condition watched a video from the app (matched to their child's age), and then performed the activity with their child using the props from the video. 
 Parents in the _No Video_ condition did not watch an activity video, but were given a set of the same age-appropriate props and asked to play with their infants as they normally would at home. 
 
 ## Method
 
 ### Participants
-`r nrow(e1ld)` infants (F = `r e1_gender['F']`, M = `r e1_gender['M']`) aged 6-24 months (19 6-11.9 month-olds: 9 in the control condition, 10 in Activity Video; 20 12-17.9 month-olds: 11 control, 9 Activity Video; 21 18-24 month-olds: 10 control, 11 Activity Video) and their parents participated in a museum in northern California. 
+`r nrow(e1ld)` infants (F = `r e1_gender['F']`, M = `r e1_gender['M']`) aged 6-24 months (19 6-11.9 month-olds: 9 in the control condition, 10 in Activity Video; 20 12-17.9 month-olds: 11 control, 9 Activity Video; 21 18-24 month-olds: 10 control, 11 Activity Video) and their parents participated in a museum in [XXXX]. <!-- San Jose, CA --> 
 We included infants who were exposed to English more than 50 percent of the time (n = 58) or who were exposed less but whose participating parent reported that they primarily speak English with their child at home (n = 2). 
 62% of participants (n = 37) had been exposed to two or more languages, as indicated by their parent. 
 Parents identified their children as White (n = 25), Asian (n = 11), African American/Black (n = 2), Biracial (n = 12), other (n = 5), or declined to state (n = 5). 
@@ -280,23 +280,24 @@ Participants were also given a set of toys corresponding to those in the video t
 
 [^1]: Details of the specific videos used and the toys associated with each video are in the Appendix. 
 
-Participants were randomly assigned to either the *Activity Video* condition or the *No Video* condition. 
+Without their knowledge, participants were randomly assigned to either the *Activity Video* condition or the *No Video* condition. 
 Parents participating in the Activity Video condition were assigned to watch one of the two activity videos available for their child's age group, while parents in the No Video condition watched no video, and were simply asked to play with their child as they normally would.
 The two conditions were yoked: for each Activity Video participant who saw a particular video and received the associated props, a participant in the No Video condition received the same props to use without seeing the video.
 Parents also completed the Early Parenting Attitudes Questionnaire [EPAQ; @Hembacher2020]. 
-The EPAQ measures parents of young children's attitudes about parenting and child development along three dimensions: rules and respect, early learning, and affection and attachment ([see SI](https://osf.io/2bpdf/?view_only=69c0c6ca5d2649438e8642a57671ba79)).
+The EPAQ measures parents of young children's attitudes about parenting and child development along three dimensions: rules and respect, early learning, and affection and attachment ([see SI](XXXX)). <!-- https://osf.io/2bpdf/?view_only=69c0c6ca5d2649438e8642a57671ba79 -->
 
 ### Procedure
 After providing informed consent, parents in the Activity Video condition watched the assigned activity video on a laptop with headphones.
 To ensure that parents could give the video their full attention, the experimenter played with the infant with a set of toys (different from the experimental props used in the study) while the video was being played. 
 Immediately following the video, each parent-child dyad was provided with the props to complete the video-guided activity that the parent had viewed. 
-The toys were placed on a large foam play mat, and parents were instructed to sit on the mat with their child and re-create the activity they had viewed for a period of approximately three minutes.[^2]
+The toys were placed on a large foam play mat, and parents were instructed to sit on the mat with their child and re-create the activity they had viewed for a period of approximately three minutes.^[Based on piloting, we estimated these activities would would only require three minutes to complete.]
 In the No Video condition, after informed consent parents were told to play with their child as they would at home with the provided props for a period of three minutes. 
-They were not given any additional instructions about how to use the props.^[Based on piloting, we estimated these activities would would only require three minutes to complete.]
+They were not given any additional instructions about how to use the props.
 
 In both conditions, two video cameras were used to record the play session from different angles, and parents were fitted with a wireless Shure lavalier microphone to record their child-directed speech. 
 After three minutes of play had elapsed, parents were told they could stop playing and the cameras and microphone were turned off.
 Parents were then asked to complete the EPAQ before being debriefed. 
+No compensation was provided to the parents; children were given a sticker of their choice.
 
 Experimenters were aware of the condition structure of the experiment and condition assignment of parents but made no comments or other intervention once the parent-child interaction began. 
 
@@ -324,7 +325,8 @@ Parents' child-directed speech during the play sessions (mean duration: `r round
 Although Experiment 1 was not preregistered, for consistency the transcripts and hand-coded joint attention data were analyzed according to our preregistration for Experiment 2[^3], with any deviations or exploratory analyses noted.
 Below we first report the lexical diversity results, followed by the joint attention results.
 
-[^3]: Preregistration: [https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982)
+[^3]: [XXXX]
+<!-- https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982) -->
 
 ### Lexical Diversity
 
@@ -705,7 +707,7 @@ Experiment 1 found that parents who watched an activity video made more bids for
 Might it be that parents who are focused on a specific activity show reduced lexical diversity due to their focus on engaging their child in the activity?
 Experiment 2 focuses on replicating the key findings using a stronger control group, as well as a restricted number of preregistered predictions.[^5]
 
-[^5]: Preregistration: [https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982). 
+[^5]: Preregistration: [XXXX] <!-- [https://osf.io/6k9m8/](https://osf.io/6k9m8/?view_only=d4b230deba2a4f91bdb2aba29088d982). -->
 
 ## Method
 
@@ -716,7 +718,8 @@ Experiment 2 focuses on replicating the key findings using a stronger control gr
 `r e2_18to24["Activity Video"]` 18-24 month-olds in the Activity Video condition;
 `r e2_18to24["Science Video"]` 18-24 month-olds in the Science Video condition) and their parents participated in the same museum as Experiment 1. 
 We included infants who were exposed to English more than 50 percent of the time or who were exposed less but whose participating parent reported that they primarily speak English with their child at home. 
-Forty-nine percent of participants (n = 41) had been exposed to two or more languages as indicated by their parent. 
+Data from an additional 40 parent-child dyads were excluded from analysis (25 due to language, 10 due to experimenter error, 5 for fussiness or sibling interference).
+Forty-nine percent of included participants (n = 41) had been exposed to two or more languages as indicated by their parent. 
 Parents identified their children as White (n = 39), Asian (n = 20), African American/Black (n = 1), Biracial (n = 9), other (n = 7), or declined to state (n = 8). 
 Sixteen parents reported their child was of Hispanic origin. 
 Parents tended to be highly-educated, with reports of highest level of education ranging from some college (n = `r e2_parent_ed["3"]`), four-year college (n = `r e2_parent_ed["4"]`), some graduate school (n = `r e2_parent_ed["5"]`), to completed graduate school (n = `r e2_parent_ed["6"]`) or declined to state (n = 13).
@@ -958,8 +961,9 @@ In sum, our findings suggest that digital parenting videos recommending play act
 
 # Acknowledgements
 
-This work was supported by both an unrestricted gift and a research contract from Kinedu, Inc. to the Language and Cognition Lab. 
-Thanks to Samaher Radwan and Megan Merrick for behavioral coding of the videos, and to members of the Language and Cognition Lab at Stanford for helpful discussion.
+XXXX
+<!-- This work was supported by both an unrestricted gift and a research contract from Kinedu, Inc. to the Language and Cognition Lab.  -->
+<!-- Thanks to Samaher Radwan and Megan Merrick for behavioral coding of the videos, and to members of the Language and Cognition Lab at Stanford for helpful discussion. -->
 
 \newpage
 

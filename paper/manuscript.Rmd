@@ -31,16 +31,9 @@ affiliation:
     institution    : "Cornell University"
 
 abstract: |
-  Early parenting practices play an important role in shaping children’s future outcomes. 
-  In particular, high-quality early interactions can facilitate language learning and school performance. 
-  The rise of phone-based parenting applications ("apps") could deliver low-cost interventions on parenting style to a wide variety of populations, especially the parents of very young children, who are often difficult to reach in other ways. 
-  Yet relatively little is known about the local effects of communicating to parents about how they should interact via videos. 
-  In two studies (one preregistered), we investigated effects of short videos on parent behavior.
-  We showed parents videos depicting age-appropriate parent-child activities from a parenting app. 
-  We found that after watching the video, parents spoke more and made more bids for joint attention, as compared with controls who watched no video (experiment 1; N=60) or a science video (experiment 2; N=84). 
-  These results suggest that activity videos can lead to local changes in parent engagement, providing support for the use of such videos as a part of broader app-based parenting interventions.
+  Early parenting practices help shape children’s future outcomes. In particular, high-quality early interactions can facilitate language learning and school performance. Phone-based parenting applications can deliver low-cost interventions on parenting style, yet relatively little is known about the efficacy of this approach. In two studies (N=142; 79 female; ages 6-24 months), we investigated effects of short videos on parent behavior. Parents watched videos depicting age-appropriate parent-child activities from a parenting app. After watching the videos, parents spoke more and made more bids for joint attention. These results suggest that activity videos can lead to local changes in parent engagement, providing support for the use of such videos as a part of broader app-based parenting interventions.
 keywords          : "language development; parent intervention; childhood development; joint attention; lexical diversity"
-wordcount         : "6279"
+wordcount         : "5509"
 bibliography      : ["library.bib"]
 floatsintext      : no
 figurelist        : no
@@ -284,7 +277,7 @@ Without their knowledge, participants were randomly assigned to either the *Acti
 Parents participating in the Activity Video condition were assigned to watch one of the two activity videos available for their child's age group, while parents in the No Video condition watched no video, and were simply asked to play with their child as they normally would.
 The two conditions were yoked: for each Activity Video participant who saw a particular video and received the associated props, a participant in the No Video condition received the same props to use without seeing the video.
 Parents also completed the Early Parenting Attitudes Questionnaire [EPAQ; @Hembacher2020]. 
-The EPAQ measures parents of young children's attitudes about parenting and child development along three dimensions: rules and respect, early learning, and affection and attachment ([see SI](XXXX)). <!-- https://osf.io/2bpdf/?view_only=69c0c6ca5d2649438e8642a57671ba79 -->
+The EPAQ measures parents of young children's attitudes about parenting and child development along three dimensions: rules and respect, early learning, and affection and attachment ([see SI](https://osf.io/2bpdf/?view_only=69c0c6ca5d2649438e8642a57671ba79)). <!-- https://osf.io/2bpdf/?view_only=69c0c6ca5d2649438e8642a57671ba79 -->
 
 ### Procedure
 After providing informed consent, parents in the Activity Video condition watched the assigned activity video on a laptop with headphones.

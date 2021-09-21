@@ -31,7 +31,7 @@ affiliation:
     institution    : "Cornell University"
 
 abstract: |
-  Early parenting practices help shape children’s future outcomes. In particular, high-quality early interactions can facilitate language learning and school performance. Phone-based parenting applications can deliver low-cost interventions on parenting style, yet relatively little is known about the efficacy of this approach. In two studies (N=142; 79 female; ages 6-24 months), we investigated effects of short videos on parent behavior. Parents watched videos depicting age-appropriate parent-child activities from a parenting app. After watching the videos, parents spoke more and made more bids for joint attention. These results suggest that activity videos can lead to local changes in parent engagement, providing support for the use of such videos as a part of broader app-based parenting interventions.
+  Early parenting practices help shape children’s future outcomes. In particular, high-quality early interactions can facilitate language learning and school performance. Phone-based parenting applications can deliver low-cost interventions on parenting style, yet little is known about the efficacy of this approach. In two studies (N=142; 79 female; ages 6-24 months; 74 white, 31 Asian, 31 biracial, 3 black, 12 other; 31 Hispanic), we investigated effects of short videos on parent behavior. After parents watched videos depicting age-appropriate parent-child activities, parents spoke more (d=0.83) and made more bids for joint attention (d=1.03). These results suggest that activity videos can lead to local changes in parent engagement, providing support for the use of such videos as a part of broader app-based parenting interventions.
 keywords          : "language development; parent intervention; childhood development; joint attention; lexical diversity"
 wordcount         : "5509"
 bibliography      : ["library.bib"]
@@ -512,7 +512,7 @@ cohens_d <- function(dat) {
   return( diff(dat$mean) / (sqrt(sum(dat$sd^2)) / 2) )
 }
 
-ttr_means <- e1ld %>% group_by(Condition) %>%
+ttr_means <- e1ld %>% group_by(condition) %>%
   summarise(mean = mean(TTR), sd = sd(TTR))
 cohens_d(ttr_means) # -1.68 - should we report this?
 ```
@@ -815,9 +815,24 @@ apa_table(e2, caption = "Mean lexical diversity measures in Experiment 2.")
 
 
 ```{r, e2-effect-size, echo=F, include=F}
-ttr_means <- e2ld %>% group_by(Condition) %>%
+ttr_means <- e2ld %>% group_by(condition) %>%
   summarise(mean = mean(TTR), sd = sd(TTR))
-cohens_d(ttr_means)
+cohens_d(ttr_means) # -1.28
+
+# overall effect sizes for abstract:
+e1e2_tok <- e1ld %>% select(sid, condition, types, tokens, TTR, MTLD) %>%
+  bind_rows(e2ld %>% select(sid, condition, types, tokens, TTR, MTLD)) %>% 
+  group_by(condition) %>%
+  summarise(mean = mean(tokens), sd = sd(tokens))
+cohens_d(e1e2_tok) # d=0.83 (E1: 0.94, E2: .77)
+
+e1e2_ja <- e1ja %>% mutate(condition = factor(ifelse(Condition=="No Video", "con", "exp"))) %>%
+  select(SID, condition, bids, pja, cja) %>%
+  bind_rows(e2ja %>% select(SID, condition, bids, pja, cja)) %>% 
+  group_by(condition) %>%
+  summarise(mean = mean(bids), sd = sd(bids))
+cohens_d(e1e2_ja) # d=1.03
+# After watching the videos, parents spoke more (d=0.83) and made more bids for joint attention (d=1.03).
 ```
 
 ### Joint Attention

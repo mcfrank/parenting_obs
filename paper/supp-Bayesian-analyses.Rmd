@@ -1,6 +1,8 @@
 ---
 title: 'Supplemental Materials: Bayesian Analysis Overview'
-output: pdf_document
+output:
+  word_document: default
+  pdf_document: default
 ---
 <!-- 424 words -->
 

@@ -31,7 +31,7 @@ affiliation:
     institution    : "Cornell University"
 
 abstract: |
-  Early parenting practices help shape children’s future outcomes. In particular, high-quality early interactions can facilitate language learning and school performance. Phone-based parenting applications can deliver low-cost interventions on parenting style. In two studies (N=142; 79 female; ages 6-24 months; 74 white, 31 Asian, 31 biracial, 3 black, 12 other; 31 Hispanic), we investigated effects of short videos on parent behavior. After parents watched videos depicting age-appropriate parent-child activities, parents spoke more (d=0.83) and made more bids for joint attention (d=1.03). These results suggest that activity videos can lead to local changes in parent engagement, providing support for the use of such videos as a part of broader app-based parenting interventions.
+  Early parenting practices help shape children’s future outcomes. In particular, high-quality early interactions can facilitate language learning and school performance. Phone-based parenting applications can deliver low-cost interventions on parenting style. In two studies (N=142; 79 female; ages 6-24 months; 74 white, 31 Asian, 31 biracial, 3 black, 12 other; 31 Hispanic), we investigated effects of short videos on parent behavior. Immediately after parents watched videos depicting age-appropriate parent-child activities, parents spoke more (d=0.83) and made more bids for joint attention (d=1.03). These results suggest that activity videos can lead to near-term changes in parent engagement, providing support for the use of such videos as a part of broader app-based parenting interventions.
 keywords          : "language development; parent intervention; childhood development; joint attention; lexical diversity"
 wordcount         : "5509"
 bibliography      : ["library.bib"]
@@ -217,7 +217,7 @@ And because parents define a large portion of that environment, especially befor
 Many effective parenting interventions require large resource investments and require many hours of in-person contact [@Jamaica2014; @PerryPreschool2004; @Leung2018], making implementation at scale a daunting proposition. 
 For this reason, many researchers targeting early language are interested in delivering parenting interventions remotely -- through texts, apps, and videos delivered on digital devices. 
 But what do parents take away from these short messages about what to do with or how to talk with their children? 
-In this paper, rather than conducting a large-scale intervention, we investigate the ways that parents change their local behavior with children immediately after seeing a short video instructing them on an activity, investigating one of the building blocks of many larger interventions.
+In this paper, rather than conducting a large-scale intervention, we investigate the ways that parents change their local (i.e. near-term) behavior with children immediately after seeing a short video instructing them on an activity, investigating one of the building blocks of many larger interventions.
 
 The content provided by digital parenting interventions runs the gamut from general parenting messages and facts from child development research to specific advice, coaching, and suggested activities. 
 A growing body of evidence suggests that these digital interventions can be effective across a range of cultures, income levels, and children's ages [for a review, see @Breitenstein2014].
@@ -235,13 +235,13 @@ Thus, the current literature supports interventions that encourage parents to pr
 But is this theory of change correct in the case of digital parenting interventions? 
 That is, does the provision of knowledge and activities via short videos or messages actually lead to higher-quality play? 
 Alternatively, this approach could be flawed. 
-For example, focusing parents on a specific activity could cause them parents to over-focus on achieving the superficial goals of the activity while neglecting the broader goals of fostering more -- and more responsive -- interaction. 
+For example, focusing parents on a specific activity could cause parents to over-focus on achieving the superficial goals of the activity while neglecting the broader goals of fostering more -- and more responsive -- interaction. 
 This problem might be especially likely with video messages, which could encourage parents to try to mimic a model's specific speech and/or actions.
 Attempting to reproduce the surface details of a video-guided activity could in turn result in less high-quality talk, with less responsiveness to their child's play, a target of parent responsiveness interventions [e.g., @Landry2008].
 (Speaking as a parent, one author of the current paper has found himself occasionally so engrossed in attempting to execute an activity with his children that he has lost track of whether the children are continuing to enjoy it!). 
 
 Thus, our goal was to gather information about whether the use of short video parenting messages as a component of broader interventions is supported by their local effects on parent-child interaction and language use. 
-Our current studies were designed to assess how parents change their interactions with young children on the basis of these videos.  
+Our current studies were designed to assess how parents change their near-term interactions with young children on the basis of these videos. 
 We made a first step towards assessing this question by performing two studies within the context of a convenience sample of parent-child dyads in a local children's museum. 
 We showed parents in the experimental group a single short video modeling an interactive toy-based activity along with a scientific justification. 
 Parents in the control group received either no video (Experiment 1) or a video of a recent finding in developmental psychology (Experiment 2). 
@@ -613,7 +613,7 @@ Parents with higher education also showed a lower rate of passive JA episodes ($
 Finally, parents with male children made bids for JA at a higher rate (mean: `r round(e1bidsE_M[2,]$mean,2)` bids/min) than those with female children (mean: `r round(e1bidsE_M[1,]$mean,2)`, $\beta=`r e1bidsE["genderM"]`$, `r print_CI(e1bidsE)`).
 
 To get a better sense of the intervention's effect on language use, we analyzed which words were characteristic of parents' speech in each condition, comparing the difference in frequency rank of each word (lemma) in the two conditions, as well as contrasting the corpus overall with a general English-language word frequency list ([see SI](https://osf.io/2bpdf/files/github/language_analyses/Exp1_characteristic_chart.html) for the interactive corpus characteristic plot). 
-Words that were strongly indicative of being from the Activity Video condition include "give", "big", "small", "ribbit", "thank", "have", and "bus", while words that were most characteristic of the No Video condition include "shake", "ready", "oh", "on", "going", "going", "see", "let", and the child's name. 
+Words that were strongly indicative of being from the Activity Video condition include "give", "big", "small", "ribbit", "thank", "have", and "bus", while words that were most characteristic of the No Video condition include "shake", "ready", "oh", "on", "going", "see", "let", and the child's name. 
 
 ```{r fig-JA, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=6.5, fig.height=5.5, fig.cap = "\\label{fig:JA} Mean number of bids (left) and episodes (right) of joint attention (JA) by condition in Experiment 1 (top). For Experiment 2 (bottom), mean number of bids for JA by condition (left) and the number of episodes of JA by age and condition (right)."}
 # Parents made significantly more bids for JA after watching an activity video, but this did not result in a greater number of episodes of JA.
